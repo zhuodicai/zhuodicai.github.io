@@ -57,10 +57,14 @@ function draw() {
   fill("pink");
   textSize(width / 10);
   text("<<< VIRTUALANDO! <<<", 100, 300);
+  textSize(20);
+  text("This is a 2-player real-time experience, when another user opens this link, you two will be in the same room!", 100, 350);
+  text("Please visit 'zhuodi-cai.com/Virtualando' to learn more.", 100, 380);
   textSize(30);
-  text("// down key - open window", 100, 500);
-  text("// up key - close window", 100, 550);
-  text("// press touchpad or mouse - car horn", 100, 600);
+  text("OPERATIONS:", 100, 450);
+  text("1. down key - open window", 100, 500);
+  text("2. up key - close window", 100, 550);
+  text("3. press touchpad or mouse - car horn", 100, 600);
 
   noStroke();
 
