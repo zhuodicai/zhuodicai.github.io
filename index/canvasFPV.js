@@ -1,4 +1,4 @@
-/* reference:https://codepen.io/olchyk98/pen/NLBVoW */
+/* control reference:https://codepen.io/olchyk98/pen/NLBVoW */
 
 import * as THREE from 'three';
 // MainStuff:Setup
@@ -65,6 +65,28 @@ scene.add(light2);
 // Controls:Listeners
 document.addEventListener('keydown', ({ keyCode }) => { controls[keyCode] = true });
 document.addEventListener('keyup', ({ keyCode }) => { controls[keyCode] = false });
+document.addEventListener("mousedown", (event) => {controls[87] = true});
+document.addEventListener("mouseup", (event) => {controls[87] = false});
+
+let previousX = 0;
+document.addEventListener('mousemove', handleMouseMove);
+
+function handleMouseMove(event) {
+  // 获取鼠标在屏幕中的水平位置
+  const currentX = event.clientX;
+  // 检查鼠标是否偏左
+  if (currentX < previousX) {
+    console.log('偏左');
+    camera.rotation.y -= player.turnSpeed
+  }
+  // 检查鼠标是否偏右
+  else if (currentX > previousX) {
+    console.log('偏右');
+    camera.rotation.y += player.turnSpeed
+  }
+  // 更新previousX为当前位置
+  previousX = currentX;
+}
 
 // ...
 function control() {
