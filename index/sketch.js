@@ -68,7 +68,8 @@ function setup() {
 }
 
 function draw() {
-  background(Rb, Gb, Bb);
+  // background(Rb, Gb, Bb);
+  clear();
   stroke(237, 71, 255);
   strokeWeight(3);
 
@@ -415,7 +416,7 @@ function draw() {
     (heightStandard /400) * 162
   );
 
-  //mouth, fossette
+  //mouth
   stroke(237, 71, 255);
   fill(255, 255, 255, 190);
   triangle(
@@ -432,8 +433,9 @@ function draw() {
     (widthStandard /400) * 212.5,
     (heightStandard /400) * 234.5
   );
+  //dimples
   noStroke();
-  fill(88, 82, 169);
+  fill(237, 71, 255);
   ellipse(
     (widthStandard /400) * 162,
     (heightStandard /400) * 230,
