@@ -41,7 +41,7 @@ function setup() {
   Rb = random(220, 255);
   Gb = random(220, 255);
   Bb = random(220, 255);
-  document.body.style.backgroundColor = 'rgb(' + Rb + ',' + Gb + ',' + Bb + ')';
+  // document.body.style.backgroundColor = 'rgb(' + Rb + ',' + Gb + ',' + Bb + ')';
   document.getElementById("current-year").innerHTML = new Date().getFullYear();
   r1x = (widthStandard /400) * 190;
   r1y = (heightStandard /400) * 130;
