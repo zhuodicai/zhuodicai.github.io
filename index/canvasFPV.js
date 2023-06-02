@@ -68,13 +68,18 @@ let x;
 let weightCurr = 0, weightPrev = 1;
 function updateSkyColor() {
     const time = new Date(); // 获取当前时间
+    const year = time.getFullYear();
+    const month = time.getMonth();
+    const date = time.getDate();
+    const day = time.getDay();
     const hours = time.getHours();
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
     // console.log(time, hours, minutes, seconds);
+    document.getElementById("dateText").innerText = time;
     let topColorCurr, bottomColorCurr, topColorPrev, bottomColorPrev;
 
-    x = hours;
+    x = Math.floor(hours) + minutes / 60 + seconds / 600;
 
     switch (true) {
         case (x < 3):
@@ -245,25 +250,25 @@ document.addEventListener('keyup', ({ keyCode }) => { controls[keyCode] = false 
 document.addEventListener("mousedown", (event) => { controls[87] = true });
 document.addEventListener("mouseup", (event) => { controls[87] = false });
 
-// let previousX = 0;
-// document.addEventListener('mousemove', handleMouseMove);
+let previousX = 0;
+document.addEventListener('mousemove', handleMouseMove);
 
-// function handleMouseMove(event) {
-//   // 获取鼠标在屏幕中的水平位置
-//   const currentX = event.clientX;
-//   // 检查鼠标是否偏左
-//   if (currentX < previousX) {
-//     console.log('偏左');
-//     camera.rotation.y -= player.turnSpeed
-//   }
-//   // 检查鼠标是否偏右
-//   else if (currentX > previousX) {
-//     console.log('偏右');
-//     camera.rotation.y += player.turnSpeed
-//   }
-//   // 更新previousX为当前位置
-//   previousX = currentX;
-// }
+function handleMouseMove(event) {
+    // 获取鼠标在屏幕中的水平位置
+    const currentX = event.clientX;
+    // 检查鼠标是否偏左
+    if (currentX < previousX) {
+        console.log('偏左');
+        camera.rotation.y -= player.turnSpeed
+    }
+    // 检查鼠标是否偏右
+    else if (currentX > previousX) {
+        console.log('偏右');
+        camera.rotation.y += player.turnSpeed
+    }
+    // 更新previousX为当前位置
+    previousX = currentX;
+}
 
 //// Other Update Functions ////
 function control() {
