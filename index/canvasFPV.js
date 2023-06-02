@@ -64,7 +64,7 @@ const gradientShader = {
     `,
 };
 
-let x = 0;
+let x;
 let weightCurr = 0, weightPrev = 1;
 function updateSkyColor() {
     const time = new Date(); // 获取当前时间
@@ -74,7 +74,8 @@ function updateSkyColor() {
     // console.log(time, hours, minutes, seconds);
     let topColorCurr, bottomColorCurr, topColorPrev, bottomColorPrev;
 
-    // let x = hours;
+    x = hours;
+
     switch (true) {
         case (x < 3):
             // alert("night");
@@ -180,9 +181,9 @@ function updateSkyColor() {
 
 
     var topInterpolatedColor = interpolateColors(topColorCurr, topColorPrev, weightCurr, weightPrev);
-    console.log(topInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
+    // console.log(topInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
     var bottomInterpolatedColor = interpolateColors(bottomColorCurr, bottomColorPrev, weightCurr, weightPrev);
-    console.log(bottomInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
+    // console.log(bottomInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
 
 
     // 根据时间计算颜色
@@ -223,18 +224,21 @@ Plane1.receiveShadow = true;
 scene.add(Plane1);
 
 // Object:Light:1
-let light1 = new THREE.PointLight("white", .8);
-light1.position.set(0, 3, 0);
-light1.castShadow = true;
-light1.shadow.camera.near = 2.5;
-scene.add(light1);
+// let light1 = new THREE.PointLight("white", .8);
+// light1.position.set(0, 3, 0);
+// light1.castShadow = true;
+// light1.shadow.camera.near = 2.5;
+// scene.add(light1);
 
 // Object:Light:2
-let light2 = new THREE.AmbientLight("white", .15);
-light2.position.set(10, 2, 0);
-scene.add(light2);
+// let light2 = new THREE.AmbientLight("white", .15);
+// light2.position.set(10, 2, 0);
+// scene.add(light2);
 
+//// Add Fog ////
+// scene.fog = new THREE.Fog( 0xffffff, 0, 15 );
 
+//// Add Control ////
 // Controls:Listeners
 document.addEventListener('keydown', ({ keyCode }) => { controls[keyCode] = true });
 document.addEventListener('keyup', ({ keyCode }) => { controls[keyCode] = false });
@@ -308,8 +312,8 @@ function update() {
     updateSkyColor();
     control();
     ixMovementUpdate();
-    if (x < 24) x = x + 0.01;
-    else x = 0;
+    // if (x < 24) x = x + 0.01;
+    // else x = 0;
 }
 
 function render() {
