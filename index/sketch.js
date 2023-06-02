@@ -32,14 +32,17 @@ let widthStandard = 600,
   heightStandard = 600;
 function setup() {
   // canvas = createCanvas(600, 600);
-  createCanvas(windowWidth, windowHeight);
+  let canvas = createCanvas(windowWidth, windowHeight);
+  canvas.position(0,0);
+  canvas.style('z-index','-1');
   R = random(0, 255);
   G = random(0, 255);
   B = random(0, 255);
-  Rb = random(0, 255);
-  Gb = random(0, 255);
-  Bb = random(0, 255);
+  Rb = random(220, 255);
+  Gb = random(220, 255);
+  Bb = random(220, 255);
   document.body.style.backgroundColor = 'rgb(' + Rb + ',' + Gb + ',' + Bb + ')';
+  document.getElementById("current-year").innerHTML = new Date().getFullYear();
   r1x = (widthStandard /400) * 190;
   r1y = (heightStandard /400) * 130;
   r2x = (widthStandard /400) * 180;
@@ -70,7 +73,8 @@ function draw() {
   strokeWeight(3);
 
   push();
-  translate(windowWidth/2-300, windowHeight/2-95);
+  // translate(windowWidth/2-300, windowHeight/2-95);
+  translate(windowWidth/2-300, windowHeight/2-160);
   //body
   fill(236, 158, 120);
   beginShape();
