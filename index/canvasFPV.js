@@ -1,6 +1,8 @@
 /* control reference:https://codepen.io/olchyk98/pen/NLBVoW */
 
 import * as THREE from 'three';
+// import { Reflector } from 'three/addons/objects/Reflector.js';
+
 //// MainStuff:Setup ////
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, .1, 1000);
@@ -68,10 +70,6 @@ let x;
 let weightCurr = 0, weightPrev = 1;
 function updateSkyColor() {
     const time = new Date(); // 获取当前时间
-    const year = time.getFullYear();
-    const month = time.getMonth();
-    const date = time.getDate();
-    const day = time.getDay();
     const hours = time.getHours();
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
@@ -79,17 +77,18 @@ function updateSkyColor() {
     document.getElementById("dateText").innerText = time;
     let topColorCurr, bottomColorCurr, topColorPrev, bottomColorPrev;
 
-    x = Math.floor(hours) + minutes / 60 + seconds / 600;
+    x = Math.floor(hours) + minutes / 60;
+    
 
     switch (true) {
-        case (x < 3):
+        case (x < 4):
             // alert("night");
             topColorCurr = 0x091224;
             bottomColorCurr = 0x144277;
             topColorPrev = 0x091224;
             bottomColorPrev = 0x144277;
-            weightCurr = (x - 0) / (3 - 0);
-            weightPrev = (3 - x) / (3 - 0);
+            weightCurr = (x - 0) / (4 - 0);
+            weightPrev = (4 - x) / (4 - 0);
             break;
         case (x < 5):
             // alert("dawn");
@@ -97,8 +96,8 @@ function updateSkyColor() {
             bottomColorCurr = 0xCA8680;
             topColorPrev = 0x091224;
             bottomColorPrev = 0x144277;
-            weightCurr = (x - 3) / (5 - 3);
-            weightPrev = (5 - x) / (5 - 3);
+            weightCurr = (x - 4) / (5 - 4);
+            weightPrev = (5 - x) / (5 - 4);
             break;
         case (x < 6):
             // alert("sunrise");
@@ -145,23 +144,23 @@ function updateSkyColor() {
             weightCurr = (x - 18) / (19 - 18);
             weightPrev = (19 - x) / (19 - 18);
             break;
-        case (x < 21):
+        case (x < 20):
             // alert("dusk");
             topColorCurr = 0x37408A;
-            bottomColorCurr = 0xF57F22;
+            bottomColorCurr = 0xBF6E38;
             topColorPrev = 0x85527A;
             bottomColorPrev = 0xFEAA00;
-            weightCurr = (x - 19) / (21 - 19);
-            weightPrev = (21 - x) / (21 - 19);
+            weightCurr = (x - 19) / (20 - 19);
+            weightPrev = (20 - x) / (20 - 19);
             break;
         case (x < 24):
             // alert("night");
             topColorCurr = 0x091224;
             bottomColorCurr = 0x144277;
             topColorPrev = 0x37408A;
-            bottomColorPrev = 0xF57F22;
-            weightCurr = (x - 21) / (24 - 21);
-            weightPrev = (24 - x) / (24 - 21);
+            bottomColorPrev = 0xBF6E38;
+            weightCurr = (x - 20) / (24 - 20);
+            weightPrev = (24 - x) / (24 - 20);
             break;
         default:
             topColorCurr = 0x091224;
@@ -184,14 +183,13 @@ function updateSkyColor() {
         return (r << 16) | (g << 8) | b;
     }
 
-
     var topInterpolatedColor = interpolateColors(topColorCurr, topColorPrev, weightCurr, weightPrev);
     // console.log(topInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
     var bottomInterpolatedColor = interpolateColors(bottomColorCurr, bottomColorPrev, weightCurr, weightPrev);
     // console.log(bottomInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
 
 
-    // 根据时间计算颜色
+    // 设置颜色
     const topInterpolatedColorChange = new THREE.Color();
     topInterpolatedColorChange.setHex(topInterpolatedColor);
     const bottomInterpolatedColorChange = new THREE.Color();
@@ -243,6 +241,33 @@ scene.add(Plane1);
 //// Add Fog ////
 // scene.fog = new THREE.Fog( 0xffffff, 0, 15 );
 
+//// Add Mirror ////
+// let geometry, material;
+
+// geometry = new THREE.CircleGeometry(40, 64);
+// material = new THREE.MeshPhongMaterial( { color: 0xffffff, emissive: 0x8d8d8d } );
+// groundMirror = new Reflector(geometry, {
+//     clipBias: 0.003,
+//     textureWidth: window.innerWidth * window.devicePixelRatio,
+//     textureHeight: window.innerHeight * window.devicePixelRatio,
+//     color: 0xb5b5b5
+// });
+// groundMirror.position.y = 0.5;
+// groundMirror.rotateX(- Math.PI / 2);
+// scene.add(groundMirror);
+
+// geometry = new THREE.PlaneGeometry(100, 100);
+// verticalMirror = new Reflector(geometry, {
+//     clipBias: 0.003,
+//     textureWidth: window.innerWidth * window.devicePixelRatio,
+//     textureHeight: window.innerHeight * window.devicePixelRatio,
+//     color: 0xc1cbcb
+// });
+// verticalMirror.position.y = 50;
+// verticalMirror.position.z = - 50;
+// scene.add(verticalMirror);
+
+
 //// Add Control ////
 // Controls:Listeners
 document.addEventListener('keydown', ({ keyCode }) => { controls[keyCode] = true });
@@ -258,12 +283,12 @@ function handleMouseMove(event) {
     const currentX = event.clientX;
     // 检查鼠标是否偏左
     if (currentX < previousX) {
-        console.log('偏左');
+        // console.log('偏左');
         camera.rotation.y -= player.turnSpeed
     }
     // 检查鼠标是否偏右
     else if (currentX > previousX) {
-        console.log('偏右');
+        // console.log('偏右');
         camera.rotation.y += player.turnSpeed
     }
     // 更新previousX为当前位置
