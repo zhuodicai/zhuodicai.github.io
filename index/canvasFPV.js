@@ -83,6 +83,7 @@ function updateSkyColor() {
 
     x = Math.floor(hours) + minutes / 60;
 
+
     switch (true) {
         case (x < 4):
             // alert("night");
@@ -230,11 +231,11 @@ Plane1.receiveShadow = true;
 scene.add(Plane1);
 
 // Object:Light:1
-// let light1 = new THREE.PointLight("white", .8);
-// light1.position.set(0, 3, 0);
-// light1.castShadow = true;
-// light1.shadow.camera.near = 2.5;
-// scene.add(light1);
+let light1 = new THREE.PointLight("white", .8);
+light1.position.set(0, 3, 0);
+light1.castShadow = true;
+light1.shadow.camera.near = 2.5;
+scene.add(light1);
 
 // Object:Light:2
 // let light2 = new THREE.AmbientLight("white", .15);
@@ -242,7 +243,7 @@ scene.add(Plane1);
 // scene.add(light2);
 
 //// Add Fog ////
-scene.fog = new THREE.Fog(0x9eaedd, 0, 20);
+// scene.fog = new THREE.Fog(0xffffff, 0, 20);
 
 //// Add Avatar with Animations ////
 const loaderMe = new GLTFLoader();
@@ -341,9 +342,6 @@ loaderMeWave.load(
         console.log('An error happened');
     }
 );
-
-
-
 
 //// Add Mirror ////
 // let geometry, material;
@@ -455,6 +453,7 @@ function render() {
 }
 
 function loop() {
+    requestAnimationFrame(loop);
     update();
     render();
 }
