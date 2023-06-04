@@ -1,6 +1,10 @@
-/* control reference:https://codepen.io/olchyk98/pen/NLBVoW */
+/* controller ref: https://codepen.io/olchyk98/pen/NLBVoW */
 
 import * as THREE from 'three';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader'
 // import { Reflector } from 'three/addons/objects/Reflector.js';
 
 //// MainStuff:Setup ////
@@ -78,7 +82,7 @@ function updateSkyColor() {
     let topColorCurr, bottomColorCurr, topColorPrev, bottomColorPrev;
 
     x = Math.floor(hours) + minutes / 60;
-    
+
 
     switch (true) {
         case (x < 4):
@@ -227,11 +231,11 @@ Plane1.receiveShadow = true;
 scene.add(Plane1);
 
 // Object:Light:1
-// let light1 = new THREE.PointLight("white", .8);
-// light1.position.set(0, 3, 0);
-// light1.castShadow = true;
-// light1.shadow.camera.near = 2.5;
-// scene.add(light1);
+let light1 = new THREE.PointLight("white", .8);
+light1.position.set(0, 3, 0);
+light1.castShadow = true;
+light1.shadow.camera.near = 2.5;
+scene.add(light1);
 
 // Object:Light:2
 // let light2 = new THREE.AmbientLight("white", .15);
@@ -240,6 +244,85 @@ scene.add(Plane1);
 
 //// Add Fog ////
 // scene.fog = new THREE.Fog( 0xffffff, 0, 15 );
+
+//// Add Avatar with Animations ////
+const loader = new GLTFLoader();
+
+// Optional: Provide a DRACOLoader instance to decode compressed mesh data
+// const dracoLoader = new DRACOLoader();
+// dracoLoader.setDecoderPath( '/examples/jsm/libs/draco/' );
+// loader.setDRACOLoader( dracoLoader );
+
+// Load a glTF resource
+loader.load(
+    'me.glb',
+    function (gltf) {
+        const model = gltf.scene.children[0]; 
+        scene.add(model);
+
+        const animations = gltf.animations;
+        console.log(gltf.animations);
+        const mixer = new THREE.AnimationMixer(model);
+
+        animations.forEach(function (animation) {
+            const action = mixer.clipAction(animation);
+            action.play();
+        });
+
+        const clock = new THREE.Clock();
+
+        function update() {
+            // Update the animation mixer
+            const delta = clock.getDelta();
+            mixer.update(delta);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    },
+    function (xhr) {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+    },
+    function (error) {
+        console.log('An error happened');
+    }
+);
+
+
+// const loader = new THREE.GLTFLoader();
+// loader.load('me.glb', function (gltf) {
+//     // 获取模型
+//     const model = gltf.scene;
+//     scene.add(model);
+
+//     // 获取动画数据
+//     const animations = gltf.animations;
+
+//     // 创建动画混合器
+//     const mixer = new THREE.AnimationMixer(model);
+
+//     // 循环遍历每个动画并创建对应的动画操作
+//     animations.forEach(function (animation) {
+//         const action = mixer.clipAction(animation);
+//         action.play(); // 播放动画
+//     });
+
+//     // 更新动画
+//     function animate() {
+//         requestAnimationFrame(animate);
+//         mixer.update(); // 更新动画混合器
+//         renderer.render(scene, camera);
+//     }
+
+//     animate();
+// }, undefined, function (error) {
+//     console.error(error);
+// });
 
 //// Add Mirror ////
 // let geometry, material;
@@ -272,28 +355,28 @@ scene.add(Plane1);
 // Controls:Listeners
 document.addEventListener('keydown', ({ keyCode }) => { controls[keyCode] = true });
 document.addEventListener('keyup', ({ keyCode }) => { controls[keyCode] = false });
-document.addEventListener("mousedown", (event) => { controls[87] = true });
-document.addEventListener("mouseup", (event) => { controls[87] = false });
+// document.addEventListener("mousedown", (event) => { controls[87] = true });
+// document.addEventListener("mouseup", (event) => { controls[87] = false });
 
-let previousX = 0;
-document.addEventListener('mousemove', handleMouseMove);
+// let previousX = 0;
+// document.addEventListener('mousemove', handleMouseMove);
 
-function handleMouseMove(event) {
-    // 获取鼠标在屏幕中的水平位置
-    const currentX = event.clientX;
-    // 检查鼠标是否偏左
-    if (currentX < previousX) {
-        // console.log('偏左');
-        camera.rotation.y -= player.turnSpeed
-    }
-    // 检查鼠标是否偏右
-    else if (currentX > previousX) {
-        // console.log('偏右');
-        camera.rotation.y += player.turnSpeed
-    }
-    // 更新previousX为当前位置
-    previousX = currentX;
-}
+// function handleMouseMove(event) {
+//     // 获取鼠标在屏幕中的水平位置
+//     const currentX = event.clientX;
+//     // 检查鼠标是否偏左
+//     if (currentX < previousX) {
+//         // console.log('偏左');
+//         camera.rotation.y -= player.turnSpeed
+//     }
+//     // 检查鼠标是否偏右
+//     else if (currentX > previousX) {
+//         // console.log('偏右');
+//         camera.rotation.y += player.turnSpeed
+//     }
+//     // 更新previousX为当前位置
+//     previousX = currentX;
+// }
 
 //// Other Update Functions ////
 function control() {
