@@ -83,7 +83,6 @@ function updateSkyColor() {
 
     x = Math.floor(hours) + minutes / 60;
 
-
     switch (true) {
         case (x < 4):
             // alert("night");
@@ -231,11 +230,11 @@ Plane1.receiveShadow = true;
 scene.add(Plane1);
 
 // Object:Light:1
-let light1 = new THREE.PointLight("white", .8);
-light1.position.set(0, 3, 0);
-light1.castShadow = true;
-light1.shadow.camera.near = 2.5;
-scene.add(light1);
+// let light1 = new THREE.PointLight("white", .8);
+// light1.position.set(0, 3, 0);
+// light1.castShadow = true;
+// light1.shadow.camera.near = 2.5;
+// scene.add(light1);
 
 // Object:Light:2
 // let light2 = new THREE.AmbientLight("white", .15);
@@ -243,26 +242,35 @@ scene.add(light1);
 // scene.add(light2);
 
 //// Add Fog ////
-// scene.fog = new THREE.Fog( 0xffffff, 0, 15 );
+scene.fog = new THREE.Fog(0x9eaedd, 0, 20);
 
 //// Add Avatar with Animations ////
-const loader = new GLTFLoader();
+const loaderMe = new GLTFLoader();
+const loaderMeWave = new GLTFLoader();
+let modelMe, modelMeWave;
 
-// Optional: Provide a DRACOLoader instance to decode compressed mesh data
-// const dracoLoader = new DRACOLoader();
-// dracoLoader.setDecoderPath( '/examples/jsm/libs/draco/' );
-// loader.setDRACOLoader( dracoLoader );
+let me = ['me.glb', 'me_wave.glb'];
+let randomMe = 0;
 
-// Load a glTF resource
-loader.load(
-    'me.glb',
+function generateRandomMe() {
+    if (Math.random() < 0.8) {
+        randomMe = 0; // 80%的概率为0
+    } else {
+        randomMe = 1; // 20%的概率为1
+    }
+    console.log(randomMe);
+}
+setInterval(generateRandomMe, 4000); // 每2秒生成一次随机数
+
+loaderMe.load(
+    me[0],
     function (gltf) {
-        const model = gltf.scene.children[0]; 
-        scene.add(model);
+        modelMe = gltf.scene.children[0];
+        scene.add(modelMe);
 
         const animations = gltf.animations;
         console.log(gltf.animations);
-        const mixer = new THREE.AnimationMixer(model);
+        const mixer = new THREE.AnimationMixer(modelMe);
 
         animations.forEach(function (animation) {
             const action = mixer.clipAction(animation);
@@ -275,6 +283,47 @@ loader.load(
             // Update the animation mixer
             const delta = clock.getDelta();
             mixer.update(delta);
+            modelMe.visible = randomMe === 0;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    },
+    function (xhr) {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+    },
+    function (error) {
+        console.log('An error happened');
+    }
+);
+
+loaderMeWave.load(
+    me[1],
+    function (gltf) {
+        modelMeWave = gltf.scene.children[0];
+        scene.add(modelMeWave);
+
+        const animations = gltf.animations;
+        console.log(gltf.animations);
+        const mixer = new THREE.AnimationMixer(modelMeWave);
+
+        animations.forEach(function (animation) {
+            const action = mixer.clipAction(animation);
+            action.play();
+        });
+
+        const clock = new THREE.Clock();
+
+        function update() {
+            // Update the animation mixer
+            const delta = clock.getDelta();
+            mixer.update(delta);
+            modelMeWave.visible = randomMe === 1;
         }
 
         function animate() {
@@ -294,35 +343,7 @@ loader.load(
 );
 
 
-// const loader = new THREE.GLTFLoader();
-// loader.load('me.glb', function (gltf) {
-//     // 获取模型
-//     const model = gltf.scene;
-//     scene.add(model);
 
-//     // 获取动画数据
-//     const animations = gltf.animations;
-
-//     // 创建动画混合器
-//     const mixer = new THREE.AnimationMixer(model);
-
-//     // 循环遍历每个动画并创建对应的动画操作
-//     animations.forEach(function (animation) {
-//         const action = mixer.clipAction(animation);
-//         action.play(); // 播放动画
-//     });
-
-//     // 更新动画
-//     function animate() {
-//         requestAnimationFrame(animate);
-//         mixer.update(); // 更新动画混合器
-//         renderer.render(scene, camera);
-//     }
-
-//     animate();
-// }, undefined, function (error) {
-//     console.error(error);
-// });
 
 //// Add Mirror ////
 // let geometry, material;
@@ -355,8 +376,8 @@ loader.load(
 // Controls:Listeners
 document.addEventListener('keydown', ({ keyCode }) => { controls[keyCode] = true });
 document.addEventListener('keyup', ({ keyCode }) => { controls[keyCode] = false });
-// document.addEventListener("mousedown", (event) => { controls[87] = true });
-// document.addEventListener("mouseup", (event) => { controls[87] = false });
+document.addEventListener("mousedown", (event) => { controls[87] = true });
+document.addEventListener("mouseup", (event) => { controls[87] = false });
 
 // let previousX = 0;
 // document.addEventListener('mousemove', handleMouseMove);
@@ -434,7 +455,6 @@ function render() {
 }
 
 function loop() {
-    requestAnimationFrame(loop);
     update();
     render();
 }
