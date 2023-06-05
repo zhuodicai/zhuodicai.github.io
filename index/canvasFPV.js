@@ -4,7 +4,8 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/addons/loaders/DRACOLoader'
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 // import { Reflector } from 'three/addons/objects/Reflector.js';
 
 //// MainStuff:Setup ////
@@ -191,7 +192,6 @@ function updateSkyColor() {
     var bottomInterpolatedColor = interpolateColors(bottomColorCurr, bottomColorPrev, weightCurr, weightPrev);
     // console.log(bottomInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
 
-
     // 设置颜色
     const topInterpolatedColorChange = new THREE.Color();
     topInterpolatedColorChange.setHex(topInterpolatedColor);
@@ -228,7 +228,7 @@ var audio1State = 0, audio2State = 0; // 0暂停，1播放
 audio1.loop = true;
 audio2.loop = true;
 
-document.addEventListener("click", function () {
+function playBGM() {
     if (x < 4 || (21 < x && x < 24)) {
         audio2.play().then(function () {
             audio2State = 1;
@@ -238,7 +238,9 @@ document.addEventListener("click", function () {
             audio1State = 1;
         });
     }
-});
+}
+document.addEventListener("click", playBGM);
+document.addEventListener("keydown", playBGM);
 
 // playBtn.addEventListener("click", function () {
 //     if (x < 4 || (21 < x && x < 24)) {
@@ -318,13 +320,13 @@ let randomMe = 0;
 function generateRandomMe() {
     if (Math.random() < 0.8) {
         randomMe = 0; // 80%的概率为0
-        console.log(randomMe+": idle");
+        console.log(randomMe + ": idle");
     } else {
         randomMe = 1; // 20%的概率为1
-        console.log(randomMe+": wave");
+        console.log(randomMe + ": wave");
     }
 }
-setInterval(generateRandomMe, 4000); // 每2秒生成一次随机数
+setInterval(generateRandomMe, 4000); // 每4秒生成一次随机数
 
 loaderMe.load(
     me[0],
@@ -406,6 +408,73 @@ loaderMeWave.load(
     }
 );
 
+//// Add Text ////
+let allContent, randomContent;
+function generateRandomContent() {
+    allContent = ["Welcome to my rabbit hole!", "Move around and jump with w,a,s,d / ⬅⬆⬇➡ / spacebar!", "Each broken piece is a prism of my soul.", "Together we'll journey!", "Why can't I stop asking why?", "Technology, a servant and master, entwined.", "Possibilities enchant me like a symphony.", "I enable the sky to change according to the current time!", "The music during the day and night is not the same ;p", "Yes, I look just like this avatar!"];
+    randomContent = allContent[Math.floor(Math.random() * allContent.length)];
+    console.log("now the random content is :", randomContent);
+}
+generateRandomContent();
+setInterval(generateRandomContent, 4000); // 每4秒生成一次随机数
+// Create sprite text
+let scale = 10; //larger scale, smaller text 
+const textSpriteTriangle = createTextSprite("▼", "rgba(255,255,255,1)", "rgba(255,255,255,0)", 50);
+textSpriteTriangle.position.set(0, 2, 0);
+scene.add(textSpriteTriangle);
+const textSprite = createTextSprite(randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
+textSprite.position.set(0, 2.1, 0);
+scene.add(textSprite);
+
+function createTextSprite(text, color, backgroundColor, fontSize) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    context.font = `${fontSize}px Helvetica`;
+
+    const textWidth = context.measureText(text).width;
+    const textHeight = fontSize * 1; // Adjust the height based on the font size
+
+    canvas.width = textWidth * scale;
+    canvas.height = textHeight * scale;
+
+    context.fillStyle = backgroundColor;
+    context.fillRect(canvas.width / 2 - textWidth / 2, canvas.height / 2 - textHeight / 2 + textHeight * 0.3, textWidth, textHeight * 0.8);
+
+    context.font = `${fontSize}px Helvetica`;
+    context.fillStyle = color;
+    context.fillText(text, canvas.width / 2 - textWidth / 2, canvas.height / 2 - textHeight / 2 + fontSize);
+
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.minFilter = THREE.LinearFilter;
+
+    const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+    const sprite = new THREE.Sprite(spriteMaterial);
+    sprite.scale.set(textWidth / textHeight, 1, 1);
+    sprite.material.map.needsUpdate = true;
+
+    return sprite;
+}
+
+function updateTextSprite(sprite, newText, color, backgroundColor, fontSize) {
+    const canvas = sprite.material.map.image;
+    const context = canvas.getContext('2d');
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    context.font = `${fontSize}px Helvetica`;
+    context.fillStyle = color;
+    const textWidth = context.measureText(newText).width;
+    const textHeight = fontSize * 1;
+
+    context.fillStyle = backgroundColor;
+    context.fillRect(canvas.width / 2 - textWidth / 2, canvas.height / 2 - textHeight / 2 + textHeight * 0.3, textWidth, textHeight * 0.8);
+
+    context.fillStyle = color;  // Set the fill style back to text color
+    context.fillText(newText, canvas.width / 2 - textWidth / 2, canvas.height / 2 - textHeight / 2 + fontSize);
+
+    sprite.material.map.needsUpdate = true;
+}
 //// Add Mirror ////
 // let geometry, material;
 
@@ -502,14 +571,13 @@ function ixMovementUpdate() {
     }
 }
 
-
 function update() {
     updateSkyColor();
     control();
     ixMovementUpdate();
     // if (x < 24) x = x + 0.01;
     // else x = 0;
-
+    updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
     // progressBarUpdate();
 }
 
