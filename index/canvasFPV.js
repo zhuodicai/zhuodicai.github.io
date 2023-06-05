@@ -305,6 +305,9 @@ scene.add(light1);
 // let light2 = new THREE.AmbientLight("white", .15);
 // light2.position.set(10, 2, 0);
 // scene.add(light2);
+var light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(1, 1, 1);
+scene.add(light);
 
 //// Add Fog ////
 // scene.fog = new THREE.Fog(0xffffff, 0, 20);
@@ -408,10 +411,50 @@ loaderMeWave.load(
     }
 );
 
+//// Add Prism ////
+//exp: https://threejs.org/examples/#webgl_materials_cubemap
+//exp: http://stemkoski.github.io/Three.js/Reflection.html
+
+
+// FLOOR (for test)
+// var floorTexture = new THREE.TextureLoader().load('images/checkerboard.jpg');
+// floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+// floorTexture.repeat.set(10, 10);
+// var floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.BackSide });
+// var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 100, 100);
+// var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+// floor.position.y = -0.5;
+// floor.rotation.x = Math.PI / 2;
+// scene.add(floor);
+
+////////////
+// CUSTOM //
+////////////
+
+var sphereGeom = new THREE.SphereGeometry(0.5, 32, 16);
+var mirrorSphereCamera = new THREE.CubeCamera(0.1, 5000, 512);
+scene.add(mirrorSphereCamera);
+
+// Create custom render target for cube camera
+var sphereRenderTarget = new THREE.WebGLCubeRenderTarget(512, {
+    format: THREE.RGBAFormat,
+    generateMipmaps: false,
+    minFilter: THREE.LinearFilter
+});
+mirrorSphereCamera.renderTarget = sphereRenderTarget;
+mirrorSphereCamera.update(renderer, scene);
+
+var mirrorSphereMaterial = new THREE.MeshBasicMaterial({ envMap: mirrorSphereCamera.renderTarget.texture });
+var mirrorSphere = new THREE.Mesh(sphereGeom, mirrorSphereMaterial);
+mirrorSphere.position.set(1, 0, 0);
+scene.add(mirrorSphere);
+
+
+
 //// Add Text ////
 let allContent, randomContent;
 function generateRandomContent() {
-    allContent = ["Welcome to my rabbit hole!", "Move around and jump with w,a,s,d / ⬅⬆⬇➡ / spacebar!", "Each broken piece is a prism of my soul.", "Together we'll journey!", "Why can't I stop asking why?", "Technology, a servant and master, entwined.", "Possibilities enchant me like a symphony.", "I enable the sky to change according to the current time!", "The music during the day and night is not the same ;p", "Yes, I look just like this avatar!"];
+    allContent = ["Welcome to my rabbit hole!", "Move around and jump with w,a,s,d / ⬅⬆⬇➡ / spacebar!", "Each broken piece reflects me.", "Together we'll journey!", "Why can't I stop asking why?", "Technology, a servant and master, entwined.", "Possibilities enchant me like a symphony.", "I enable the sky to change according to the current time!", "The music during the day and night is not the same ;p", "Yes, I look just like this avatar!"];
     randomContent = allContent[Math.floor(Math.random() * allContent.length)];
     console.log("now the random content is :", randomContent);
 }
@@ -571,12 +614,19 @@ function ixMovementUpdate() {
     }
 }
 
+function targetCameraUpdate(){
+    mirrorSphere.visible = false;// 在渲染之前将材质的可见性设置为false
+    mirrorSphereCamera.update(renderer, scene);// 渲染CubeCamera
+    mirrorSphere.visible = true;// 在渲染完成后将材质的可见性设置为true
+}
+
 function update() {
     updateSkyColor();
     control();
     ixMovementUpdate();
     // if (x < 24) x = x + 0.01;
     // else x = 0;
+    targetCameraUpdate();
     updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
     // progressBarUpdate();
 }

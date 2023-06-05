@@ -13,7 +13,7 @@ camera.position.z = 50;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 
-const texture = new THREE.TextureLoader().load('8k_jupiter.jpg');
+const texture = new THREE.TextureLoader().load('images/8k_jupiter.jpg');
 // immediately use the texture for material creation 
 
 const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
