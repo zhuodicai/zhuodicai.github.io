@@ -18,7 +18,7 @@ let player = {
     height: .5,
     turnSpeed: .1,
     speed: .1,
-    jumpHeight: .2,
+    jumpHeight: .15,
     gravity: .01,
     velocity: 0,
 
@@ -295,19 +295,19 @@ Plane1.receiveShadow = true;
 scene.add(Plane1);
 
 // Object:Light:1
-let light1 = new THREE.PointLight("white", .8);
-light1.position.set(0, 3, 0);
-light1.castShadow = true;
-light1.shadow.camera.near = 2.5;
-scene.add(light1);
+// let light1 = new THREE.PointLight("white", .8);
+// light1.position.set(0, 3, 0);
+// light1.castShadow = true;
+// light1.shadow.camera.near = 2.5;
+// scene.add(light1);
 
-// Object:Light:2
+// Object:Light:2/3
 // let light2 = new THREE.AmbientLight("white", .15);
 // light2.position.set(10, 2, 0);
 // scene.add(light2);
-var light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(1, 1, 1);
-scene.add(light);
+// var light = new THREE.DirectionalLight(0xffffff, 1);
+// light.position.set(1, 1, 1);
+// scene.add(light);
 
 //// Add Fog ////
 // scene.fog = new THREE.Fog(0xffffff, 0, 20);
@@ -429,22 +429,21 @@ loaderMeWave.load(
 
 var sphereGeom = new THREE.SphereGeometry(0.5, 32, 16);
 var mirrorSphereCamera = new THREE.CubeCamera(0.1, 5000, 256);
-mirrorSphereCamera.position.set(2, 0, 0);
-scene.add(mirrorSphereCamera);
-
-// Create custom render target for cube camera
 var sphereRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
     format: THREE.RGBAFormat,
     generateMipmaps: false,
     minFilter: THREE.LinearFilter
 });
 mirrorSphereCamera.renderTarget = sphereRenderTarget;
-mirrorSphereCamera.update(renderer, scene);
+scene.add(mirrorSphereCamera);
 
-var mirrorSphereMaterial = new THREE.MeshBasicMaterial({ envMap: mirrorSphereCamera.renderTarget.texture });
+// var mirrorSphereMaterial = new THREE.MeshBasicMaterial({ envMap: mirrorSphereCamera.renderTarget.texture });
+var mirrorSphereMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0, envMap: mirrorSphereCamera.renderTarget.texture });
 var mirrorSphere = new THREE.Mesh(sphereGeom, mirrorSphereMaterial);
-mirrorSphere.position.set(2, 0, 0);
 scene.add(mirrorSphere);
+
+mirrorSphereCamera.position.set(2, 0, 0);
+mirrorSphere.position.set(2, 0, 0);
 
 
 //// Add Text ////
