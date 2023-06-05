@@ -222,44 +222,13 @@ var audio1 = document.getElementById("audio1");
 var audio2 = document.getElementById("audio2");
 var playBtn = document.getElementById("play-btn");
 var pauseBtn = document.getElementById("pause-btn");
+const progressBar = document.getElementById('progress-bar'); // 获取进度条元素
 var audio1State = 0, audio2State = 0; // 0暂停，1播放
-var ifFirstUserInteraction = 0; //0 no, 1 yes
-
-// if (ifFirstUserInteraction === 0) {
-//     if (audio1State === 0 && audio2State === 0) document.addEventListener("click", firstUserInteraction);
-// }
-
-// function firstUserInteraction() {
-//     if (x < 4 || (21 < x && x < 24)) {
-//         audio2.play().then(function () {
-//             audio2State = 1;
-//         });
-//     } else if (x >= 4 && x <= 21) {
-//         audio1.play().then(function () {
-//             audio1State = 1;
-//         });
-//     }
-//     ifFirstUserInteraction = 1;
-// }
-
-// function playBGM() {
-//     console.log("ifFirstUserInteraction:", ifFirstUserInteraction);
-//     if (x < 4 || (21 < x && x < 24)) {
-//         // audio1State = 0;
-//         // audio2State = 1;
-//         audio2.play();
-//     } else if (x >= 4 && x <= 21) {
-//         // audio1State = 1;
-//         // audio2State = 0;
-//         audio1.play();
-//     }
-//     console.log("audio1State:", audio1State, "audio2State:", audio2State);
-// }
 
 audio1.loop = true;
 audio2.loop = true;
 
-playBtn.addEventListener("click", function () {
+document.addEventListener("click", function () {
     if (x < 4 || (21 < x && x < 24)) {
         audio2.play().then(function () {
             audio2State = 1;
@@ -271,15 +240,45 @@ playBtn.addEventListener("click", function () {
     }
 });
 
-pauseBtn.addEventListener("click", function () {
-    if (audio2State === 1) {
-        audio2.pause();
-        audio2State = 0;
-    } else if (audio1State === 1) {
-        audio1.pause();
-        audio1State = 0;
-    }
-});
+// playBtn.addEventListener("click", function () {
+//     if (x < 4 || (21 < x && x < 24)) {
+//         audio2.play().then(function () {
+//             audio2State = 1;
+//         });
+//     } else if (x >= 4 && x <= 21) {
+//         audio1.play().then(function () {
+//             audio1State = 1;
+//         });
+//     }
+// });
+
+// pauseBtn.addEventListener("click", function () {
+//     if (audio2State === 1) {
+//         audio2.pause();
+//         audio2State = 0;
+//     } else if (audio1State === 1) {
+//         audio1.pause();
+//         audio1State = 0;
+//     }
+// });
+
+// function progressBarUpdate() {
+//     // console.log("audio1State:", audio1State, "audio2State:", audio2State);
+//     if (audio2State === 1) {
+//         audio2.addEventListener('timeupdate', () => { // 监听音频的timeupdate事件
+//             const progress = (audio2.currentTime / audio2.duration) * 100; // 计算当前播放进度的百分比
+//             // console.log(audio2.currentTime, progress);
+//             progressBar.value = progress; // 设置进度条的值
+//         });
+//     } else if (audio1State === 1) {
+//         audio1.addEventListener('timeupdate', () => { // 监听音频的timeupdate事件
+//             const progress = (audio1.currentTime / audio1.duration) * 100; // 计算当前播放进度的百分比
+//             // console.log(audio1.currentTime, progress);
+//             progressBar.value = progress; // 设置进度条的值
+//         });
+//     }
+// }
+
 
 //// Add Objects ////
 // Object:Plane
@@ -319,10 +318,11 @@ let randomMe = 0;
 function generateRandomMe() {
     if (Math.random() < 0.8) {
         randomMe = 0; // 80%的概率为0
+        console.log(randomMe+": idle");
     } else {
         randomMe = 1; // 20%的概率为1
+        console.log(randomMe+": wave");
     }
-    console.log(randomMe);
 }
 setInterval(generateRandomMe, 4000); // 每2秒生成一次随机数
 
@@ -509,11 +509,8 @@ function update() {
     ixMovementUpdate();
     // if (x < 24) x = x + 0.01;
     // else x = 0;
-    // if (ifFirstUserInteraction === 1) {
-    //     document.removeEventListener("click", firstUserInteraction);
-    //     playBGM();
-    //     console.log("等于1了啊cao");
-    // }
+
+    // progressBarUpdate();
 }
 
 function render() {
