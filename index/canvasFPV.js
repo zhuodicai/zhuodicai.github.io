@@ -427,16 +427,13 @@ loaderMeWave.load(
 // floor.rotation.x = Math.PI / 2;
 // scene.add(floor);
 
-////////////
-// CUSTOM //
-////////////
-
 var sphereGeom = new THREE.SphereGeometry(0.5, 32, 16);
-var mirrorSphereCamera = new THREE.CubeCamera(0.1, 5000, 512);
+var mirrorSphereCamera = new THREE.CubeCamera(0.1, 5000, 256);
+mirrorSphereCamera.position.set(2, 0, 0);
 scene.add(mirrorSphereCamera);
 
 // Create custom render target for cube camera
-var sphereRenderTarget = new THREE.WebGLCubeRenderTarget(512, {
+var sphereRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
     format: THREE.RGBAFormat,
     generateMipmaps: false,
     minFilter: THREE.LinearFilter
@@ -446,9 +443,8 @@ mirrorSphereCamera.update(renderer, scene);
 
 var mirrorSphereMaterial = new THREE.MeshBasicMaterial({ envMap: mirrorSphereCamera.renderTarget.texture });
 var mirrorSphere = new THREE.Mesh(sphereGeom, mirrorSphereMaterial);
-mirrorSphere.position.set(1, 0, 0);
+mirrorSphere.position.set(2, 0, 0);
 scene.add(mirrorSphere);
-
 
 
 //// Add Text ////
@@ -518,31 +514,6 @@ function updateTextSprite(sprite, newText, color, backgroundColor, fontSize) {
 
     sprite.material.map.needsUpdate = true;
 }
-//// Add Mirror ////
-// let geometry, material;
-
-// geometry = new THREE.CircleGeometry(40, 64);
-// material = new THREE.MeshPhongMaterial( { color: 0xffffff, emissive: 0x8d8d8d } );
-// groundMirror = new Reflector(geometry, {
-//     clipBias: 0.003,
-//     textureWidth: window.innerWidth * window.devicePixelRatio,
-//     textureHeight: window.innerHeight * window.devicePixelRatio,
-//     color: 0xb5b5b5
-// });
-// groundMirror.position.y = 0.5;
-// groundMirror.rotateX(- Math.PI / 2);
-// scene.add(groundMirror);
-
-// geometry = new THREE.PlaneGeometry(100, 100);
-// verticalMirror = new Reflector(geometry, {
-//     clipBias: 0.003,
-//     textureWidth: window.innerWidth * window.devicePixelRatio,
-//     textureHeight: window.innerHeight * window.devicePixelRatio,
-//     color: 0xc1cbcb
-// });
-// verticalMirror.position.y = 50;
-// verticalMirror.position.z = - 50;
-// scene.add(verticalMirror);
 
 
 //// Add Control ////
@@ -614,7 +585,7 @@ function ixMovementUpdate() {
     }
 }
 
-function targetCameraUpdate(){
+function targetCameraUpdate() {
     mirrorSphere.visible = false;// 在渲染之前将材质的可见性设置为false
     mirrorSphereCamera.update(renderer, scene);// 渲染CubeCamera
     mirrorSphere.visible = true;// 在渲染完成后将材质的可见性设置为true
