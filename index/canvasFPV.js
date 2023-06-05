@@ -83,7 +83,6 @@ function updateSkyColor() {
 
     x = Math.floor(hours) + minutes / 60;
 
-
     switch (true) {
         case (x < 4):
             // alert("night");
@@ -217,6 +216,70 @@ const gradientCube = new THREE.Mesh(gradientGeometry, gradientMaterial);
 
 // 将渐变背景添加到场景中
 scene.add(gradientCube);
+
+//// Change BGM ////
+var audio1 = document.getElementById("audio1");
+var audio2 = document.getElementById("audio2");
+var playBtn = document.getElementById("play-btn");
+var pauseBtn = document.getElementById("pause-btn");
+var audio1State = 0, audio2State = 0; // 0暂停，1播放
+var ifFirstUserInteraction = 0; //0 no, 1 yes
+
+// if (ifFirstUserInteraction === 0) {
+//     if (audio1State === 0 && audio2State === 0) document.addEventListener("click", firstUserInteraction);
+// }
+
+// function firstUserInteraction() {
+//     if (x < 4 || (21 < x && x < 24)) {
+//         audio2.play().then(function () {
+//             audio2State = 1;
+//         });
+//     } else if (x >= 4 && x <= 21) {
+//         audio1.play().then(function () {
+//             audio1State = 1;
+//         });
+//     }
+//     ifFirstUserInteraction = 1;
+// }
+
+// function playBGM() {
+//     console.log("ifFirstUserInteraction:", ifFirstUserInteraction);
+//     if (x < 4 || (21 < x && x < 24)) {
+//         // audio1State = 0;
+//         // audio2State = 1;
+//         audio2.play();
+//     } else if (x >= 4 && x <= 21) {
+//         // audio1State = 1;
+//         // audio2State = 0;
+//         audio1.play();
+//     }
+//     console.log("audio1State:", audio1State, "audio2State:", audio2State);
+// }
+
+audio1.loop = true;
+audio2.loop = true;
+
+playBtn.addEventListener("click", function () {
+    if (x < 4 || (21 < x && x < 24)) {
+        audio2.play().then(function () {
+            audio2State = 1;
+        });
+    } else if (x >= 4 && x <= 21) {
+        audio1.play().then(function () {
+            audio1State = 1;
+        });
+    }
+});
+
+pauseBtn.addEventListener("click", function () {
+    if (audio2State === 1) {
+        audio2.pause();
+        audio2State = 0;
+    } else if (audio1State === 1) {
+        audio1.pause();
+        audio1State = 0;
+    }
+});
 
 //// Add Objects ////
 // Object:Plane
@@ -446,6 +509,11 @@ function update() {
     ixMovementUpdate();
     // if (x < 24) x = x + 0.01;
     // else x = 0;
+    // if (ifFirstUserInteraction === 1) {
+    //     document.removeEventListener("click", firstUserInteraction);
+    //     playBGM();
+    //     console.log("等于1了啊cao");
+    // }
 }
 
 function render() {
