@@ -412,51 +412,27 @@ loaderMeWave.load(
 );
 
 //// Add Prism/Mirror ////
-let geometry;
-let groundMirror, verticalMirror;
+let geometry1, geometry2;
+let mirror1, mirror2;
+const shape1 = new THREE.Shape().moveTo(1, 0).lineTo(1, 0).lineTo(1, 1.2).lineTo(0, .2).lineTo(0, 0);
+const shape2 = new THREE.Shape().moveTo(0, 0).lineTo(0.2, 0.1).lineTo(0.6, 0.3).lineTo(0.8, 0).lineTo(1, 0.8).lineTo(0.8, 1).lineTo(0.6, 0.9).lineTo(0, 0);
 
-// geometry = new THREE.PlaneGeometry(1, 1);
+const extrusionSettings = { depth: 0.06, bevelEnabled: false };
 
-// Create a new shape
-const shape = new THREE.Shape();
+geometry1 = new THREE.ExtrudeGeometry(shape1, extrusionSettings);
+geometry2 = new THREE.ExtrudeGeometry(shape2, extrusionSettings);
 
-// Define the mirror fragment shape using relative coordinates
-shape.moveTo(0, 0);
-shape.lineTo(1, 0);
-shape.lineTo(1, 2);
-shape.lineTo(0, 2);
-shape.lineTo(0, 0); // Connect the last point to the first point to close the shape
+mirror1 = new Reflector(geometry1, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0xaaaaaa });
+mirror1.rotation.set(Math.PI, -Math.PI / 5, 0);
+mirror1.position.set(0.6, 1.6, 1);
+scene.add(mirror1);
 
-// Define the extrusion settings
-const extrusionSettings = {
-    depth: 0.1, // Depth of the extrusion
-    bevelEnabled: false // Disable beveling
-};
+mirror2 = new Reflector(geometry2, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0xaaaaaa });
+mirror2.rotation.set(Math.PI, Math.PI / 6, 0);
+mirror2.position.set(-1.2, 1, 0);
+scene.add(mirror2);
 
-// Create the extruded geometry
-geometry = new THREE.ExtrudeGeometry(shape, extrusionSettings);
 
-verticalMirror = new Reflector(geometry, {
-    clipBias: 0.003,
-    textureWidth: window.innerWidth * window.devicePixelRatio / 2.5,
-    textureHeight: window.innerHeight * window.devicePixelRatio / 2.5,
-    color: 0x858585
-});
-verticalMirror.rotateX(- Math.PI);
-verticalMirror.rotateY(- Math.PI / 3);
-verticalMirror.position.x = 1;
-verticalMirror.position.y = 0.5;
-scene.add(verticalMirror);
-
-// geometry = new THREE.PlaneGeometry(4, 4);
-// groundMirror = new Reflector(geometry, {
-//     clipBias: 0.003,
-//     textureWidth: window.innerWidth * window.devicePixelRatio/2.5,
-//     textureHeight: window.innerHeight * window.devicePixelRatio/2.5,
-//     color: 0xb5b5b5
-// });
-// groundMirror.rotateX(- Math.PI / 2);
-// scene.add(groundMirror);
 
 //// Add Text ////
 let allContent, randomContent;
