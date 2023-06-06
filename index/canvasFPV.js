@@ -412,37 +412,6 @@ loaderMeWave.load(
 );
 
 //// Add Prism/Mirror ////
-//exp: https://threejs.org/examples/#webgl_materials_cubemap
-//exp: http://stemkoski.github.io/Three.js/Reflection.html
-
-
-// Floor (for test)
-// let floorTexture = new THREE.TextureLoader().load('images/checkerboard.jpg');
-// floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-// floorTexture.repeat.set(10, 10);
-// let floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.BackSide });
-// let floorGeometry = new THREE.PlaneGeometry(1000, 1000, 100, 100);
-// let floor = new THREE.Mesh(floorGeometry, floorMaterial);
-// floor.position.y = -0.5;
-// floor.rotation.x = Math.PI / 2;
-// scene.add(floor);
-// Sphere Mirror (for test)
-// let sphereGeom = new THREE.SphereGeometry(0.5, 32, 16);
-// let mirrorSphereCamera = new THREE.CubeCamera(0.1, 5000, 256);
-// let sphereRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
-//     format: THREE.RGBAFormat,
-//     generateMipmaps: false,
-//     minFilter: THREE.LinearFilter
-// });
-// mirrorSphereCamera.renderTarget = sphereRenderTarget;
-// scene.add(mirrorSphereCamera);
-// let mirrorSphereMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0, envMap: mirrorSphereCamera.renderTarget.texture });
-// let mirrorSphere = new THREE.Mesh(sphereGeom, mirrorSphereMaterial);
-// scene.add(mirrorSphere);
-// mirrorSphereCamera.position.set(2, 0, 0);
-// mirrorSphere.position.set(2, 0, 0);
-
-
 let geometry;
 let groundMirror, verticalMirror;
 
@@ -627,19 +596,12 @@ function ixMovementUpdate() {
     }
 }
 
-// function targetCameraUpdate() {
-//     mirrorSphere.visible = false;// 在渲染之前将材质的可见性设置为false
-//     mirrorSphereCamera.update(renderer, scene);// 渲染CubeCamera
-//     mirrorSphere.visible = true;// 在渲染完成后将材质的可见性设置为true
-// }
-
 function update() {
     updateSkyColor();
     control();
     ixMovementUpdate();
     // if (x < 24) x = x + 0.01;
     // else x = 0;
-    // targetCameraUpdate();
     updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
     // progressBarUpdate();
 }
