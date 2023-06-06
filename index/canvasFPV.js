@@ -6,7 +6,7 @@ import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-// import { Reflector } from 'three/addons/objects/Reflector.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
 
 //// MainStuff:Setup ////
 let scene = new THREE.Scene();
@@ -172,24 +172,24 @@ function updateSkyColor() {
     }
     // 计算Hex颜色中间值的函数
     function interpolateColors(color1, color2, color1Weight, color2Weight, t) {
-        var r1 = (color1 >> 16) & 255;
-        var g1 = (color1 >> 8) & 255;
-        var b1 = color1 & 255;
+        let r1 = (color1 >> 16) & 255;
+        let g1 = (color1 >> 8) & 255;
+        let b1 = color1 & 255;
 
-        var r2 = (color2 >> 16) & 255;
-        var g2 = (color2 >> 8) & 255;
-        var b2 = color2 & 255;
+        let r2 = (color2 >> 16) & 255;
+        let g2 = (color2 >> 8) & 255;
+        let b2 = color2 & 255;
 
-        var g = Math.round(color1Weight * g1 + color2Weight * g2);
-        var r = Math.round(color1Weight * r1 + color2Weight * r2);
-        var b = Math.round(color1Weight * b1 + color2Weight * b2);
+        let g = Math.round(color1Weight * g1 + color2Weight * g2);
+        let r = Math.round(color1Weight * r1 + color2Weight * r2);
+        let b = Math.round(color1Weight * b1 + color2Weight * b2);
 
         return (r << 16) | (g << 8) | b;
     }
 
-    var topInterpolatedColor = interpolateColors(topColorCurr, topColorPrev, weightCurr, weightPrev);
+    let topInterpolatedColor = interpolateColors(topColorCurr, topColorPrev, weightCurr, weightPrev);
     // console.log(topInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
-    var bottomInterpolatedColor = interpolateColors(bottomColorCurr, bottomColorPrev, weightCurr, weightPrev);
+    let bottomInterpolatedColor = interpolateColors(bottomColorCurr, bottomColorPrev, weightCurr, weightPrev);
     // console.log(bottomInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
 
     // 设置颜色
@@ -218,12 +218,12 @@ const gradientCube = new THREE.Mesh(gradientGeometry, gradientMaterial);
 scene.add(gradientCube);
 
 //// Change BGM ////
-var audio1 = document.getElementById("audio1");
-var audio2 = document.getElementById("audio2");
-var playBtn = document.getElementById("play-btn");
-var pauseBtn = document.getElementById("pause-btn");
+let audio1 = document.getElementById("audio1");
+let audio2 = document.getElementById("audio2");
+let playBtn = document.getElementById("play-btn");
+let pauseBtn = document.getElementById("pause-btn");
 const progressBar = document.getElementById('progress-bar'); // 获取进度条元素
-var audio1State = 0, audio2State = 0; // 0暂停，1播放
+let audio1State = 0, audio2State = 0; // 0暂停，1播放
 
 audio1.loop = true;
 audio2.loop = true;
@@ -305,7 +305,7 @@ scene.add(Plane1);
 // let light2 = new THREE.AmbientLight("white", .15);
 // light2.position.set(10, 2, 0);
 // scene.add(light2);
-// var light = new THREE.DirectionalLight(0xffffff, 1);
+// let light = new THREE.DirectionalLight(0xffffff, 1);
 // light.position.set(1, 1, 1);
 // scene.add(light);
 
@@ -411,40 +411,83 @@ loaderMeWave.load(
     }
 );
 
-//// Add Prism ////
+//// Add Prism/Mirror ////
 //exp: https://threejs.org/examples/#webgl_materials_cubemap
 //exp: http://stemkoski.github.io/Three.js/Reflection.html
 
 
-// FLOOR (for test)
-// var floorTexture = new THREE.TextureLoader().load('images/checkerboard.jpg');
+// Floor (for test)
+// let floorTexture = new THREE.TextureLoader().load('images/checkerboard.jpg');
 // floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
 // floorTexture.repeat.set(10, 10);
-// var floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.BackSide });
-// var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 100, 100);
-// var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+// let floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.BackSide });
+// let floorGeometry = new THREE.PlaneGeometry(1000, 1000, 100, 100);
+// let floor = new THREE.Mesh(floorGeometry, floorMaterial);
 // floor.position.y = -0.5;
 // floor.rotation.x = Math.PI / 2;
 // scene.add(floor);
+// Sphere Mirror (for test)
+// let sphereGeom = new THREE.SphereGeometry(0.5, 32, 16);
+// let mirrorSphereCamera = new THREE.CubeCamera(0.1, 5000, 256);
+// let sphereRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
+//     format: THREE.RGBAFormat,
+//     generateMipmaps: false,
+//     minFilter: THREE.LinearFilter
+// });
+// mirrorSphereCamera.renderTarget = sphereRenderTarget;
+// scene.add(mirrorSphereCamera);
+// let mirrorSphereMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0, envMap: mirrorSphereCamera.renderTarget.texture });
+// let mirrorSphere = new THREE.Mesh(sphereGeom, mirrorSphereMaterial);
+// scene.add(mirrorSphere);
+// mirrorSphereCamera.position.set(2, 0, 0);
+// mirrorSphere.position.set(2, 0, 0);
 
-var sphereGeom = new THREE.SphereGeometry(0.5, 32, 16);
-var mirrorSphereCamera = new THREE.CubeCamera(0.1, 5000, 256);
-var sphereRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
-    format: THREE.RGBAFormat,
-    generateMipmaps: false,
-    minFilter: THREE.LinearFilter
+
+let geometry;
+let groundMirror, verticalMirror;
+
+// geometry = new THREE.PlaneGeometry(1, 1);
+
+// Create a new shape
+const shape = new THREE.Shape();
+
+// Define the mirror fragment shape using relative coordinates
+shape.moveTo(0, 0);
+shape.lineTo(1, 0);
+shape.lineTo(1, 2);
+shape.lineTo(0, 2);
+shape.lineTo(0, 0); // Connect the last point to the first point to close the shape
+
+// Define the extrusion settings
+const extrusionSettings = {
+    depth: 0.1, // Depth of the extrusion
+    bevelEnabled: false // Disable beveling
+};
+
+// Create the extruded geometry
+geometry = new THREE.ExtrudeGeometry(shape, extrusionSettings);
+
+verticalMirror = new Reflector(geometry, {
+    clipBias: 0.003,
+    textureWidth: window.innerWidth * window.devicePixelRatio / 2.5,
+    textureHeight: window.innerHeight * window.devicePixelRatio / 2.5,
+    color: 0x858585
 });
-mirrorSphereCamera.renderTarget = sphereRenderTarget;
-scene.add(mirrorSphereCamera);
+verticalMirror.rotateX(- Math.PI);
+verticalMirror.rotateY(- Math.PI / 3);
+verticalMirror.position.x = 1;
+verticalMirror.position.y = 0.5;
+scene.add(verticalMirror);
 
-// var mirrorSphereMaterial = new THREE.MeshBasicMaterial({ envMap: mirrorSphereCamera.renderTarget.texture });
-var mirrorSphereMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0, envMap: mirrorSphereCamera.renderTarget.texture });
-var mirrorSphere = new THREE.Mesh(sphereGeom, mirrorSphereMaterial);
-scene.add(mirrorSphere);
-
-mirrorSphereCamera.position.set(2, 0, 0);
-mirrorSphere.position.set(2, 0, 0);
-
+// geometry = new THREE.PlaneGeometry(4, 4);
+// groundMirror = new Reflector(geometry, {
+//     clipBias: 0.003,
+//     textureWidth: window.innerWidth * window.devicePixelRatio/2.5,
+//     textureHeight: window.innerHeight * window.devicePixelRatio/2.5,
+//     color: 0xb5b5b5
+// });
+// groundMirror.rotateX(- Math.PI / 2);
+// scene.add(groundMirror);
 
 //// Add Text ////
 let allContent, randomContent;
@@ -584,11 +627,11 @@ function ixMovementUpdate() {
     }
 }
 
-function targetCameraUpdate() {
-    mirrorSphere.visible = false;// 在渲染之前将材质的可见性设置为false
-    mirrorSphereCamera.update(renderer, scene);// 渲染CubeCamera
-    mirrorSphere.visible = true;// 在渲染完成后将材质的可见性设置为true
-}
+// function targetCameraUpdate() {
+//     mirrorSphere.visible = false;// 在渲染之前将材质的可见性设置为false
+//     mirrorSphereCamera.update(renderer, scene);// 渲染CubeCamera
+//     mirrorSphere.visible = true;// 在渲染完成后将材质的可见性设置为true
+// }
 
 function update() {
     updateSkyColor();
@@ -596,7 +639,7 @@ function update() {
     ixMovementUpdate();
     // if (x < 24) x = x + 0.01;
     // else x = 0;
-    targetCameraUpdate();
+    // targetCameraUpdate();
     updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
     // progressBarUpdate();
 }
