@@ -532,7 +532,7 @@ const textureCloud = new THREE.TextureLoader().load('./images/cloud.png');
 
 const cloudCount = 300; // 云的数量
 const radiusThickness = 30; // 有云的圆环区域的半径
-const radiusFromCenter = 2;
+const radiusFromCenter = 2; 
 
 for (let i = 0; i < cloudCount; i++) {
     const angle = Math.random() * Math.PI * 2; // 随机角度
