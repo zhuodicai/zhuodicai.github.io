@@ -11,7 +11,7 @@ import { RGBADepthPacking } from 'three';
 
 //// MainStuff:Setup ////
 let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, .1, 100);
+let camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, .1, 2000);
 let renderer = new THREE.WebGLRenderer({ alpha: true });
 let skyColorForMirror = 0x574785;
 let cameraPos, mirror1Pos;
@@ -310,7 +310,7 @@ pointLight.position.set(0, 10, 0);
 scene.add(pointLight);
 
 //// Add Fog ////
-// scene.fog = new THREE.Fog(0xffffff, 0, 20);
+scene.fog = new THREE.Fog(0xffffff, 0, 30);
 
 //// Add Tree ////
 const loaderTree = new GLTFLoader();
@@ -347,29 +347,41 @@ const velocity = new THREE.Vector3(0, -0.001, 0);
 function updatePetal() {
     for (let i = 0; i < petals.length; i++) {
         const petal = petals[i];
+        if (petal.position.y > 0) {
+            petal.position.x += 0.005;
+            petal.position.y -= 0.005;
+            petal.position.z += 0.005;
 
-        petal.position.x += 0.005;
-        petal.position.y -= 0.005;
-        petal.position.z += 0.005;
+            petal.rotation.x += 0.005;
+            petal.rotation.y += 0.005;
+            petal.rotation.z += 0.005;
 
-        petal.rotation.x += 0.005;
-        petal.rotation.y += 0.005;
-        petal.rotation.z += 0.005;
-
-        petal.position.add(velocity);
+            petal.position.add(velocity);
+        }
 
         // 花瓣落地，移除花瓣并创建新花瓣
-        if (petal.position.y < 0) {
-            petal.rotation.set(0, 0, 0);
-            setTimeout(function () {
-                scene.remove(petal);
-            }, 20000);
-            // scene.remove(petal);
-            petals.splice(i, 1);
-            createPetal();
+        const targetRotation = new THREE.Vector3(Math.PI, 0, Math.PI); // 目标旋转角度
+        const rotationSpeed = 0.03; // 旋转速度
+
+        if (petal.position.y <= 0) {
+            petal.position.y = 0;
+            if (Math.floor(petal.rotation.x) !== 3 || Math.floor(petal.rotation.y) !== 0 || Math.floor(petal.rotation.z) !== 3) {
+                // 计算当前旋转角度与目标旋转角度之间的插值
+                petal.rotation.x = THREE.MathUtils.lerp(petal.rotation.x, targetRotation.x, rotationSpeed);
+                petal.rotation.y = THREE.MathUtils.lerp(petal.rotation.y, targetRotation.y, rotationSpeed);
+                petal.rotation.z = THREE.MathUtils.lerp(petal.rotation.z, targetRotation.z, rotationSpeed);
+                console.log(petal.rotation);
+            } else {
+                setTimeout(() => {
+                    scene.remove(petal);
+                }, 20000);
+                petals.splice(i, 1);
+                createPetal();
+            }
         }
     }
 }
+
 
 //// Add Avatar with Animations ////
 const loaderMe = new GLTFLoader();
@@ -708,37 +720,46 @@ document.addEventListener("mouseup", (event) => { controls[87] = false });
 
 //// Other Update Functions ////
 function control() {
-    // Controls:Engine 
-    if (controls[87]) { // w
-        camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
-        camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
-    }
-    if (controls[83]) { // s
-        camera.position.x += Math.sin(camera.rotation.y) * player.speed;
-        camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
-    }
-    if (controls[65]) { // a
-        camera.position.x += Math.sin(camera.rotation.y + Math.PI / 2) * player.speed;
-        camera.position.z += -Math.cos(camera.rotation.y + Math.PI / 2) * player.speed;
-    }
-    if (controls[68]) { // d
-        camera.position.x += Math.sin(camera.rotation.y - Math.PI / 2) * player.speed;
-        camera.position.z += -Math.cos(camera.rotation.y - Math.PI / 2) * player.speed;
-    }
-    if (controls[37]) { // la
-        camera.rotation.y -= player.turnSpeed;
-    }
-    if (controls[39]) { // ra
-        camera.rotation.y += player.turnSpeed;
-    }
-    if (controls[32]) { // space
-        if (player.jumps) return false;
-        player.jumps = true;
-        player.velocity = -player.jumpHeight;
-    }
-    // console.log("camera.position:", camera.position);
     cameraPos = camera.position;
+    console.log("camera.position:", camera.position);
+    // Controls:Engine 
+    if ((-45 <= cameraPos.x && cameraPos.x <= 45) && (-45 <= cameraPos.z && cameraPos.z <= 45)) {
+        if (controls[87]) { // w
+            camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
+            camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
+        }
+        if (controls[83]) { // s
+            camera.position.x += Math.sin(camera.rotation.y) * player.speed;
+            camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
+        }
+        if (controls[65]) { // a
+            camera.position.x += Math.sin(camera.rotation.y + Math.PI / 2) * player.speed;
+            camera.position.z += -Math.cos(camera.rotation.y + Math.PI / 2) * player.speed;
+        }
+        if (controls[68]) { // d
+            camera.position.x += Math.sin(camera.rotation.y - Math.PI / 2) * player.speed;
+            camera.position.z += -Math.cos(camera.rotation.y - Math.PI / 2) * player.speed;
+        }
+        if (controls[37]) { // la
+            camera.rotation.y -= player.turnSpeed;
+        }
+        if (controls[39]) { // ra
+            camera.rotation.y += player.turnSpeed;
+        }
+        if (controls[32]) { // space
+            if (player.jumps) return false;
+            player.jumps = true;
+            player.velocity = -player.jumpHeight;
+        }
+    }
+    if ((Math.abs(cameraPos.x) - 45) >= 0) {
+        camera.position.x = Math.sign(cameraPos.x) * 45;
+    }
+    if ((Math.abs(cameraPos.z) - 45) >= 0) {
+        camera.position.z = Math.sign(cameraPos.z) * 45;
+    }
 }
+
 
 function ixMovementUpdate() {
     player.velocity += player.gravity;
