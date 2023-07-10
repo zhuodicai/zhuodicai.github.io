@@ -323,15 +323,53 @@ loaderTree.load(
         gltf.scene.scale.set(0.5, 0.5, 0.5); // 设置模型的缩放
         scene.add(gltf.scene);
     },
-    // called while loading is progressing
-    function (xhr) {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded' + ': this is plum blossom tree');
-    },
-    // called when loading has errors
-    function (error) {
-        console.log('An error happened');
-    }
+    function (xhr) { console.log((xhr.loaded / xhr.total * 100) + '% loaded' + ': this is plum blossom tree'); },
+    function (error) { console.log('An error happened'); }
 );
+
+//// Add Falling Petal ////
+const petalMaterial = new THREE.MeshBasicMaterial({ color: 0xff494a });
+
+const petals = [];
+function createPetal() {
+    const petalGeometry = new THREE.CylinderGeometry(0.07, 0.07, 0.01, 10);
+    const petal = new THREE.Mesh(petalGeometry, petalMaterial);
+    petal.position.set(Math.random() * 8 - 4, Math.random() * 3, Math.random() * 2 - 2);
+    petal.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+    setTimeout(() => {
+        scene.add(petal);
+        petals.push(petal);
+    }, Math.random() * 3000);
+}
+for (let i = 0; i < 5; i++) { createPetal(); }
+
+const velocity = new THREE.Vector3(0, -0.001, 0);
+function updatePetal() {
+    for (let i = 0; i < petals.length; i++) {
+        const petal = petals[i];
+
+        petal.position.x += 0.005;
+        petal.position.y -= 0.005;
+        petal.position.z += 0.005;
+
+        petal.rotation.x += 0.005;
+        petal.rotation.y += 0.005;
+        petal.rotation.z += 0.005;
+
+        petal.position.add(velocity);
+
+        // 花瓣落地，移除花瓣并创建新花瓣
+        if (petal.position.y < 0) {
+            petal.rotation.set(0, 0, 0);
+            setTimeout(function () {
+                scene.remove(petal);
+            }, 20000);
+            // scene.remove(petal);
+            petals.splice(i, 1);
+            createPetal();
+        }
+    }
+}
 
 //// Add Avatar with Animations ////
 const loaderMe = new GLTFLoader();
@@ -731,6 +769,7 @@ function cloudsMovement() {
 
 function update() {
     updateSkyColor();
+    updatePetal();
     control();
     ixMovementUpdate();
     // if (x < 24) x = x + 0.01;
