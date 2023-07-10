@@ -7,15 +7,18 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { Reflector } from 'three/addons/objects/Reflector.js';
+import { RGBADepthPacking } from 'three';
 
 //// MainStuff:Setup ////
 let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, .1, 1000);
+let camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, .1, 100);
 let renderer = new THREE.WebGLRenderer({ alpha: true });
+let skyColorForMirror = 0x574785;
+let cameraPos, mirror1Pos;
 
 let controls = {};
 let player = {
-    height: .5,
+    height: 1.5,
     turnSpeed: .1,
     speed: .1,
     jumpHeight: .15,
@@ -122,7 +125,7 @@ function updateSkyColor() {
             weightPrev = (11 - x) / (11 - 6);
             break;
         case (x < 13):
-            // alert("morning");
+            // alert("noon");
             topColorCurr = 0xA5D2F7;
             bottomColorCurr = 0xF1F6F7;
             topColorPrev = 0x4AA4F8;
@@ -180,8 +183,8 @@ function updateSkyColor() {
         let g2 = (color2 >> 8) & 255;
         let b2 = color2 & 255;
 
-        let g = Math.round(color1Weight * g1 + color2Weight * g2);
         let r = Math.round(color1Weight * r1 + color2Weight * r2);
+        let g = Math.round(color1Weight * g1 + color2Weight * g2);
         let b = Math.round(color1Weight * b1 + color2Weight * b2);
 
         return (r << 16) | (g << 8) | b;
@@ -191,6 +194,8 @@ function updateSkyColor() {
     // console.log(topInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
     let bottomInterpolatedColor = interpolateColors(bottomColorCurr, bottomColorPrev, weightCurr, weightPrev);
     // console.log(bottomInterpolatedColor.toString(16)); // 输出中间颜色的十六进制代码
+
+    skyColorForMirror = interpolateColors(topInterpolatedColor, bottomInterpolatedColor, weightCurr, weightPrev);
 
     // 设置颜色
     const topInterpolatedColorChange = new THREE.Color();
@@ -412,32 +417,149 @@ loaderMeWave.load(
 );
 
 //// Add Prism/Mirror ////
-let geometry1, geometry2;
-let mirror1, mirror2;
-const shape1 = new THREE.Shape().moveTo(1, 0).lineTo(1, 0).lineTo(1, 1.2).lineTo(0, .2).lineTo(0, 0);
-const shape2 = new THREE.Shape().moveTo(0, 0).lineTo(0.2, 0.1).lineTo(0.6, 0.3).lineTo(0.8, 0).lineTo(1, 0.8).lineTo(0.8, 1).lineTo(0.6, 0.9).lineTo(0, 0);
+// let geometry1, geometry2, geometry3, geometry4, geometry5, geometry6;
+// let mirror1, mirror2, mirror3, mirror4, mirror5, mirror6;
+// let material;
+// const shape1 = new THREE.Shape().moveTo(1, 0).lineTo(1, 0).lineTo(1, 1.2).lineTo(0, .2).lineTo(0, 0);
+// const shape2 = new THREE.Shape().moveTo(0, 0).lineTo(0.2, 0.1).lineTo(0.6, 0.3).lineTo(0.8, 0).lineTo(1, 0.8).lineTo(0.8, 1).lineTo(0.6, 0.9).lineTo(0, 0);
+// const shape3 = new THREE.Shape().moveTo(0, 0).lineTo(0.2, 0.2).lineTo(0.6, 0).lineTo(0.8, 0.4).lineTo(1, 0).lineTo(1, 0.6).lineTo(0.6, 1).lineTo(0, 1).lineTo(0, 0);
+// const shape4 = new THREE.Shape().moveTo(0, 0).lineTo(0.4, 0.2).lineTo(0.8, 0).lineTo(1, 0.4).lineTo(0.8, 0.6).lineTo(0.4, 0.6).lineTo(0, 1).lineTo(0, 0);
+// const shape5 = new THREE.Shape().moveTo(0, 0).lineTo(0.3, 0.1).lineTo(0.7, 0.3).lineTo(1, 0).lineTo(1, 0.5).lineTo(0.7, 0.7).lineTo(0.3, 0.9).lineTo(0, 1).lineTo(0, 0);
+// const shape6 = new THREE.Shape().moveTo(0, 0).lineTo(0.5, 0.1).lineTo(1, 0).lineTo(1, 0.8).lineTo(0.6, 1).lineTo(0.3, 0.8).lineTo(0, 0.6).lineTo(0, 0);
 
-const extrusionSettings = { depth: 0.06, bevelEnabled: false };
+// const extrusionSettings = { depth: 0.06, bevelEnabled: false };
 
-geometry1 = new THREE.ExtrudeGeometry(shape1, extrusionSettings);
-geometry2 = new THREE.ExtrudeGeometry(shape2, extrusionSettings);
+// geometry1 = new THREE.ExtrudeGeometry(shape1, extrusionSettings);
+// geometry2 = new THREE.ExtrudeGeometry(shape2, extrusionSettings);
+// geometry3 = new THREE.ExtrudeGeometry(shape3, extrusionSettings);
+// geometry4 = new THREE.ExtrudeGeometry(shape4, extrusionSettings);
+// geometry5 = new THREE.ExtrudeGeometry(shape5, extrusionSettings);
+// geometry6 = new THREE.ExtrudeGeometry(shape6, extrusionSettings);
 
-mirror1 = new Reflector(geometry1, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0xaaaaaa });
-mirror1.rotation.set(Math.PI, -Math.PI / 5, 0);
-mirror1.position.set(0.6, 1.6, 1);
-scene.add(mirror1);
+// let wireframeMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 1 });
 
-mirror2 = new Reflector(geometry2, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0xaaaaaa });
-mirror2.rotation.set(Math.PI, Math.PI / 6, 0);
-mirror2.position.set(-1.2, 1, 0);
-scene.add(mirror2);
+// mirror1 = new Reflector(geometry1, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0x7d7d7d });
+// // mirror1 = new THREE.Mesh(geometry1, material = new THREE.MeshBasicMaterial({ color: skyColorForMirror }));
+// mirror1.rotation.set(0, -Math.PI / 5, 0);
+// mirror1.position.set(0.6, 0.6, 1);
+// scene.add(mirror1);
+// let mirror1Clone = mirror1.clone();
+// let edgesGeometry1 = new THREE.EdgesGeometry(mirror1Clone.geometry);
+// let wireframe1 = new THREE.LineSegments(edgesGeometry1, wireframeMaterial);
+// wireframe1.material.transparent = true;
+// wireframe1.material.opacity = 0.15;
+// wireframe1.rotation.set(0, -Math.PI / 5, 0);
+// wireframe1.position.set(0.6, 0.6, 1);
+// scene.add(wireframe1);
+// console.log("mirror1.position:",mirror1.position);
+// mirror1Pos = mirror1.position;
+
+// mirror2 = new Reflector(geometry2, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0x7d7d7d });
+// mirror2.rotation.set(0, Math.PI / 2, 0);
+// mirror2.position.set(-5.2, 0.3, 7);
+// scene.add(mirror2);
+// let mirror2Clone = mirror2.clone();
+// let edgesGeometry2 = new THREE.EdgesGeometry(mirror2Clone.geometry);
+// let wireframe2 = new THREE.LineSegments(edgesGeometry2, wireframeMaterial);
+// wireframe2.material.transparent = true;
+// wireframe2.material.opacity = 0.15;
+// wireframe2.rotation.set(0, Math.PI / 2, 0);
+// wireframe2.position.set(-5.2, 0.3, 7);
+// scene.add(wireframe2);
+
+// mirror3 = new Reflector(geometry3, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0x7d7d7d });
+// mirror3.rotation.set(0, -Math.PI / 6, 0);
+// mirror3.position.set(6, 0, 0);
+// scene.add(mirror3);
+// let mirror3Clone = mirror3.clone();
+// let edgesGeometry3 = new THREE.EdgesGeometry(mirror3Clone.geometry);
+// let wireframe3 = new THREE.LineSegments(edgesGeometry3, wireframeMaterial);
+// wireframe3.material.transparent = true;
+// wireframe3.material.opacity = 0.15;
+// wireframe3.rotation.set(0, -Math.PI / 6, 0);
+// wireframe3.position.set(6, 0, 0);
+// scene.add(wireframe3);
+
+// mirror4 = new Reflector(geometry4, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0x7d7d7d });
+// mirror4.rotation.set(0, -Math.PI / 2, 0);
+// mirror4.position.set(10, 0.1, -10);
+// scene.add(mirror4);
+// let mirror4Clone = mirror4.clone();
+// let edgesGeometry4 = new THREE.EdgesGeometry(mirror4Clone.geometry);
+// let wireframe4 = new THREE.LineSegments(edgesGeometry4, wireframeMaterial);
+// wireframe4.material.transparent = true;
+// wireframe4.material.opacity = 0.15;
+// wireframe4.rotation.set(0, -Math.PI / 2, 0);
+// wireframe4.position.set(10, 0.1, -10);
+// scene.add(wireframe4);
+
+// mirror5 = new Reflector(geometry5, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0x7d7d7d });
+// mirror5.rotation.set(0, Math.PI / 3, 0);
+// mirror5.position.set(-18, 0.1, -16);
+// scene.add(mirror5);
+// let mirror5Clone = mirror5.clone();
+// let edgesGeometry5 = new THREE.EdgesGeometry(mirror5Clone.geometry);
+// let wireframe5 = new THREE.LineSegments(edgesGeometry5, wireframeMaterial);
+// wireframe5.material.transparent = true;
+// wireframe5.material.opacity = 0.15;
+// wireframe5.rotation.set(0, Math.PI / 3, 0);
+// wireframe5.position.set(-18, 0.1, -16);
+// scene.add(wireframe5);
+
+// mirror6 = new Reflector(geometry6, { clipBias: 0.003, textureWidth: window.innerWidth * window.devicePixelRatio / 1, textureHeight: window.innerHeight * window.devicePixelRatio / 3, color: 0x7d7d7d });
+// mirror6.rotation.set(Math.PI, Math.PI / 5, 0);
+// mirror6.position.set(1.2, 1, 0);
+// scene.add(mirror6);
+
+//// Add Cloud ////
+// let clouds = [];
+// const textureCloud = new THREE.TextureLoader().load('./images/cloud.png');
+// const materialCloud = new THREE.SpriteMaterial({ map: textureCloud });
+
+// const cloudCount = 300; // 云的数量
+
+// for (let i = 0; i < cloudCount; i++) {
+//     for (let xpos = -30; xpos < 30; xpos++) {
+//         const spriteCloud = new THREE.Sprite(materialCloud);
+//         spriteCloud.position.set(xpos, Math.random() * 5, Math.sqrt(Math.pow(30) - Math.pow(xpos)));
+//         spriteCloud.rotation.z = Math.random() * Math.PI * 2;
+//         scene.add(spriteCloud);
+//         clouds.push(spriteCloud);
+//     }
+// }
+let clouds = [];
+const textureCloud = new THREE.TextureLoader().load('./images/cloud.png');
+
+const cloudCount = 300; // 云的数量
+const radiusThickness = 30; // 有云的圆环区域的半径
+const radiusFromCenter = 2;
+
+for (let i = 0; i < cloudCount; i++) {
+    const angle = Math.random() * Math.PI * 2; // 随机角度
+    const distance = Math.sqrt(Math.random()) * radiusThickness + radiusFromCenter;
+
+    const xPos = Math.cos(angle) * distance; // X轴位置
+    const yPos = Math.random() * 5; // Y轴位置
+    const zPos = Math.sin(angle) * distance; // Z轴位置
+
+    const materialCloud = new THREE.SpriteMaterial({ map: textureCloud });
+    const spriteCloud = new THREE.Sprite(materialCloud);
+    spriteCloud.position.set(xPos, yPos, zPos);
+    spriteCloud.material.rotation = Math.PI * 2 * Math.random();
+    console.log("asdf", spriteCloud.material.rotation);
+    let randomScale = Math.random() * 10;
+    spriteCloud.scale.set(randomScale, randomScale, randomScale);
+    scene.add(spriteCloud);
+    clouds.push(spriteCloud);
+}
+
 
 
 
 //// Add Text ////
 let allContent, randomContent;
 function generateRandomContent() {
-    allContent = ["Welcome to my rabbit hole!", "Move around and jump with w,a,s,d / ⬅⬆⬇➡ / spacebar!", "Each broken piece reflects me.", "Together we'll journey!", "Why can't I stop asking why?", "Technology, a servant and master, entwined.", "Possibilities enchant me like a symphony.", "I enable the sky to change according to the current time!", "The music during the day and night is not the same ;p", "Yes, I look just like this avatar!"];
+    allContent = ["Welcome to my rabbit hole!", "Move around and jump with w,a,s,d / ⬅⬆⬇➡ / spacebar!", "Together we'll journey!", "Why can't I stop asking why?", "Technology, a servant and master, entwined.", "Possibilities enchant me like a symphony.", "I enable the sky to change according to the current time!", "The music during the day and night is not the same ;p"];
     randomContent = allContent[Math.floor(Math.random() * allContent.length)];
     console.log("now the random content is :", randomContent);
 }
@@ -560,6 +682,8 @@ function control() {
         player.jumps = true;
         player.velocity = -player.jumpHeight;
     }
+    console.log("camera.position:", camera.position);
+    cameraPos = camera.position;
 }
 
 function ixMovementUpdate() {
@@ -580,6 +704,7 @@ function update() {
     // else x = 0;
     updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
     // progressBarUpdate();
+    // mirror1.material.color.setHex(skyColorForMirror);
 }
 
 function render() {
