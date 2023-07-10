@@ -530,9 +530,9 @@ loaderMeWave.load(
 let clouds = [];
 const textureCloud = new THREE.TextureLoader().load('./images/cloud.png');
 
-const cloudCount = 300; // 云的数量
-const radiusThickness = 30; // 有云的圆环区域的半径
-const radiusFromCenter = 2; 
+const cloudCount = 120; // 云的数量
+const radiusThickness = 40; // 有云的圆环区域的半径
+const radiusFromCenter = 5;
 
 for (let i = 0; i < cloudCount; i++) {
     const angle = Math.random() * Math.PI * 2; // 随机角度
@@ -546,12 +546,13 @@ for (let i = 0; i < cloudCount; i++) {
     const spriteCloud = new THREE.Sprite(materialCloud);
     spriteCloud.position.set(xPos, yPos, zPos);
     spriteCloud.material.rotation = Math.PI * 2 * Math.random();
-    console.log("asdf", spriteCloud.material.rotation);
-    let randomScale = Math.random() * 10;
+    let randomScale = Math.random() * 20;
     spriteCloud.scale.set(randomScale, randomScale, randomScale);
     scene.add(spriteCloud);
     clouds.push(spriteCloud);
 }
+
+// console.log("clouds",clouds.forEach(element => console.log(element.position)));
 
 
 
@@ -696,6 +697,23 @@ function ixMovementUpdate() {
     }
 }
 
+function cloudsMovement(){
+    clouds.forEach(function (element) {
+        const angle = 0.0003; // 旋转角度
+
+        const x = element.position.x;
+        const z = element.position.z;
+
+        // 计算绕原点旋转后的新坐标
+        const newX = x * Math.cos(angle) - z * Math.sin(angle);
+        const newZ = x * Math.sin(angle) + z * Math.cos(angle);
+
+        element.position.x = newX;
+        element.position.z = newZ;
+    });
+    // clouds.forEach(element => console.log(element.position));
+}
+
 function update() {
     updateSkyColor();
     control();
@@ -705,6 +723,7 @@ function update() {
     updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
     // progressBarUpdate();
     // mirror1.material.color.setHex(skyColorForMirror);
+    cloudsMovement();
 }
 
 function render() {
