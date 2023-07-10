@@ -222,6 +222,9 @@ const gradientCube = new THREE.Mesh(gradientGeometry, gradientMaterial);
 // 将渐变背景添加到场景中
 scene.add(gradientCube);
 
+//// Add Grass ////
+
+
 //// Change BGM ////
 let audio1 = document.getElementById("audio1");
 let audio2 = document.getElementById("audio2");
@@ -299,23 +302,36 @@ Plane1.scale.y = 3;
 Plane1.receiveShadow = true;
 scene.add(Plane1);
 
-// Object:Light:1
-// let light1 = new THREE.PointLight("white", .8);
-// light1.position.set(0, 3, 0);
-// light1.castShadow = true;
-// light1.shadow.camera.near = 2.5;
-// scene.add(light1);
-
-// Object:Light:2/3
-// let light2 = new THREE.AmbientLight("white", .15);
-// light2.position.set(10, 2, 0);
-// scene.add(light2);
-// let light = new THREE.DirectionalLight(0xffffff, 1);
-// light.position.set(1, 1, 1);
-// scene.add(light);
+// Object:Light
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+const pointLight = new THREE.PointLight(0xffffff, 1);
+pointLight.position.set(0, 10, 0);
+scene.add(pointLight);
 
 //// Add Fog ////
 // scene.fog = new THREE.Fog(0xffffff, 0, 20);
+
+//// Add Tree ////
+const loaderTree = new GLTFLoader();
+loaderTree.load(
+    // resource URL
+    'regularplumtree.glb',
+    // called when the resource is loaded
+    function (gltf) {
+        gltf.scene.position.set(-0.8, 0, -1); // 设置模型的位置
+        gltf.scene.scale.set(0.5, 0.5, 0.5); // 设置模型的缩放
+        scene.add(gltf.scene);
+    },
+    // called while loading is progressing
+    function (xhr) {
+        console.log((xhr.loaded / xhr.total * 100) + '% loaded' + ': this is plum blossom tree');
+    },
+    // called when loading has errors
+    function (error) {
+        console.log('An error happened');
+    }
+);
 
 //// Add Avatar with Animations ////
 const loaderMe = new GLTFLoader();
@@ -369,7 +385,7 @@ loaderMe.load(
         animate();
     },
     function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded' + ': this is me');
     },
     function (error) {
         console.log('An error happened');
@@ -409,12 +425,13 @@ loaderMeWave.load(
         animate();
     },
     function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded' + ': this is me waving hand');
     },
     function (error) {
         console.log('An error happened');
     }
 );
+
 
 //// Add Prism/Mirror ////
 // let geometry1, geometry2, geometry3, geometry4, geometry5, geometry6;
@@ -555,8 +572,6 @@ for (let i = 0; i < cloudCount; i++) {
 // console.log("clouds",clouds.forEach(element => console.log(element.position)));
 
 
-
-
 //// Add Text ////
 let allContent, randomContent;
 function generateRandomContent() {
@@ -683,7 +698,7 @@ function control() {
         player.jumps = true;
         player.velocity = -player.jumpHeight;
     }
-    console.log("camera.position:", camera.position);
+    // console.log("camera.position:", camera.position);
     cameraPos = camera.position;
 }
 
@@ -697,7 +712,7 @@ function ixMovementUpdate() {
     }
 }
 
-function cloudsMovement(){
+function cloudsMovement() {
     clouds.forEach(function (element) {
         const angle = 0.0003; // 旋转角度
 
