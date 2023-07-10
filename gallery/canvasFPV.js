@@ -332,7 +332,7 @@ const petalMaterial = new THREE.MeshBasicMaterial({ color: 0xff494a });
 
 const petals = [];
 function createPetal() {
-    const petalGeometry = new THREE.CylinderGeometry(0.07, 0.07, 0.01, 10);
+    const petalGeometry = new THREE.CylinderGeometry(0.07, 0.07, 0.01, 6);
     const petal = new THREE.Mesh(petalGeometry, petalMaterial);
     petal.position.set(Math.random() * 8 - 4, Math.random() * 3, Math.random() * 2 - 2);
     petal.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
