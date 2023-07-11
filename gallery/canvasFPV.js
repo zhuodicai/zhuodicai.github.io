@@ -227,7 +227,7 @@ scene.add(gradientCube);
 
 //// Change BGM ////
 let audio1 = document.getElementById("audio1");
-let audio2 = document.getElementById("audio2");
+let audio2 = document.getElementById("audio1");
 let playBtn = document.getElementById("play-btn");
 let pauseBtn = document.getElementById("pause-btn");
 const progressBar = document.getElementById('progress-bar'); // 获取进度条元素
@@ -327,6 +327,60 @@ loaderTree.load(
     function (error) { console.log('An error happened'); }
 );
 
+//// Add Magpie ////
+const loaderMagpie = new GLTFLoader();
+let magpie;
+let magpieRotateRandom = 0.006;
+
+loaderMagpie.load(
+    // resource URL
+    'magpiestanding.glb',
+    // called when the resource is loaded
+    function (gltf) {
+        magpie = gltf.scene;
+        magpie.position.set(-0.7, 1.6, -0.9); // 设置模型的位置
+        magpie.scale.set(2, 2, 2); // 设置模型的缩放
+        magpie.rotation.set(0, -Math.PI / 2, 0); // 设置模型的缩放
+        scene.add(magpie);
+        startJumping();
+    },
+    function (xhr) { console.log((xhr.loaded / xhr.total * 100) + '% loaded' + ': this is plum blossom tree'); },
+    function (error) { console.log('An error happened'); }
+);
+
+function startJumping() {
+    let down = false;
+    let i = 0;
+
+    const jumpInterval = setInterval(() => {
+
+        if (!down && i < 0.02) {
+            magpie.position.y = 1.6 + i;
+            magpie.rotation.y += magpieRotateRandom;
+            i += 0.0008;
+        } else {
+            clearInterval(jumpInterval);
+            down = true;
+            setTimeout(() => {
+                decreasePosition();
+            }, 10);
+        }
+    }, 10); // 每10毫秒逐步增加
+
+    function decreasePosition() {
+        if (magpie.position.y > 1.6) {
+            magpie.position.y -= 0.003;
+            requestAnimationFrame(decreasePosition);
+        } else {
+            down = false;
+            setTimeout(() => {
+                startJumping();
+                magpieRotateRandom = (Math.random() * (-2) + 1) * Math.PI * 2 * 0.01;
+            }, 2000 * Math.random() + 2000 * Math.random());
+        }
+    }
+}
+
 //// Add Falling Petal ////
 const petalMaterial = new THREE.MeshBasicMaterial({ color: 0xff494a });
 
@@ -334,6 +388,8 @@ const petals = [];
 function createPetal() {
     const petalGeometry = new THREE.CylinderGeometry(0.07, 0.07, 0.01, 6);
     const petal = new THREE.Mesh(petalGeometry, petalMaterial);
+    let randomScale = Math.random();
+    petal.scale.set(randomScale, randomScale, randomScale);
     petal.position.set(Math.random() * 8 - 4, Math.random() * 3, Math.random() * 2 - 2);
     petal.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
     setTimeout(() => {
@@ -341,7 +397,8 @@ function createPetal() {
         petals.push(petal);
     }, Math.random() * 3000);
 }
-for (let i = 0; i < 5; i++) { createPetal(); }
+
+for (let i = 0; i < 10; i++) { createPetal(); }
 
 const velocity = new THREE.Vector3(0, -0.001, 0);
 function updatePetal() {
@@ -370,7 +427,7 @@ function updatePetal() {
                 petal.rotation.x = THREE.MathUtils.lerp(petal.rotation.x, targetRotation.x, rotationSpeed);
                 petal.rotation.y = THREE.MathUtils.lerp(petal.rotation.y, targetRotation.y, rotationSpeed);
                 petal.rotation.z = THREE.MathUtils.lerp(petal.rotation.z, targetRotation.z, rotationSpeed);
-                console.log(petal.rotation);
+                // console.log(petal.rotation);
             } else {
                 setTimeout(() => {
                     scene.remove(petal);
@@ -721,7 +778,7 @@ document.addEventListener("mouseup", (event) => { controls[87] = false });
 //// Other Update Functions ////
 function control() {
     cameraPos = camera.position;
-    console.log("camera.position:", camera.position);
+    // console.log("camera.position:", camera.position);
     // Controls:Engine 
     if ((-45 <= cameraPos.x && cameraPos.x <= 45) && (-45 <= cameraPos.z && cameraPos.z <= 45)) {
         if (controls[87]) { // w
@@ -771,7 +828,7 @@ function ixMovementUpdate() {
     }
 }
 
-function cloudsMovement() {
+function updateClouds() {
     clouds.forEach(function (element) {
         const angle = 0.0003; // 旋转角度
 
@@ -787,6 +844,9 @@ function cloudsMovement() {
     });
     // clouds.forEach(element => console.log(element.position));
 }
+// function updateMagpie() {
+//     console.log("magpie.position", magpie.position.y);
+// }
 
 function update() {
     updateSkyColor();
@@ -798,7 +858,8 @@ function update() {
     updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
     // progressBarUpdate();
     // mirror1.material.color.setHex(skyColorForMirror);
-    cloudsMovement();
+    updateClouds();
+    // if (magpie) updateMagpie();
 }
 
 function render() {
