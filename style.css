@@ -35,6 +35,18 @@ a:active {
   padding-right: 30px;
 }
 
+
+.custom-navbar .navbar-toggler {
+  border: none; /* 移除边框样式 */
+  outline: none; /* 移除点击时的轮廓样式 */
+  /* 添加其他自定义样式 */
+}
+
+.custom-navbar .navbar-toggler:focus {
+  box-shadow: none; /* 移除点击时的边框样式 */
+  /* 添加其他自定义样式 */
+}
+
 .image-container {
   position: relative;
   height: 15vw;
