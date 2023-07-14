@@ -17,17 +17,64 @@ canvas {
 a,
 a:link,
 a:hover,
-a:visited,
+a:visited {
+  color: black !important;
+  text-decoration: none;
+  background-color: transparent;
+}
+
 a:active {
   color: black !important;
   text-decoration: none;
   background-color: transparent;
 }
 
-.navbar-nav > li{
-  padding-left:30px;
-  padding-right:30px;
+
+.navbar-nav>li {
+  padding-left: 30px;
+  padding-right: 30px;
 }
+
+.image-container {
+  position: relative;
+  height: 15vw;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background: linear-gradient(45deg, #ff01cc, transparent) #1e00ff;
+  /* background: #ffffff; */
+}
+
+.image-container:hover .overlay {
+  opacity: 0.5;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transition: .5s ease;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.image-container:hover .text {
+  opacity: 1;
+}
+
+
 
 /* input[type="range"] {
   -webkit-appearance: none;

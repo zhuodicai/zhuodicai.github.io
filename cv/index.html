@@ -8,17 +8,6 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
   <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
-  <script type="importmap">
-      {
-          "imports": {
-              "three": "https://unpkg.com/three@0.144.0/build/three.module.js",
-              "three/addons/": "https://unpkg.com/three@0.144.0/examples/jsm/",
-              "three/addons/objects/": "https://unpkg.com/three@0.144.0/examples/jsm/objects/",
-              "three/addons/controls/": "https://unpkg.com/three@0.144.0/examples/jsm/controls/",
-              "three/addons/loaders/": "https://unpkg.com/three@0.144.0/examples/jsm/loaders/",
-              "three/addons/geometries/": "https://unpkg.com/three@0.144.0/examples/jsm/geometries/"
-          }
-      }
   </script>
   <link rel="stylesheet" type="text/css" href="../style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,6 +19,8 @@
   <meta name="description" content="My name is Zhuodi Cai, you can call me Zoe. Welcome to my cyber cabin!">
   <meta name="author" content="Zhuodi Cai">
   <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
 </head>
 
 <body>
@@ -45,55 +36,39 @@
           <li class="nav-item">
             <a class="nav-link" href="../index.html">Home</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="../project/index.html">Project<span class="sr-only"></span></a>
+          <li class="nav-item">
+            <a class="nav-link" href="../project/index.html">Project</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../journal/index.html">Journal</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../gallery/index.html" style="text-decoration: underline;">3D Gallery</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../cv/index.html">Curriculum Vitae</a>
+            <a class="nav-link" href="../gallery/index.html">3D Gallery</a>
+          </li>          
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html"  style="text-decoration: underline;">Curriculum Vitae<span class="sr-only"></span></a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <div class="row d-flex align-items-center" style="height: 100%; width:100%; margin-top: 42vh;">
-    <!-- <div class="col-8 text-start">
-      <h1 style="font-size: 8vh; color: black;">ZHUODI CAI</h1>
-    </div> -->
-    <div class="col-4 text-end">
-      <div class="row">
-        <p id="dateText" style="font-size: 2vh; color: rgba(0, 0, 0, 0);"></p>
-      </div>
-      <!-- <div class="row" id="audio-controls">
-        <input type="range" id="progress-bar" style="width:40%; height:5px" min="0" max="100" value="0">
-        <button id="play-btn" style="width:20%" class="text-center">Play</button>
-        <button id="pause-btn" style="width:20%" class="text-center">Pause</button>
-      </div> -->
+  <div class="container text-align-top text-start" style="margin-top: 100px;">
+    <p>
+      This is my CV.
+
+      <!-- Why HCI? From the age of three, my daily life has been filled with observation, reflection, exploration, and expression.
+      Through information transmission, encoding, and decoding, I gradually fell in love with interaction, be it with
+      people, nature, machines, or anything else. And I am fond of puzzle games. -->
+
+
+    </p>
+    <div class="row">
+
     </div>
+
   </div>
 
-
-  <!-- <div id="audio-controls">
-    <input type="range" id="progress-bar" min="0" max="100" value="0">
-    <button id="play-btn">Play</button>
-    <button id="pause-btn">Pause</button>
-  </div> -->
-
-  <audio id="audio1">
-    <source src="01 - Lobby Theme (Daytime).mp3" type="audio/mpeg">
-    Daytime sound. But your browser does not support the audio element.
-  </audio>
-
-  <audio id="audio2">
-    <source src="02 - Lobby Theme (Nighttime).mp3" type="audio/mpeg">
-    Nighttime sound. But your browser does not support the audio element.
-  </audio>
 
   <footer class="text-center text-lg-start fixed-bottom">
     <div class="container-fluid">
@@ -118,8 +93,8 @@
     </div>
   </footer>
 
-  <script type="module" src="canvasFPV.js"></script>
   <script>document.getElementById("current-year").innerHTML = new Date().getFullYear();</script>
+
 </body>
 
 </html>
