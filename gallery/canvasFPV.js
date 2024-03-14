@@ -82,7 +82,7 @@ function updateSkyColor() {
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
     // console.log(time, hours, minutes, seconds);
-    document.getElementById("dateText").innerText = time;
+    // document.getElementById("dateText").innerText = time;
     let topColorCurr, bottomColorCurr, topColorPrev, bottomColorPrev;
 
     x = Math.floor(hours) + minutes / 60;
