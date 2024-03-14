@@ -14,9 +14,6 @@ canvas {
   z-index: -1;
 }
 
-p {
-  font-size: 16px;
-}
 a,
 a:link,
 a:hover,
@@ -116,8 +113,3 @@ input[type="range"]::-webkit-slider-thumb:hover {
   opacity: 1;
 } */
 
-.custom-img-thumbnail-size {
-  width: 200px;
-  height: 150px;
-  object-fit: cover;
-}
