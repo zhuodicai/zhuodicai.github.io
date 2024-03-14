@@ -454,7 +454,7 @@ function generateRandomMe() {
         console.log(randomMe + ": idle");
     } else {
         // randomMe = 1; // 20%的概率为1
-        randomMe = 0; // 暂时改成0了，不然手机端超级卡
+        randomMe = 1; // 暂时改成0了，不然手机端超级卡
         console.log(randomMe + ": wave");
     }
 }
@@ -501,45 +501,45 @@ loaderMe.load(
 );
 
 // 暂时不load了，不然手机端超级卡
-// loaderMeWave.load(
-//     me[1],
-//     function (gltf) {
-//         modelMeWave = gltf.scene.children[0];
-//         scene.add(modelMeWave);
+loaderMeWave.load(
+    me[1],
+    function (gltf) {
+        modelMeWave = gltf.scene.children[0];
+        scene.add(modelMeWave);
 
-//         const animations = gltf.animations;
-//         console.log(gltf.animations);
-//         const mixer = new THREE.AnimationMixer(modelMeWave);
+        const animations = gltf.animations;
+        console.log(gltf.animations);
+        const mixer = new THREE.AnimationMixer(modelMeWave);
 
-//         animations.forEach(function (animation) {
-//             const action = mixer.clipAction(animation);
-//             action.play();
-//         });
+        animations.forEach(function (animation) {
+            const action = mixer.clipAction(animation);
+            action.play();
+        });
 
-//         const clock = new THREE.Clock();
+        const clock = new THREE.Clock();
 
-//         function update() {
-//             // Update the animation mixer
-//             const delta = clock.getDelta();
-//             mixer.update(delta);
-//             modelMeWave.visible = randomMe === 1;
-//         }
+        function update() {
+            // Update the animation mixer
+            const delta = clock.getDelta();
+            mixer.update(delta);
+            modelMeWave.visible = randomMe === 1;
+        }
 
-//         function animate() {
-//             requestAnimationFrame(animate);
-//             update();
-//             renderer.render(scene, camera);
-//         }
+        function animate() {
+            requestAnimationFrame(animate);
+            update();
+            renderer.render(scene, camera);
+        }
 
-//         animate();
-//     },
-//     function (xhr) {
-//         console.log((xhr.loaded / xhr.total) * 100 + '% loaded' + ': this is me waving hand');
-//     },
-//     function (error) {
-//         console.log('An error happened');
-//     }
-// );
+        animate();
+    },
+    function (xhr) {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded' + ': this is me waving hand');
+    },
+    function (error) {
+        console.log('An error happened');
+    }
+);
 
 
 //// Add Prism/Mirror ////
