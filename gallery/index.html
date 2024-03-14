@@ -31,6 +31,45 @@
   <meta name="author" content="Zhuodi Cai">
   <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  /* 加载动画的样式 */
+  #loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* 半透明白色背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* 确保加载动画位于其他内容之上 */
+  }
+
+  /* 加载动画的样式 */
+  #loading-spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+
+  /* 加载动画的旋转动画 */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
 </head>
 
 <body>
@@ -64,6 +103,11 @@
       </div>
     </div>
   </nav>
+
+  <!-- 加载动画元素 -->
+  <div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
 
   <div class="row d-flex align-items-center" style="height: 100%; width:100%; margin-top: 42vh;">
     <!-- <div class="col-8 text-start">
@@ -123,6 +167,14 @@
 
   <script type="module" src="canvasFPV.js"></script>
   <script>document.getElementById("current-year").innerHTML = new Date().getFullYear();</script>
+<script>
+  // 当页面加载完成后隐藏加载动画
+  window.onload = function () {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    loadingOverlay.style.display = 'none';
+  };
+</script>
+
 </body>
 
 </html>
