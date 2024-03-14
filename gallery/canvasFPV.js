@@ -338,8 +338,8 @@ loaderMagpie.load(
     // called when the resource is loaded
     function (gltf) {
         magpie = gltf.scene;
-        magpie.position.set(-0.7, 1.6, -0.9); // 设置模型的位置
-        magpie.scale.set(2, 2, 2); // 设置模型的缩放
+        magpie.position.set(-0.7, 1.58, -0.9); // 设置模型的位置
+        magpie.scale.set(1.5, 1.5, 1.5); // 设置模型的缩放
         magpie.rotation.set(0, -Math.PI / 2, 0); // 设置模型的缩放
         scene.add(magpie);
         startJumping();
@@ -355,7 +355,7 @@ function startJumping() {
     const jumpInterval = setInterval(() => {
 
         if (!down && i < 0.02) {
-            magpie.position.y = 1.6 + i;
+            magpie.position.y = 1.58 + i;
             magpie.rotation.y += magpieRotateRandom;
             i += 0.0008;
         } else {
@@ -368,7 +368,7 @@ function startJumping() {
     }, 10); // 每10毫秒逐步增加
 
     function decreasePosition() {
-        if (magpie.position.y > 1.6) {
+        if (magpie.position.y > 1.58) {
             magpie.position.y -= 0.003;
             requestAnimationFrame(decreasePosition);
         } else {
@@ -454,7 +454,7 @@ function generateRandomMe() {
         console.log(randomMe + ": idle");
     } else {
         // randomMe = 1; // 20%的概率为1
-        randomMe = 1; // 暂时改成0了，不然手机端超级卡
+        randomMe = 0; // 暂时改成0了，不然手机端超级卡
         console.log(randomMe + ": wave");
     }
 }
@@ -684,15 +684,15 @@ for (let i = 0; i < cloudCount; i++) {
 //// Add Text ////
 let allContent, randomContent;
 function generateRandomContent() {
-    allContent = ["Welcome to my rabbit hole!", "Move around and jump with w,a,s,d / ⬅⬆⬇➡ / spacebar!", "Together we'll journey!", "Why can't I stop asking why?", "Technology, a servant and master, entwined.", "Possibilities enchant me like a symphony.", "I enable the sky to change according to the current time!", "The music during the day and night is not the same ;p"];
+    allContent = ["Welcome to my rabbit hole!", "Move around and jump with w,a,s,d / ⬅️ ➡️  / spacebar!", "Together we'll journey!", "Why can't I stop asking why?", "Technology, a servant and master, entwined.", "Possibilities enchant me like a symphony.", "The sky color changes according to the current time!", "The music during the day and night is not the same ;p"];
     randomContent = allContent[Math.floor(Math.random() * allContent.length)];
     console.log("now the random content is :", randomContent);
 }
 generateRandomContent();
 setInterval(generateRandomContent, 4000); // 每4秒生成一次随机数
 // Create sprite text
-let scale = 10; //larger scale, smaller text 
-const textSpriteTriangle = createTextSprite("▼", "rgba(255,255,255,1)", "rgba(255,255,255,0)", 50);
+let scale = 12; //larger scale, smaller text 
+const textSpriteTriangle = createTextSprite("▼", "rgba(255,255,255,0.5)", "rgba(255,255,255,0)", 50);
 textSpriteTriangle.position.set(0, 2, 0);
 scene.add(textSpriteTriangle);
 const textSprite = createTextSprite(randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
@@ -857,7 +857,7 @@ function update() {
     ixMovementUpdate();
     // if (x < 24) x = x + 0.01;
     // else x = 0;
-    updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,1)", 50);
+    updateTextSprite(textSprite, randomContent, "rgba(0,0,0,1)", "rgba(255,255,255,0.5)", 50);
     // progressBarUpdate();
     // mirror1.material.color.setHex(skyColorForMirror);
     updateClouds();
