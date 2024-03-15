@@ -38,40 +38,57 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(247, 247, 243, 0.8); /* 半透明白色背景 */
+      background-color: rgba(247, 247, 243, 1);/* 半透明白色背景 */
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999; /* 确保加载动画位于其他内容之上 */
+      z-index: 9999;/* 确保加载动画位于其他内容之上 */
+      transition: opacity 0.5s ease-out;
+      opacity: 1; /* 初始透明度 */
     }
+
     /* 加载动画的样式 */
     #loading-container {
-      position: relative; /* 相对定位 */
+      position: relative;
+      /* 相对定位 */
       width: 50px;
       height: 50px;
       animation: spin 1.5s linear infinite;
     }
+
     #loading-face {
-      position: absolute; /* 绝对定位 */
-      top: 50%; /* 文字垂直居中 */
-      left: 50%; /* 文字水平居中 */
-      transform: translate(-50%, -50%); /* 居中 */
-      font-size: 48px; /* 设置文字大小 */
+      position: absolute;
+      /* 绝对定位 */
+      top: 50%;
+      /* 文字垂直居中 */
+      left: 50%;
+      /* 文字水平居中 */
+      transform: translate(-50%, -50%);
+      /* 居中 */
+      font-size: 48px;
+      /* 设置文字大小 */
     }
-    
+
     /* 加载动画的旋转动画 */
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     /* 添加 emoji */
     .emoji {
-      display: inline-block; /* 行内块元素 */
-      width: 1em; /* 定义 emoji 大小 */
-      height: 1em; /* 定义 emoji 大小 */
+      display: inline-block;
+      /* 行内块元素 */
+      width: 1em;
+      /* 定义 emoji 大小 */
+      height: 1em;
+      /* 定义 emoji 大小 */
     }
-</style>
+  </style>
 </head>
 
 <body style="background-color:rgba(247, 247, 243, 0) !important;">
@@ -79,7 +96,7 @@
   <div id="loading-overlay">
     <div id="loading-container">
       <!-- ㋡ ㋛ ☺ ☹ ☻ 〠 シ ッ ツ ヅ -->
-      <div id="loading-face">㋡</div> 
+      <div id="loading-face">㋡</div>
     </div>
   </div>
 
@@ -87,8 +104,8 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="../index.html">ZHUODI CAI</a>
       <div class="custom-navbar">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
@@ -106,9 +123,9 @@
           <li class="nav-item">
             <a class="nav-link" href="../gallery/index.html" style="text-decoration: underline;">3D Gallery</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="../cv/index.html">Curriculum Vitae</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -160,10 +177,18 @@
 
   <script>
     // 页面加载完成后隐藏加载动画
-      window.onload = function () {
-        var loadingOverlay = document.getElementById('loading-overlay');
+    window.onload = function () {
+      var loadingOverlay = document.getElementById('loading-overlay');
+      // loadingOverlay.style.display = 'none';
+      // 首先改变透明度，开始过渡效果
+      loadingOverlay.style.opacity = '0';
+
+      // 监听过渡结束事件
+      loadingOverlay.addEventListener('transitionend', function () {
+        // 过渡结束后，将 display 设置为 'none'
         loadingOverlay.style.display = 'none';
-      };
+      });
+    };
   </script>
 
 </body>

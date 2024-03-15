@@ -18,6 +18,7 @@ canvas {
 p {
   font-size: 16px;
 }
+
 a,
 a:link,
 a:hover,
@@ -41,13 +42,16 @@ a:active {
 
 
 .custom-navbar .navbar-toggler {
-  border: none; /* 移除边框样式 */
-  outline: none; /* 移除点击时的轮廓样式 */
+  border: none;
+  /* 移除边框样式 */
+  outline: none;
+  /* 移除点击时的轮廓样式 */
   /* 添加其他自定义样式 */
 }
 
 .custom-navbar .navbar-toggler:focus {
-  box-shadow: none; /* 移除点击时的边框样式 */
+  box-shadow: none;
+  /* 移除点击时的边框样式 */
   /* 添加其他自定义样式 */
 }
 
@@ -84,8 +88,8 @@ a:active {
   transition: .5s ease;
   transform: translate(-50%, -50%);
   text-align: center;
-  width: 100%; 
-  max-height: 100%; 
+  width: 100%;
+  max-height: 100%;
   object-fit: cover;
 }
 
@@ -121,4 +125,13 @@ input[type="range"]::-webkit-slider-thumb:hover {
   width: 200px;
   height: 150px;
   object-fit: cover;
+}
+
+.content-fade-in {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.content-fade-in-active {
+  opacity: 1;
 }
