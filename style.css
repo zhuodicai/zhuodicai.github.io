@@ -2,7 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #F7F7F3 !important;
+  background-color: #f7f7f300 !important;
 }
 
 canvas {
@@ -13,6 +13,7 @@ canvas {
   top: 0;
   left: 0;
   z-index: -1;
+  background-color: #f7f7f3;
 }
 
 p {
