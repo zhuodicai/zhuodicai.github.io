@@ -20,7 +20,40 @@
   <meta name="author" content="Zhuodi Cai">
   <link rel="icon" type="image/png" href="/images/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* Style the button that is used to open and close the collapsible content */
+    .collapsible {
+      background-color: #DFDFDC;
+      color: #222529;
+      cursor: pointer;
+      padding: 5px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      border-radius: 10px;
+      /* font-size: 20px; */
+    }
 
+    /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+    .active {
+      border-radius: 10px 10px 10px 10px;
+    }
+
+    .collapsible:hover {
+      background-color: #dfdfdcca;
+    }
+
+    /* Style the collapsible content. Note: hidden by default */
+    .content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out;
+      background-color: #CFCFCC;
+      padding: 0 20px;
+      border-radius: 10px 10px 10px 10px;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,8 +61,8 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">ZHUODI CAI</a>
       <div class="custom-navbar">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
@@ -58,18 +91,69 @@
 
   <div class="container text-align-top text-start" style="margin-top: 10vh;">
     <p>
-      My name is Zhuodi (Zoe) Cai. I grew up in Beijing, China and obtained a master's degree in New York, USA.
-      Here, in my cyber cabin, most of my work revolves around Human-Computer Interaction (HCI). If you have the time,
-      feel free to explore my 3D Gallery!
+      Zhuodi (Zoe) Cai is keen on finding connections between things through practice, as well as
+      observing, solving puzzles, and exploring new territories.
 
-      <!-- Why HCI? From the age of three, my daily life has been filled with observation, reflection, exploration, and expression.
-      Through information transmission, encoding, and decoding, I gradually fell in love with interaction, be it with
-      people, nature, machines, or anything else. And I am fond of puzzle games. -->
+      Her aim is always to discover new possibilities and engineer the future.
 
-
+      As Zoe wants a more holistic view of her goal, she practiced from different entry points, so
+      her experience may seem varied but connected.
     </p>
-    <div class="row">
+    <br>
+    <p>
+      Currently working as a Research Scientist / Engineer at the University of Washington in Seattle.
+    </p>
+    <br>
 
+    <button type="button" class="collapsible">+ &nbspSome experiences, click to unfold if you're interested.</button>
+    <div class="content">
+      <br>
+      <h5> Education </h5>
+      <p style="text-align:left; margin:0">
+        <b> New York University </b>
+        <span style="float:right;">2021 - 2023</span>
+      </p>
+      <p><i><small> M.P.S. in Interactive Telecommunications Program, Tisch School of the Arts </small></i></p>
+
+      <p style="text-align:left; margin:0">
+        <b>China Agricultural University</b>
+        <span style="float:right;">2016 - 2020</span>
+      </p>
+      <p><i><small> B.E. in Industrial Design, College of Engineering </small></i></p>
+      <br>
+
+
+      <h5> Work </h5>
+      <p style="text-align:left; margin:0">
+        <b>Research Scientist / Engineer I</b>
+        <span style="float:right;">2023 - present</span>
+      </p>
+      <p><i><small> University of Washington </small></i></p>
+
+      <p style="text-align:left; margin:0">
+        <b>Research Assistant</b>
+        <span style="float:right;">2022 - 2023</span>
+      </p>
+      <p><i><small> New York University </small></i></p>
+
+      <p style="text-align:left; margin:0">
+        <b>Associate Engineer</b>
+        <span style="float:right;">2020 - 2021</span>
+      </p>
+      <p><i><small> Air China Ltd </small></i></p>
+
+      <p style="text-align:left; margin:0">
+        <b>Product Design Intern</b>
+        <span style="float:right;">2019</span>
+      </p>
+      <p><i><small> Beijing Spruce World Information Technology Co Ltd </small></i></p>
+
+      <p style="text-align:left; margin:0">
+        <b>Content Creator</b>
+        <span style="float:right;">2015 - 2017</span>
+      </p>
+      <p><i><small> Picsart, Personal Freelance Account 640K+ Followers</small></i></p>
+      <br>
     </div>
 
   </div>
@@ -100,6 +184,23 @@
   </footer>
 
   <script>document.getElementById("current-year").innerHTML = new Date().getFullYear();</script>
+
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+  </script>
 
 </body>
 
