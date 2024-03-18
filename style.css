@@ -1,4 +1,7 @@
-html,
+html{
+  background-color: #f7f7f3;
+}
+
 body {
   margin: 0;
   padding: 0;
