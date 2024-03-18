@@ -38,7 +38,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(247, 247, 243, 1);/* 半透明白色背景 */
+      background-color: rgba(247, 247, 243, 1);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -176,16 +176,16 @@
   <script>document.getElementById("current-year").innerHTML = new Date().getFullYear();</script>
 
   <script>
-    // 页面加载完成后隐藏加载动画
+    // loading page
     window.onload = function () {
       var loadingOverlay = document.getElementById('loading-overlay');
       // loadingOverlay.style.display = 'none';
-      // 首先改变透明度，开始过渡效果
+      // change page's opacity
       loadingOverlay.style.opacity = '0';
 
-      // 监听过渡结束事件
+      // listen when finishing the transition
       loadingOverlay.addEventListener('transitionend', function () {
-        // 过渡结束后，将 display 设置为 'none'
+        // display none after the transition ends
         loadingOverlay.style.display = 'none';
       });
     };
