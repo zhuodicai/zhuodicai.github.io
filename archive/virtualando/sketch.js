@@ -19,8 +19,8 @@ function vidLoad() {
 function preload() {
   img1 = loadImage("car.png");
   img2 = loadImage("car.png");
-  road = loadImage("road.png");
-  // road = createImg("road.gif");
+  // road = loadImage("road.png");
+  road = loadImage("road.gif");
 
   hornSound = loadSound("carhorn.mp3");
   song = loadSound("O.D.G..mp3");
@@ -30,7 +30,8 @@ function preload() {
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
+  road.resize(2400, 1350);
+  
   song.play();
   song.loop();
   pass.play();
@@ -50,8 +51,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
-  road.resize(2400, 1350);
+  background(255); 
   image(road, 0, 0);
 
   fill("pink");
@@ -173,4 +173,8 @@ function mouseReleased() {
     hornS: hornState,
   };
   p5lm.send(JSON.stringify(dataToSend));
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
