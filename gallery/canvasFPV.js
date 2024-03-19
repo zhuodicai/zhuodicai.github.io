@@ -850,6 +850,20 @@ function updateClouds() {
 //     console.log("magpie.position", magpie.position.y);
 // }
 
+function stopOverlay() {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    // loadingOverlay.style.display = 'none';
+    // change page's opacity
+    loadingOverlay.style.opacity = '0';
+
+    // listen when finishing the transition
+    loadingOverlay.addEventListener('transitionend', function () {
+        // display none after the transition ends
+        loadingOverlay.style.display = 'none';
+    });
+}
+stopOverlay();
+
 function update() {
     updateSkyColor();
     updatePetal();
