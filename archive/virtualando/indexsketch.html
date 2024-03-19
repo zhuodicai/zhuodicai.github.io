@@ -152,6 +152,21 @@
     </footer>
       
     <script src="sketch.js"></script>
-      
+
+    <script>
+      function stopOverlay() {
+        var loadingOverlay = document.getElementById('loading-overlay');
+        // loadingOverlay.style.display = 'none';
+        // change page's opacity
+        loadingOverlay.style.opacity = '0';
+
+        // listen when finishing the transition
+        loadingOverlay.addEventListener('transitionend', function () {
+          // display none after the transition ends
+          loadingOverlay.style.display = 'none';
+        });
+      }
+      stopOverlay();
+    </script>
   </body>
 </html>

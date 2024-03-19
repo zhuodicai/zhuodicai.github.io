@@ -29,24 +29,9 @@ function preload() {
   font = loadFont("myFont.ttf");
 }
 
-function stopOverlay() {
-  var loadingOverlay = document.getElementById('loading-overlay');
-  // loadingOverlay.style.display = 'none';
-  // change page's opacity
-  loadingOverlay.style.opacity = '0';
-
-  // listen when finishing the transition
-  loadingOverlay.addEventListener('transitionend', function () {
-    // display none after the transition ends
-    loadingOverlay.style.display = 'none';
-  });
-}
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   road.resize(2400, 1350);
-
-  stopOverlay();
 
   song.play();
   song.loop();
