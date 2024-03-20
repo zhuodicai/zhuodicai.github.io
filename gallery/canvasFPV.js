@@ -491,6 +491,8 @@ loaderMe.load(
         }
 
         animate();
+
+        onCanvasLoadComplete(); // remove loading overlay!
     },
     function (xhr) {
         console.log((xhr.loaded / xhr.total) * 100 + '% loaded' + ': this is me');
@@ -501,46 +503,45 @@ loaderMe.load(
 );
 
 // 暂时不load了，不然手机端超级卡
-loaderMeWave.load(
-    me[1],
-    function (gltf) {
-        modelMeWave = gltf.scene.children[0];
-        scene.add(modelMeWave);
+// loaderMeWave.load(
+//     me[1],
+//     function (gltf) {
+//         modelMeWave = gltf.scene.children[0];
+//         scene.add(modelMeWave);
 
-        const animations = gltf.animations;
-        console.log(gltf.animations);
-        const mixer = new THREE.AnimationMixer(modelMeWave);
+//         const animations = gltf.animations;
+//         console.log(gltf.animations);
+//         const mixer = new THREE.AnimationMixer(modelMeWave);
 
-        animations.forEach(function (animation) {
-            const action = mixer.clipAction(animation);
-            action.play();
-        });
+//         animations.forEach(function (animation) {
+//             const action = mixer.clipAction(animation);
+//             action.play();
+//         });
 
-        const clock = new THREE.Clock();
+//         const clock = new THREE.Clock();
 
-        function update() {
-            // Update the animation mixer
-            const delta = clock.getDelta();
-            mixer.update(delta);
-            modelMeWave.visible = randomMe === 1;
-        }
+//         function update() {
+//             // Update the animation mixer
+//             const delta = clock.getDelta();
+//             mixer.update(delta);
+//             modelMeWave.visible = randomMe === 1;
+//         }
 
-        function animate() {
-            requestAnimationFrame(animate);
-            update();
-            renderer.render(scene, camera);
-        }
+//         function animate() {
+//             requestAnimationFrame(animate);
+//             update();
+//             renderer.render(scene, camera);
+//         }
 
-        animate();
-    },
-    function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded' + ': this is me waving hand');
-    },
-    function (error) {
-        console.log('An error happened');
-    }
-);
-
+//         animate();
+//     },
+//     function (xhr) {
+//         console.log((xhr.loaded / xhr.total) * 100 + '% loaded' + ': this is me waving hand');
+//     },
+//     function (error) {
+//         console.log('An error happened');
+//     }
+// );
 
 //// Add Prism/Mirror ////
 // let geometry1, geometry2, geometry3, geometry4, geometry5, geometry6;
@@ -681,20 +682,11 @@ for (let i = 0; i < cloudCount; i++) {
 // console.log("clouds",clouds.forEach(element => console.log(element.position)));
 
 
-//// Remove Overlay ////
-function stopOverlay() {
-    var loadingOverlay = document.getElementById('loading-overlay');
-    // loadingOverlay.style.display = 'none';
-    // change page's opacity
-    loadingOverlay.style.opacity = '0';
-
-    // listen when finishing the transition
-    loadingOverlay.addEventListener('transitionend', function () {
-        // display none after the transition ends
-        loadingOverlay.style.display = 'none';
-    });
+// remove loading overlay!
+function onCanvasLoadComplete() {
+    var event = new Event('canvasLoaded');
+    document.dispatchEvent(event);
 }
-stopOverlay();
 
 
 //// Add Text ////

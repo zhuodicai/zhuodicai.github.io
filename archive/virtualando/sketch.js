@@ -29,7 +29,15 @@ function preload() {
   font = loadFont("myFont.ttf");
 }
 
+// remove loading overlay!
+function onCanvasLoadComplete() {
+  var event = new Event('canvasLoaded');
+  document.dispatchEvent(event);
+}
+
 function setup() {
+  onCanvasLoadComplete(); // remove loading overlay!
+
   createCanvas(windowWidth, windowHeight);
   road.resize(2400, 1350);
 
@@ -52,7 +60,7 @@ function setup() {
 }
 
 function draw() {
-  background(255); 
+  background(255);
   image(road, 0, 0);
 
   fill("pink");
