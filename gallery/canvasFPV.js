@@ -681,6 +681,22 @@ for (let i = 0; i < cloudCount; i++) {
 // console.log("clouds",clouds.forEach(element => console.log(element.position)));
 
 
+//// Remove Overlay ////
+function stopOverlay() {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    // loadingOverlay.style.display = 'none';
+    // change page's opacity
+    loadingOverlay.style.opacity = '0';
+
+    // listen when finishing the transition
+    loadingOverlay.addEventListener('transitionend', function () {
+        // display none after the transition ends
+        loadingOverlay.style.display = 'none';
+    });
+}
+stopOverlay();
+
+
 //// Add Text ////
 let allContent, randomContent;
 function generateRandomContent() {
