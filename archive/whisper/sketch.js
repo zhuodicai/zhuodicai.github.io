@@ -184,7 +184,7 @@ function createButtons() {
   buttonQuestion.position(380, windowHeight / 3 + 240);
   buttonQuestion.addClass("popup");
   buttonQuestion.html(
-    '? <span class="popuptext" id="popup_prompt">&nbsp The ciphers are ' +
+    '? <span class="popuptext" id="popup_prompt">&nbsp The keys are ' +
       pswdLength +
       " different characters: <br>&nbsp number, uppercase character, lowercase character<br><br>&nbsp —— built by Zhuodi(Zoe) Cai & Lin Han, 12/12/2021</span>"
   );
