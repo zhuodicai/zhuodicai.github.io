@@ -17,8 +17,10 @@ function vidLoad() {
 }
 
 function preload() {
-  img1 = loadImage("car.png");
-  img2 = loadImage("car.png");
+  // img1 = loadImage("car.png");
+  // img2 = loadImage("car.png");
+  img1 = loadImage("car.gif");
+  img2 = loadImage("car.gif");
   // road = loadImage("road.png");
   road = loadImage("road.gif");
 
