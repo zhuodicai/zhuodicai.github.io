@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+  <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async=""></script>
+  <link rel="stylesheet" type="text/css" href="../../style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="#" />
+  <title>Zhuodi Cai</title>
+  <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="description" content="This is Zhuodi (Zoe) Cai. Welcome to my cyber cabin!">
+  <meta name="author" content="Zhuodi Cai">
+  <meta property="og:title" content="Zhuodi Cai">
+  <meta property="og:description" content="This is Zhuodi (Zoe) Cai. Welcome to my cyber cabin!">
+  <meta property="og:image"
+    content="https://github.com/zhuodicai/zhuodicai.github.io/blob/6a90ad4fbce563889faac3f2b38c9f292c508b63/images/favicon.png">
+  <meta property="og:url" content="https://zhuodicai.github.io/index.html">
+  <meta name="google-site-verification" content="-DJgxNC8digfD6D_1l7Via3aPbSGBaQsJ_u1-Y0uHKM" />
+
+  <style>
+    .speechcontent table,
+    .speechcontent th,
+    .speechcontent td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../../index.html">ZHUODI CAI</a>
+      <div class="custom-navbar">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse text-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="../../index.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="../index.html" style="text-decoration: underline;">Archive<span
+                class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../journal/index.html">Journal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../gallery/index.html">3D Gallery</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container text-align-top text-start" style="margin-top: 10vh;">
+
+    <h3 class="text-center">Text2Video Tools Comparison, Ongoing</h3>
+    <br>
+    <table class="table table-borderless text-start">
+      <thead>
+        <tr style="vertical-align: top;">
+          <th style="padding: 0;" scope="col">Category&nbsp&nbsp&nbsp&nbsp</th>
+          <th style="padding: 0;" scope="col">Duration&nbsp&nbsp&nbsp&nbsp</th>
+          <th style="padding: 0;" scope="col">Tool / Material&nbsp&nbsp&nbsp&nbsp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="vertical-align: top;">
+          <td style="padding: 0;">ML/AI; experiment</td>
+          <td style="padding: 0;">April 2024 - Present @ University of Washington</td>
+          <td style="padding: 0;">N/A</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <p>
+      We will compare different Text2Video tools and models with a slightly different set of prompts.
+      <br><br>
+      In addition to the test with <i>Text2Video-Zero</i>, one of the
+      DXARTS pretrained models collaborated with Juan Pampin will be used. The prompts for this experiment are not the same as the
+      others since we have customized the prompt in our model. Please check the section <i>Text2Video-Zero & DreamBooth</i>.
+    </p>
+    <br><br>
+    <p><b>Overview</b></p>
+    <table class="speechcontent"
+      style="white-space: normal; word-break: break-word;width:100%; box-shadow: 0 0 10px 5px #22252910; margin-bottom:30px;">
+      <tbody>
+        <tr style="color:#f7f7f3; background-color: black;vertical-align: top;">
+          <th style="width:20%">Name</th>
+          <th style="width:50%">Version / Pipeline</th>
+          <th style="width:15%">Year</th>
+          <th style="width:15%">Open</th>
+        </tr>
+        <tr>
+          <td>Runway</td>
+          <td>Gen-2</td>
+          <td>Feb 2023</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>Pika</td>
+          <td>1.0</td>
+          <td>Dec 2023</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>Haiper</td>
+          <td>N/A</td>
+          <td>Mar 2024</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>AnimateDiff</td>
+          <td>MotionAdapter; AnimateDiffPipeline</td>
+          <td>Jul 2023</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>ModelScope</td>
+          <td>DiffusionPipeline</td>
+          <td>Aug 2023</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Text2Video-Zero</td>
+          <td>TextToVideoZeroPipeline</td>
+          <td>Mar 2023</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Text2Video-Zero & DreamBooth</td>
+          <td>TextToVideoZeroPipeline & StableDiffusionPipeline</td>
+          <td>Mar 2023 & Aug 2022</td>
+          <td>✅<br>✅</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br><br>
+    <hr>
+    <!------------------------------------ RUNWAY ------------------------------------>
+    <h4>Runway Gen-2</h4>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-12">
+        <p><small><b>Prompt 1</b></small></p>
+        <p><small>A Zen citrus tree surrounded by mechanical butterflies in a futuristic botanical garden, a citrus is
+            in the middle giving a speech, (impressionist paintings), (((highly dynamic))), big movements, (watercolour
+            style), blending of colours, soft gradient, Chinese painter Wu Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">motion 10</span>
+            <span class="textbg">seed 3764983004</span>
+            <span class="textbg">upscale no</span>
+            <span class="textbg">interpolate yes</span></small></p>
+      </div>
+      <div class="col-lg-5 col-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/runway1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 2</b></small></p>
+        <p><small>Mechanical butterflies in a futuristic botanical garden, (impressionist paintings), (((highly
+            dynamic))), big movements, (watercolour style), blending of colours, soft gradient, Chinese painter Wu
+            Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">motion 10</span>
+            <span class="textbg">seed 1304017825</span>
+            <span class="textbg">upscale no</span>
+            <span class="textbg">interpolate yes</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/runway2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 3</b></small></p>
+        <p><small>Mechanical butterflies</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">motion 10</span>
+            <span class="textbg">seed 592815518</span>
+            <span class="textbg">upscale no</span>
+            <span class="textbg">interpolate yes</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/runway3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <br>
+    <hr>
+    <!------------------------------------ PIKA ------------------------------------>
+    <h4>Pika 1.0</h4>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-12">
+        <p><small><b>Prompt 1</b></small></p>
+        <p><small>A Zen citrus tree surrounded by mechanical butterflies in a futuristic botanical garden, a citrus is
+            in the middle giving a speech, (impressionist paintings), (((highly dynamic))), big movements, (watercolour
+            style), blending of colours, soft gradient, Chinese painter Wu Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">strength of motion 1</span>
+            <span class="textbg">seed 8542545107064007</span>
+            <span class="textbg">consistency with the text 15</span></small></p>
+      </div>
+      <div class="col-lg-5 col-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/pika1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 2</b></small></p>
+        <p><small>Mechanical butterflies in a futuristic botanical garden, (impressionist paintings), (((highly
+            dynamic))), big movements, (watercolour style), blending of colours, soft gradient, Chinese painter Wu
+            Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">strength of motion 1</span>
+            <span class="textbg">seed 3467453598348163</span>
+            <span class="textbg">consistency with the text 15</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/pika2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 3</b></small></p>
+        <p><small>Mechanical butterflies</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">strength of motion 1</span>
+            <span class="textbg">seed 3467453598348163</span>
+            <span class="textbg">consistency with the text 12</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/pika3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <br>
+    <hr>
+    <!------------------------------------ HAIPER ------------------------------------>
+    <h4>Haiper</h4>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-12">
+        <p><small><b>Prompt 1</b></small></p>
+        <p><small>A Zen citrus tree surrounded by mechanical butterflies in a futuristic botanical garden, a citrus is
+            in the middle giving a speech, (impressionist paintings), (((highly dynamic))), big movements, (watercolour
+            style), blending of colours, soft gradient, Chinese painter Wu Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 2226327552</span></small></p>
+      </div>
+      <div class="col-lg-5 col-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/haiper1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 2</b></small></p>
+        <p><small>Mechanical butterflies in a futuristic botanical garden, (impressionist paintings), (((highly
+            dynamic))), big movements, (watercolour style), blending of colours, soft gradient, Chinese painter Wu
+            Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 2164124837</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/haiper2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 3</b></small></p>
+        <p><small>Mechanical butterflies</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 1965428839</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/haiper3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <br>
+    <hr>
+    <!------------------------------------ ANIMATEDIFF ------------------------------------>
+    <h4>AnimateDiff</h4>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-12">
+        <p><small><b>Prompt 1</b></small></p>
+        <p><small>A Zen citrus tree surrounded by mechanical butterflies in a futuristic botanical garden, a citrus is
+            in the middle giving a speech, (impressionist paintings), (((highly dynamic))), big movements, (watercolour
+            style), blending of colours, soft gradient, Chinese painter Wu Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>text, watermark, copyright, blurry, low resolution, blur, low quality</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">num_inference_steps 200</span>
+            <span class="textbg">num_frames 24</span></small></p>
+      </div>
+      <div class="col-lg-5 col-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/animatediff1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 2</b></small></p>
+        <p><small>Mechanical butterflies in a futuristic botanical garden, (impressionist paintings), (((highly
+            dynamic))), big movements, (watercolour style), blending of colours, soft gradient, Chinese painter Wu
+            Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>text, watermark, copyright, blurry, low resolution, blur, low quality</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">num_inference_steps 200</span>
+            <span class="textbg">num_frames 24</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/animatediff2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 3</b></small></p>
+        <p><small>Mechanical butterflies</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>text, watermark, copyright, blurry, low resolution, blur, low quality</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">num_inference_steps 200</span>
+            <span class="textbg">num_frames 24</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/animatediff3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <br>
+    <hr>
+    <!------------------------------------ MODELSCOPE ------------------------------------>
+    <h4>ModelScope</h4>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-12">
+        <p><small><b>Prompt 1</b></small></p>
+        <p><small>A Zen citrus tree surrounded by mechanical butterflies in a futuristic botanical garden, a citrus is
+            in the middle giving a speech, (impressionist paintings), (((highly dynamic))), big movements, (watercolour
+            style), blending of colours, soft gradient, Chinese painter Wu Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>text, watermark, copyright, blurry, low resolution, blur, low quality</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">num_inference_steps 200</span>
+            <span class="textbg">num_frames 24</span></small></p>
+      </div>
+      <div class="col-lg-5 col-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/modelscope1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 2</b></small></p>
+        <p><small>Mechanical butterflies in a futuristic botanical garden, (impressionist paintings), (((highly
+            dynamic))), big movements, (watercolour style), blending of colours, soft gradient, Chinese painter Wu
+            Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>text, watermark, copyright, blurry, low resolution, blur, low quality</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">num_inference_steps 200</span>
+            <span class="textbg">num_frames 24</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/modelscope2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 3</b></small></p>
+        <p><small>Mechanical butterflies</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>text, watermark, copyright, blurry, low resolution, blur, low quality</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">num_inference_steps 200</span>
+            <span class="textbg">num_frames 24</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/modelscope3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <br>
+    <hr>
+
+    <!------------------------------------ TEXT2VIDEO-ZERO ------------------------------------>
+    <h4>Text2Video-Zero</h4>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-12">
+        <p><small><b>Prompt 1</b></small></p>
+        <p><small>A Zen citrus tree surrounded by mechanical butterflies in a futuristic botanical garden, a citrus is
+            in the middle giving a speech, (impressionist paintings), (((highly dynamic))), big movements, (watercolour
+            style), blending of colours, soft gradient, Chinese painter Wu Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>deformed, disfigured, poor details, bad anatomy</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 2390</span>
+            <span class="textbg">num_inference_steps 100</span></small></p>
+      </div>
+      <div class="col-lg-5 col-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/text2videozero_xl1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 2</b></small></p>
+        <p><small>Mechanical butterflies in a futuristic botanical garden, (impressionist paintings), (((highly
+            dynamic))), big movements, (watercolour style), blending of colours, soft gradient, Chinese painter Wu
+            Guanzhong, Edward Hopper</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>deformed, disfigured, poor details, bad anatomy</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 2390</span>
+            <span class="textbg">num_inference_steps 100</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/text2videozero_xl2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 3</b></small></p>
+        <p><small>Mechanical butterflies</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>deformed, disfigured, poor details, bad anatomy</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 2390</span>
+            <span class="textbg">num_inference_steps 100</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/text2videozero_xl3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <br>
+    <hr>
+
+    <!------------------------------------ TEXT2VIDEO-ZERO&DREAMBOOTH ------------------------------------>
+    <h4>Text2Video-Zero & DreamBooth</h4>
+    <p> Collaborated with Juan Pampin</p>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-12">
+        <p><small><b>Prompt 1</b></small></p>
+        <p><small>(A Zen citrus tree surrounded by mechanical butterflies in a futuristic botanical garden, a citrus is
+            in the middle giving a speech, (impressionist paintings), (((highly dynamic))), big movements, (watercolour
+            style), blending of colours, soft gradient, Chinese painter Wu Guanzhong, Edward Hopper) printed [A]
+            banknote design</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>deformed, disfigured, poor details, bad anatomy</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 2390</span>
+            <span class="textbg">num_inference_steps 100</span></small></p>
+      </div>
+      <div class="col-lg-5 col-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/text2videozero_db1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 2</b></small></p>
+        <p><small>(Mechanical butterflies in a futuristi c botanical garden, (impressionist paintings), (((highly
+            dynamic))), big movements, (watercolour style), blending of colours, soft gradient, Chinese painter Wu
+            Guanzhong, Edward Hopper) printed [A] banknote design</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>deformed, disfigured, poor details, bad anatomy</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 2390</span>
+            <span class="textbg">num_inference_steps 100</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/text2videozero_db2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-7 col-sm-12">
+        <p><small><b>Prompt 3</b></small></p>
+        <p><small>(Mechanical butterflies) printed [A] banknote design</small></p>
+        <p><small><b>Negative Prompt</b></small></p>
+        <p><small>deformed, disfigured, poor details, bad anatomy</small></p>
+        <p><small><b>Settings</b></small></p>
+        <p><small>
+            <span class="textbg">seed 2390</span>
+            <span class="textbg">num_inference_steps 100</span></small></p>
+      </div>
+      <div class="col-lg-5 col-sm-12">
+        <video class="responsive-video" controls
+          style="width:100%; background-color: black; box-shadow: 0 0 10px 5px #22252910; display: block; margin-left: auto; margin-right: 0; ">
+          <source src="image/text2videozero_db3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <br><br><br><br>
+  </div>
+
+
+
+  <footer class="text-center text-lg-start fixed-bottom">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-5 text-start">
+          <i class="bi bi-github" style="color: black;"></i>&nbsp&nbsp <a href="https://github.com/zhuodicai"
+            target="_blank"></a>
+          <i class="bi bi-linkedin" style="color: black;"></i>&nbsp&nbsp <a href="https://www.linkedin.com/in/zoe-cai"
+            target="_blank"></a>
+          <i class="bi bi-instagram" style="color: black;"></i>&nbsp&nbsp <a href="https://www.instagram.com/20e.emmm/"
+            target="_blank"></a>
+          <i class="bi bi-envelope-fill" style="color: black;"></i>&nbsp&nbsp<a href="mailto: zc2525@nyu.edu"
+            target="_blank"></a>
+        </div>
+        <div class="col-7">
+          <div class="text-end" style="color: black;">
+            <p>© <span id="current-year"></span> Zhuodi Cai &nbsp</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById("current-year").innerHTML = new Date().getFullYear();</script>
+
+</body>
+
+</html>
