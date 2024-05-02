@@ -161,15 +161,15 @@ function createButtons() {
   // inp.html("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
   randPswd();
 
-  buttonEncode = createButton("e n c o d e");
+  buttonEncode = createButton("e n c r y p t");
   buttonEncode.addClass("button");
   buttonEncode.position(300, windowHeight / 3 + 80);
 
-  buttonDecode = createButton("d e c o d e");
+  buttonDecode = createButton("d e c r y p t");
   buttonDecode.addClass("button");
   buttonDecode.position(300, windowHeight / 3 + 120);
 
-  buttonRandom = createButton("r a n d o m");
+  buttonRandom = createButton("&nbspr a n d o m");
   buttonRandom.addClass("button");
   buttonRandom.position(300, windowHeight / 3 + 160);
 
