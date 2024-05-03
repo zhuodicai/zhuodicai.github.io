@@ -172,9 +172,14 @@ html {
   scroll-behavior: smooth;
 }
 
-img{
+/* img{
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+} */
+
+img {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
