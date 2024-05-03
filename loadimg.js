@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     images[i].onload = function () {
       appear(images[i], 0, 5, 40); 
     };
+    images[i].src = "";
     images[i].src = images[i].dataset.src; // 确保重新触发onload事件
   }
 });
