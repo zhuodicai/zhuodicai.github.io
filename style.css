@@ -171,3 +171,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
 html {
   scroll-behavior: smooth;
 }
+
+img{
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
