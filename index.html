@@ -61,6 +61,37 @@
       padding: 0 20px;
       border-radius: 10px 10px 10px 10px;
     }
+
+    .icon_rotate45 {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    @keyframes rotate45 {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(45deg);
+      }
+    }
+
+    @keyframes rotate45_back {
+      from {
+        transform: rotate(45deg);
+      }
+      to {
+        transform: rotate(0deg);
+      }
+    }
+
+    .rotate45 {
+      animation: rotate45 0.3s forwards;  /* forwards is to maintain the last frame/location */
+    }
+
+    .rotate45_back {
+      animation: rotate45_back 0.3s forwards;
+    }
   </style>
 </head>
 
@@ -113,7 +144,13 @@
     </p>
     <br>
 
-    <button type="button" class="collapsible">+ &nbspSome experiences, click to unfold if you're interested.</button>
+    <button type="button" class="collapsible">
+      <span class="icon_rotate45" id="rotateIcon" onclick="rotateIcon()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+           <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+        </svg>
+      </span>
+      &nbspBrief experience, click to unfold if you're interested.</button>
     <div class="content">
       <br>
       <h5> Education </h5>
@@ -206,6 +243,14 @@
           content.style.maxHeight = null;
         } else {
           content.style.maxHeight = content.scrollHeight + "px";
+        }
+        var icon = document.getElementById('rotateIcon').querySelector('svg');
+        if (icon.classList.contains('rotate45')) {
+          icon.classList.remove('rotate45');
+          icon.classList.add('rotate45_back');
+        } else {
+          icon.classList.remove('rotate45_back');
+          icon.classList.add('rotate45');
         }
       });
     }
