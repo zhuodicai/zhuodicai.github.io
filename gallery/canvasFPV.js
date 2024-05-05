@@ -400,11 +400,7 @@ function startJumping() {
     // 判断设备类型
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
-        speedMultiplier = 5; // 如果是移动设备，速度倍数设为0.5
-    } 
-
-    if (!isMobile){
-        console.log("我是电脑");
+        speedMultiplier = 100; // 如果是移动设备，速度倍数设为0.5
     }
 
     const jumpInterval = setInterval(() => {
