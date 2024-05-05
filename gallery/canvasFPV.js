@@ -357,12 +357,14 @@ function startJumping() {
 
     const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
 
+    console.log("delta",delta);
+
     const jumpInterval = setInterval(() => {
 
         if (!down && i < 0.02) {
             magpie.position.y = 1.58 + i;
             magpie.rotation.y += magpieRotateRandom;
-            i += 0.7 * delta;
+            i += 0.7 * 0.01;
         } else {
             clearInterval(jumpInterval);
             down = true;
@@ -437,7 +439,7 @@ function updatePetal() {
                     // petal.rotation.y = THREE.MathUtils.lerp(petal.rotation.y, targetRotation.y, rotationSpeed);
                     petal.rotation.z = THREE.MathUtils.lerp(petal.rotation.z, targetRotation.z, rotationSpeed);
 
-                    console.log(petal.rotation);
+                    // console.log(petal.rotation);
 
                     // console.log(Number(petal.rotation.x).toFixed(2)); //3.14时花瓣基本躺平
                     // console.log(Number(petal.rotation.z).toFixed(2)); //3.14时花瓣基本躺平
