@@ -28,6 +28,8 @@ let player = {
     playerJumps: false
 };
 
+const clock = new THREE.Clock(true); // 全局时钟实例；保持不同设备的动画速度一致，否则mobile速度非常缓慢
+
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.shadowMap.enabled = true;
@@ -331,7 +333,7 @@ loaderTree.load(
 //// Add Magpie ////
 const loaderMagpie = new GLTFLoader();
 let magpie;
-let magpieRotateRandom = 0.006;
+let magpieRotateRandom = 5;
 
 loaderMagpie.load(
     // resource URL
@@ -353,12 +355,14 @@ function startJumping() {
     let down = false;
     let i = 0;
 
+    const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
+
     const jumpInterval = setInterval(() => {
 
         if (!down && i < 0.02) {
             magpie.position.y = 1.58 + i;
             magpie.rotation.y += magpieRotateRandom;
-            i += 0.0008;
+            i += 0.7 * delta;
         } else {
             clearInterval(jumpInterval);
             down = true;
@@ -366,7 +370,7 @@ function startJumping() {
                 decreasePosition();
             }, 10);
         }
-    }, 10); // 每10毫秒逐步增加
+    }, 20); // 每10毫秒逐步增加
 
     function decreasePosition() {
         if (magpie.position.y > 1.58) {
@@ -399,42 +403,53 @@ function createPetal() {
     }, Math.random() * 3000);
 }
 
-for (let i = 0; i < 10; i++) { createPetal(); }
+for (let i = 0; i < 30; i++) { createPetal(); }
 
 const velocity = new THREE.Vector3(0, -0.001, 0);
 function updatePetal() {
+    const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
+
     for (let i = 0; i < petals.length; i++) {
         const petal = petals[i];
         if (petal.position.y > 0) {
-            petal.position.x += 0.005;
-            petal.position.y -= 0.005;
-            petal.position.z += 0.005;
+            petal.position.x += 0.1 * delta;
+            petal.position.y -= 0.1 * delta;
+            petal.position.z += 0.1 * delta;
 
-            petal.rotation.x += 0.005;
-            petal.rotation.y += 0.005;
-            petal.rotation.z += 0.005;
+            petal.rotation.x += 0.1 * delta;
+            petal.rotation.y += 0.1 * delta;
+            petal.rotation.z += 0.1 * delta;
 
             petal.position.add(velocity);
         }
 
         // 花瓣落地，移除花瓣并创建新花瓣
         const targetRotation = new THREE.Vector3(Math.PI, 0, Math.PI); // 目标旋转角度
-        const rotationSpeed = 0.03; // 旋转速度
+        const rotationSpeed = 1 * delta; // 旋转速度
 
         if (petal.position.y <= 0) {
             petal.position.y = 0;
-            if (Math.floor(petal.rotation.x) !== 3 || Math.floor(petal.rotation.y) !== 0 || Math.floor(petal.rotation.z) !== 3) {
-                // 计算当前旋转角度与目标旋转角度之间的插值
-                petal.rotation.x = THREE.MathUtils.lerp(petal.rotation.x, targetRotation.x, rotationSpeed);
-                petal.rotation.y = THREE.MathUtils.lerp(petal.rotation.y, targetRotation.y, rotationSpeed);
-                petal.rotation.z = THREE.MathUtils.lerp(petal.rotation.z, targetRotation.z, rotationSpeed);
-                // console.log(petal.rotation);
-            } else {
-                setTimeout(() => {
-                    scene.remove(petal);
-                }, 20000);
-                petals.splice(i, 1);
-                createPetal();
+
+            if (Number(petal.rotation.x).toFixed(1) !== 3.1 && Number(petal.rotation.z).toFixed(1) !== 3.1) {
+                if (Math.floor(petal.rotation.x) !== 3 || Math.floor(petal.rotation.y) !== 0 || Math.floor(petal.rotation.z) !== 3) {
+                    // 计算当前旋转角度与目标旋转角度之间的插值
+                    petal.rotation.x = THREE.MathUtils.lerp(petal.rotation.x, targetRotation.x, rotationSpeed);
+                    // petal.rotation.y = THREE.MathUtils.lerp(petal.rotation.y, targetRotation.y, rotationSpeed);
+                    petal.rotation.z = THREE.MathUtils.lerp(petal.rotation.z, targetRotation.z, rotationSpeed);
+
+                    console.log(petal.rotation);
+
+                    // console.log(Number(petal.rotation.x).toFixed(2)); //3.14时花瓣基本躺平
+                    // console.log(Number(petal.rotation.z).toFixed(2)); //3.14时花瓣基本躺平
+
+                    if (Number(petal.rotation.x).toFixed(1) == 3.1 && Number(petal.rotation.z).toFixed(1) == 3.1) {
+                        setTimeout(() => {
+                            scene.remove(petal);
+                        }, 100);
+                        petals.splice(i, 1);
+                        createPetal();
+                    }
+                } 
             }
         }
     }
@@ -655,6 +670,7 @@ loaderMe.load(
 //         clouds.push(spriteCloud);
 //     }
 // }
+
 let clouds = [];
 const textureCloud = new THREE.TextureLoader().load('./images/cloud.png');
 
@@ -840,8 +856,10 @@ function ixMovementUpdate() {
 }
 
 function updateClouds() {
+    const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
+
     clouds.forEach(function (element) {
-        const angle = 0.0003; // 旋转角度
+        const angle = 0.5 * delta; // 旋转角度
 
         const x = element.position.x;
         const z = element.position.z;
