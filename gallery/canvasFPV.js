@@ -355,7 +355,9 @@ function startJumping() {
     let down = false;
     let i = 0;
 
-    const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
+    // const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
+
+    let delta = 0.005;
 
     console.log("delta",delta);
 
@@ -364,7 +366,7 @@ function startJumping() {
         if (!down && i < 0.02) {
             magpie.position.y = 1.58 + i;
             magpie.rotation.y += magpieRotateRandom;
-            i += 0.7 * 0.01;
+            i += 0.7 * delta;
         } else {
             clearInterval(jumpInterval);
             down = true;
