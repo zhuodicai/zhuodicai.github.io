@@ -393,14 +393,18 @@ function startJumping() {
     let down = false;
     let i = 0;
 
-    let speedMultiplier = 0.5; // 速度倍数，默认为1
+    let speedMultiplier = 1; // 速度倍数，默认为1
 
     const delta = clock.getDelta(); // 从上一帧到当前帧经过的时间
 
     // 判断设备类型
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
-        speedMultiplier = 0.5; // 如果是移动设备，速度倍数设为0.5
+        speedMultiplier = 5; // 如果是移动设备，速度倍数设为0.5
+    } 
+
+    if (!isMobile){
+        console.log("我是电脑");
     }
 
     const jumpInterval = setInterval(() => {
