@@ -361,7 +361,7 @@ function startJumping() {
 
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
-        delta = 0.001; // 如果是移动设备
+        delta = 0.01; // 如果是移动设备
     } else{
         delta = 0.005;
     }
@@ -379,7 +379,7 @@ function startJumping() {
             down = true;
             setTimeout(() => {
                 decreasePosition();
-            }, 10);
+            }, 20);
         }
     }, 20); // 每10毫秒逐步增加
 
