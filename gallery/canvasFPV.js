@@ -361,7 +361,7 @@ function startJumping() {
 
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
-        delta = 0.01; // 如果是移动设备
+        delta = 0.008; // 如果是移动设备 0.01略慢
     } else{
         delta = 0.005;
     }
@@ -372,7 +372,7 @@ function startJumping() {
 
         if (!down && i < 0.02) {
             magpie.position.y = 1.58 + i;
-            magpie.rotation.y += magpieRotateRandom;
+            magpie.rotation.y += magpieRotateRandom * delta;
             i += 0.7 * delta;
         } else {
             clearInterval(jumpInterval);
@@ -391,8 +391,8 @@ function startJumping() {
             down = false;
             setTimeout(() => {
                 startJumping();
-                magpieRotateRandom = (Math.random() * (-2) + 1) * Math.PI * 2 * 0.01;
-            }, 2000 * Math.random() + 2000 * Math.random());
+                magpieRotateRandom = (Math.random() * (-2) + 1) * Math.PI * 2;
+            }, 1500 * Math.random() + 1500 * Math.random());
         }
     }
 }
