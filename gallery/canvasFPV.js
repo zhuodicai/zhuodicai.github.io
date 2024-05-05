@@ -351,90 +351,92 @@ loaderMagpie.load(
     function (error) { console.log('An error happened'); }
 );
 
-// function startJumping() {
-//     let down = false;
-//     let i = 0;
-
-//     // const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
-
-//     let delta = 0.003;
-
-//     console.log("delta",delta);
-
-//     const jumpInterval = setInterval(() => {
-
-//         if (!down && i < 0.02) {
-//             magpie.position.y = 1.58 + i;
-//             magpie.rotation.y += magpieRotateRandom;
-//             i += 0.7 * delta;
-//         } else {
-//             clearInterval(jumpInterval);
-//             down = true;
-//             setTimeout(() => {
-//                 decreasePosition();
-//             }, 10);
-//         }
-//     }, 20); // 每10毫秒逐步增加
-
-//     function decreasePosition() {
-//         if (magpie.position.y > 1.58) {
-//             magpie.position.y -= 0.003;
-//             requestAnimationFrame(decreasePosition);
-//         } else {
-//             down = false;
-//             setTimeout(() => {
-//                 startJumping();
-//                 magpieRotateRandom = (Math.random() * (-2) + 1) * Math.PI * 2 * 0.01;
-//             }, 2000 * Math.random() + 2000 * Math.random());
-//         }
-//     }
-// }
 function startJumping() {
     let down = false;
     let i = 0;
 
-    let speedMultiplier = 1; // 速度倍数，默认为1
+    // const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
 
-    const delta = clock.getDelta(); // 从上一帧到当前帧经过的时间
+    let delta = 0.003;
 
-    // 判断设备类型
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-        speedMultiplier = 0.5; // 如果是移动设备，速度倍数设为0.5
-    } 
-
-    if (!isMobile){
-        console.log("我是电脑");
-    }
+    console.log("delta",delta);
 
     const jumpInterval = setInterval(() => {
+
         if (!down && i < 0.02) {
             magpie.position.y = 1.58 + i;
             magpie.rotation.y += magpieRotateRandom;
-            i += 0.7 * delta * speedMultiplier; // 根据 delta 和速度倍数调整增量
+            i += 0.7 * delta;
         } else {
             clearInterval(jumpInterval);
             down = true;
             setTimeout(() => {
                 decreasePosition();
-            }, 20);
+            }, 10);
         }
-    }, 20); // 每20毫秒跳一下
+    }, 20); // 每10毫秒逐步增加
 
     function decreasePosition() {
         if (magpie.position.y > 1.58) {
-            magpie.position.y -= 0.01 * delta * speedMultiplier; // 根据 delta 和速度倍数调整增量
-            decreasePosition(); // 递归调用自身，继续下一帧的动画
+            magpie.position.y -= 0.003;
+            requestAnimationFrame(decreasePosition);
         } else {
             down = false;
             setTimeout(() => {
                 startJumping();
-                // 增加 magpieRotateRandom 的值以加快旋转速度
-                magpieRotateRandom = (Math.random() * (-10) + 5) * Math.PI * 2 * 0.01;
+                magpieRotateRandom = (Math.random() * (-2) + 1) * Math.PI * 2 * 0.01;
             }, 2000 * Math.random() + 2000 * Math.random());
         }
     }
 }
+
+//// not working, but can try later ////
+// function startJumping() {
+//     let down = false;
+//     let i = 0;
+
+//     let speedMultiplier = 1; // 速度倍数，默认为1
+
+//     const delta = clock.getDelta(); // 从上一帧到当前帧经过的时间
+
+//     // 判断设备类型
+//     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+//     if (isMobile) {
+//         speedMultiplier = 5; // 如果是移动设备，速度倍数设为0.5
+//     } 
+
+//     if (!isMobile){
+//         console.log("我是电脑");
+//     }
+
+//     const jumpInterval = setInterval(() => {
+//         if (!down && i < 0.02) {
+//             magpie.position.y = 1.58 + i;
+//             magpie.rotation.y += magpieRotateRandom;
+//             i += 0.7 * delta * speedMultiplier; // 根据 delta 和速度倍数调整增量
+//         } else {
+//             clearInterval(jumpInterval);
+//             down = true;
+//             setTimeout(() => {
+//                 decreasePosition();
+//             }, 20);
+//         }
+//     }, 20); // 每20毫秒跳一下
+
+//     function decreasePosition() {
+//         if (magpie.position.y > 1.58) {
+//             magpie.position.y -= 0.01 * delta * speedMultiplier; // 根据 delta 和速度倍数调整增量
+//             decreasePosition(); // 递归调用自身，继续下一帧的动画
+//         } else {
+//             down = false;
+//             setTimeout(() => {
+//                 startJumping();
+//                 // 增加 magpieRotateRandom 的值以加快旋转速度
+//                 magpieRotateRandom = (Math.random() * (-10) + 5) * Math.PI * 2 * 0.01;
+//             }, 2000 * Math.random() + 2000 * Math.random());
+//         }
+//     }
+// }
 
 //// Add Falling Petal ////
 const petalMaterial = new THREE.MeshBasicMaterial({ color: 0xff494a });
