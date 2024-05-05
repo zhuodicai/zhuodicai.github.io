@@ -402,7 +402,7 @@ function startJumping() {
     // 判断设备类型
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
-        speedMultiplier = delta/0.01; // 如果是移动设备，速度倍数设为0.5
+        speedMultiplier = 1/0.01; // 如果是移动设备，速度倍数设为0.5
     } 
 
     if (!isMobile){
