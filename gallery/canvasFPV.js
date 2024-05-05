@@ -357,7 +357,7 @@ function startJumping() {
 
     // const delta = clock.getDelta();  //和clock配合使用，计算从上一帧以来过去的时间（秒）
 
-    let delta = 0.005;
+    let delta = 0.003;
 
     console.log("delta",delta);
 
