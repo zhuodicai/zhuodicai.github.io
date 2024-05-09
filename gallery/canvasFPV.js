@@ -31,7 +31,7 @@ let player = {
 const clock = new THREE.Clock(true); // 全局时钟实例；保持不同设备的动画速度一致，否则mobile速度非常缓慢
 
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 // scene.background = new THREE.Color("black");
@@ -362,7 +362,7 @@ function startJumping() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
         delta = 0.008; // 如果是移动设备 0.01略慢
-    } else{
+    } else {
         delta = 0.005;
     }
 
@@ -489,7 +489,7 @@ function updatePetal() {
         if (petal.position.y <= 0) {
             petal.position.y = 0;
 
-            if (Number(petal.rotation.x).toFixed(1) !== 3.1 && Number(petal.rotation.z).toFixed(1) !== 3.1) {
+            if (Number(petal.rotation.x).toFixed(2) !== 3.14 && Number(petal.rotation.z).toFixed(2) !== 3.14) {
                 if (Math.floor(petal.rotation.x) !== 3 || Math.floor(petal.rotation.y) !== 0 || Math.floor(petal.rotation.z) !== 3) {
                     // 计算当前旋转角度与目标旋转角度之间的插值
                     petal.rotation.x = THREE.MathUtils.lerp(petal.rotation.x, targetRotation.x, rotationSpeed);
@@ -501,14 +501,28 @@ function updatePetal() {
                     // console.log(Number(petal.rotation.x).toFixed(2)); //3.14时花瓣基本躺平
                     // console.log(Number(petal.rotation.z).toFixed(2)); //3.14时花瓣基本躺平
 
-                    if (Number(petal.rotation.x).toFixed(1) == 3.1 && Number(petal.rotation.z).toFixed(1) == 3.1) {
+                    if (Number(petal.rotation.x).toFixed(2) == 3.14 && Number(petal.rotation.z).toFixed(2) == 3.14) {
                         setTimeout(() => {
                             scene.remove(petal);
                         }, 100);
                         petals.splice(i, 1);
                         createPetal();
                     }
-                } 
+                }
+                else {
+                    setTimeout(() => {
+                        scene.remove(petal);
+                    }, 100);
+                    petals.splice(i, 1);
+                    createPetal();
+                }
+            }
+            else {
+                setTimeout(() => {
+                    scene.remove(petal);
+                }, 100);
+                petals.splice(i, 1);
+                createPetal();
             }
         }
     }
