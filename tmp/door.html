@@ -24,6 +24,29 @@
         content="https://github.com/zhuodicai/zhuodicai.github.io/blob/6a90ad4fbce563889faac3f2b38c9f292c508b63/images/favicon.png">
     <meta property="og:url" content="https://zhuodicai.github.io/index.html">
     <meta name="google-site-verification" content="-DJgxNC8digfD6D_1l7Via3aPbSGBaQsJ_u1-Y0uHKM" />
+    <style>
+        .speechcontent table,
+        .speechcontent th,
+        .speechcontent td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .google-slides-container {
+            position: relative;
+            width: 100%;
+            padding-top: 60%;
+            overflow: hidden;
+        }
+
+        .google-slides-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,23 +55,97 @@
             <h2><b> Sci-fi </b></h2>
             <p>
                 <br><b>Quantity of Inventions per Novel</b><br>
-                <a target="_self" href="./sci/inventions_per_novel.html"><i class="bi bi-file-earmark-fill">inventions_per_novel.html</i></a>
+                <a target="_self" href="./sci/inventions_per_novel.html"><i
+                        class="bi bi-file-earmark-fill">inventions_per_novel.html</i></a>
 
                 <br><b>Quantity of Inventions per Year</b><br>
-                <a target="_self" href="./sci/inventions_per_year.html"><i class="bi bi-file-earmark-fill">inventions_per_year.html</i></a>
+                <a target="_self" href="./sci/inventions_per_year.html"><i
+                        class="bi bi-file-earmark-fill">inventions_per_year.html</i></a>
 
                 <br><b>Quantity of Novels per Year</b><br>
-                <a target="_self" href="./sci/novels_per_year.html"><i class="bi bi-file-earmark-fill">novels_per_year.html</i></a>
+                <a target="_self" href="./sci/novels_per_year.html"><i
+                        class="bi bi-file-earmark-fill">novels_per_year.html</i></a>
 
                 <br>
                 <br><b>Novels and Inventions</b><br>
-                <a target="_self" href="./sci/novels_and_inventions/66-1965-Dune-Frank_Herbert.html"><i class="bi bi-file-earmark-fill">66-1965-Dune-Frank_Herbert.html</i></a><br>
-                <a target="_self" href="./sci/novels_and_inventions/33-1995-The_Diamond_Age-Neal_Stephenson.html"><i class="bi bi-file-earmark-fill">33-1995-The_Diamond_Age-Neal_Stephenson.html</i></a><br>
-                <a target="_self" href="./sci/novels_and_inventions/32-1984-Neuromancer-William_Gibson.html"><i class="bi bi-file-earmark-fill">32-1984-Neuromancer-William_Gibson.html</i></a><br>
-                <a target="_self" href="./sci/novels_and_inventions/21-1992-Snow_Crash-Neal_Stephenson.html"><i class="bi bi-file-earmark-fill">21-1992-Snow_Crash-Neal_Stephenson.html</i></a><br>
-                
+                <a target="_self" href="./sci/novels_and_inventions/66-1965-Dune-Frank_Herbert.html"><i
+                        class="bi bi-file-earmark-fill">66-1965-Dune-Frank_Herbert.html</i></a><br>
+                <a target="_self" href="./sci/novels_and_inventions/33-1995-The_Diamond_Age-Neal_Stephenson.html"><i
+                        class="bi bi-file-earmark-fill">33-1995-The_Diamond_Age-Neal_Stephenson.html</i></a><br>
+                <a target="_self" href="./sci/novels_and_inventions/32-1984-Neuromancer-William_Gibson.html"><i
+                        class="bi bi-file-earmark-fill">32-1984-Neuromancer-William_Gibson.html</i></a><br>
+                <a target="_self" href="./sci/novels_and_inventions/21-1992-Snow_Crash-Neal_Stephenson.html"><i
+                        class="bi bi-file-earmark-fill">21-1992-Snow_Crash-Neal_Stephenson.html</i></a><br>
                 
             </p>
+
+            
+            <br><b>Overview</b>
+            Find 81.58% of inventions from 16.80% of the original text!
+            <table class="speechcontent" style="width:100%; margin-bottom:30px;">
+                <thead>
+                    <tr style="color:#f7f7f3; background-color: black;vertical-align: top;">
+                        <th scope="col">Novel</th>
+                        <th scope="col">Inventions Quantity | Proportion</th>
+                        <th scope="col">Sentences Quantity | Proportion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="./sci/novels_and_inventions/66-1965-Dune-Frank_Herbert.html"><u>66-1965-Dune-Frank_Herbert</u></a></td>
+                        <td>all inventions quantity: 66<br>
+                            ✅found inventions quantity: 54 | 81.82%<br>
+                            ❌not-found inventions quantity: 12 | 18.18%
+                        </td>
+                        <td>all sentences quantity: 18510<br>
+                            best paragraphs sentences quantity: 2770 | 14.96%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="./sci/novels_and_inventions/33-1995-The_Diamond_Age-Neal_Stephenson.html"><u>33-1995-The_Diamond_Age-Neal_Stephenson</u></a></td>
+                        <td>all inventions quantity: 33<br>
+                            ✅found inventions quantity: 30 | 90.91%<br>
+                            ❌not-found inventions quantity: 3 | 9.09%
+                        </td>
+                        <td>all sentences quantity: 9752<br>
+                            best paragraphs sentences quantity: 1884 | 19.32%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="./sci/novels_and_inventions/32-1984-Neuromancer-William_Gibson.html"><u>32-1984-Neuromancer-William_Gibson</u></a></td>
+                        <td>all inventions quantity: 32<br>
+                            ✅found inventions quantity: 22 | 68.75%<br>
+                            ❌not-found inventions quantity: 10 | 31.25%
+
+                        </td>
+                        <td>all sentences quantity: 7886<br>
+                            best paragraphs sentences quantity: 917 | 11.63%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="./sci/novels_and_inventions/21-1992-Snow_Crash-Neal_Stephenson.html"><u>21-1992-Snow_Crash-Neal_Stephenson</u></a></td>
+                        <td>all inventions quantity: 21<br>
+                            ✅found inventions quantity: 18 | 85.71%<br>
+                            ❌not-found inventions quantity: 3 | 14.29%
+                        </td>
+                        <td>all sentences quantity: 11890<br>
+                            best paragraphs sentences quantity: 2500 | 21.03%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>all inventions quantity: 152<br>
+                            ✅found inventions quantity: 124 | 81.58%<br>
+                            ❌not-found inventions quantity: 28 | 18.42%
+                        </td>
+                        <td>all sentences quantity: 48038<br>
+                            best paragraphs sentences quantity: 8071 | 16.80%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
             <br>
 
             <br><br><br><br>
