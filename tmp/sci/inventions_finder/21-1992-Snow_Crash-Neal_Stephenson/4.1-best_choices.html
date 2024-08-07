@@ -96,46 +96,6 @@
             });
         });
     </script>
-     <script type="module">
-        import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.8.0/+esm';
-
-        // 创建 Hugging Face Inference 实例
-        const hf = new HfInference('YOUR_HUGGINGFACE_API_TOKEN');
-
-        // 定义请求的模型和输入
-        const model = 'stabilityai/stable-diffusion-3-medium-diffusers';
-        const prompt = 'A beautiful landscape with mountains and a river';
-
-        async function generateImage() {
-            try {
-                // 调用模型生成图像
-                const result = await hf.textToImage({
-                    model,
-                    inputs: prompt,
-                    parameters: {
-                        num_inference_steps: 28,
-                        guidance_scale: 7.0
-                    }
-                });
-
-                // 处理生成的图像
-                if (result && result.images && result.images.length > 0) {
-                    const imageUrl = result.images[0];
-                    console.log('Generated Image URL:', imageUrl);
-
-                    // 将图像显示在页面上
-                    const img = document.createElement('img');
-                    img.src = imageUrl;
-                    document.body.appendChild(img);
-                }
-            } catch (error) {
-                console.error('Error generating image:', error);
-            }
-        }
-
-        // 调用生成图像的函数
-        generateImage();
-    </script>
 </body>
 
 </html>
