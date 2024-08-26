@@ -54,7 +54,7 @@ loader.load(
 const gridHelper = new THREE.GridHelper(50, 50);
 scene.add(gridHelper);
 
-camera.position.set(0, 0, 2);
+camera.position.set(0, 0, -1);
 
 // Create trajectory line
 let trajectoryPoints = []; // 要确保这个数组至少有两个点以上
