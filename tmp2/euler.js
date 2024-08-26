@@ -107,7 +107,7 @@ let positionData = [];
 let currentFrame = 0;
 
 // Load CSV data
-Papa.parse('processed_data_euler_acc_only_sampled.csv', {
+Papa.parse('processed_data_euler_acc_only_sampled-2.csv', {
     download: true,
     header: true,
     dynamicTyping: true,
@@ -124,7 +124,7 @@ Papa.parse('processed_data_euler_acc_only_sampled.csv', {
 
         // console.log(positionData);
         // Update slider max value
-        slider.max = positionData.length - 1;
+        slider.max = positionData.length - 2;
 
         animate();  // Start animation after data is loaded
     }
