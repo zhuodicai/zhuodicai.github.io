@@ -54,7 +54,7 @@ loader.load(
 const gridHelper = new THREE.GridHelper(50, 50);
 scene.add(gridHelper);
 
-camera.position.set(0, 0, -1);
+camera.position.set(0, 0, -0.1);
 
 // Create trajectory line
 let trajectoryPoints = []; // 要确保这个数组至少有两个点以上
@@ -73,7 +73,7 @@ function updateTrajectory() {
 
         // 创建轨迹线的路径 (使用 CatmullRomCurve3 创建平滑路径)
         const trajectoryCurve = new THREE.CatmullRomCurve3(trajectoryPoints);
-        const tubeGeometry = new THREE.TubeGeometry(trajectoryCurve, 64, 0.03, 8, false); // 调整0.05来改变粗细
+        const tubeGeometry = new THREE.TubeGeometry(trajectoryCurve, 64, 0.001, 8, false); // 调整[2]0.05来改变粗细
         trajectoryMesh = new THREE.Mesh(tubeGeometry, trajectoryMaterial);
 
         // 将轨迹添加到场景中
@@ -107,7 +107,7 @@ let positionData = [];
 let currentFrame = 0;
 
 // Load CSV data
-Papa.parse('processed_data_euler_acc_only_sampled-2.csv', {
+Papa.parse('processed_data_euler_acc_only_sampled-2.2.csv', {
     download: true,
     header: true,
     dynamicTyping: true,
