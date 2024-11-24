@@ -156,6 +156,22 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background-color: #dfdfdcca;
 }
 
+.myoperatingbutton {
+  background-color: #222529;
+  color: #DFDFDC;
+  cursor: pointer;
+  padding: 5px;
+  /* width: 10%; */
+  border: none;
+  text-align: left;
+  outline: none;
+  border-radius: 10px;
+}
+
+.myoperatingbutton:hover {
+  background-color: #222529ca;
+}
+
 .textbg {
   background-color: #DFDFDC;
   color: #222529;

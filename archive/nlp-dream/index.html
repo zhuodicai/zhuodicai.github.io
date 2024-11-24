@@ -63,7 +63,7 @@
 
   <div class="container text-align-top text-start" style="margin-top: 10vh;">
 
-    <h3 class="text-center"> Symbolized Bad Dream</h3>
+    <h3 class="text-center"> Symbolic Bad Dream</h3>
     <br>
     <table class="table table-borderless text-start">
       <thead>
@@ -77,7 +77,7 @@
         <tr style="vertical-align: top;">
           <td style="padding: 0;">NLP</td>
           <td style="padding: 0;">2022 @ New York University</td>
-          <td style="padding: 0;">Python</td>
+          <td style="padding: 0;">Python; JavaScript(for showcasing on this page)</td>
         </tr>
       </tbody>
     </table>
@@ -92,14 +92,46 @@
       Getting back to the point, from past records, I found my dreams are full of random symbols,
       it is in the same nature as a randomized poetry generator. It’s also mentioned
       by Hartman, Charles O. in Virtual Muse, “The Sinclair ZX-81” . So I decide to simulate such mechanism by
-      extracting some symbols from my dream diary and letting Python randomly combine them like the dream does.
+      extracting some symbols from my dream diary and letting the computer program randomly combine them like the dream does.
       <br><br>
       For this generator, the dream itself is a loop, one of the forms of my nightmares. And the rhetoric I choose is
       called Chiasmus with a structure basically symmetrical like a ring.
     </p>
     <br><br>
-    <img class="img-fluid lazyload" style="margin-bottom:30px;" data-src="image/d0.png"
-    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="...">
+    <!-- <img class="img-fluid lazyload" style="margin-bottom:30px;" data-src="image/d0.png"
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="..."> -->
+    <!-- <br><br> -->
+    
+    <p><b>Generator</b></p>
+    <div
+      style="font-family: 'Roboto Mono', monospace; font-size: 1.3vw; text-align: left; letter-spacing: 0.1em; color: #000000; line-height: 1.2; padding: 8vw 0vw 8vw 6vw; background-color: #ffffff;">
+      <span style="font-weight: 900;font-size: 1.5vw;">Symbolic Bad Dream</span> <br />
+      <span style="font-weight: 100;font-size: 1.1vw;">BY ZHUODI CAI AND HER PROGRAM</span><br /><br />
+      <span id="poetry-display">
+        14:16:50, dusted<br />
+        &emsp;As it is in cement pipeline<br />
+        &emsp;&emsp;Ghost whispers to light without a light source<br />
+        &emsp;&emsp;&emsp;Queen whispers to mashed potato flood<br />
+        &emsp;&emsp;&emsp;&emsp;Man with implanted metal parts blows up train coming from far away<br />
+        &emsp;&emsp;&emsp;&emsp;&emsp;I, am escaping helplessly<br />
+        &emsp;&emsp;&emsp;&emsp;Until<br />
+        &emsp;&emsp;&emsp;Luminous eye climbs up man with implanted metal parts<br />
+        &emsp;&emsp;Severed head kisses invisible man<br />
+        &emsp;Red dead rabbit hangs on the faceless squire<br />
+        14:16:50, nested<br /><br />
+      </span>
+      <!-- <img class="img-fluid lazyload" style="margin-bottom:30px;" data-src="./signature.png" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="..."> -->
+      <img class="img-fluid lazyload"
+        style="float: right; margin-top: -2vw; margin-bottom: 0vw; margin-right: 5vw; width: 15vw; height: auto;"
+        data-src="./signature.png" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        alt="Signature" />
+    </div>
+    <br>
+    <div class="text-center">
+      <button type="button" id="generate-btn" class="myoperatingbutton">Start</button>
+    </div>
+    
+    <br><br>
 
     <p><b>Code & Structure</b></p>
     <img class="img-fluid lazyload" style="margin-bottom:30px; mix-blend-mode: darken;" data-src="image/1.jpeg"
@@ -145,6 +177,68 @@
   </footer>
 
   <script>document.getElementById("current-year").innerHTML = new Date().getFullYear();</script>
+
+  <script>
+    function generatePoetry() {
+      let line = Array(11).fill(0);
+
+      let hour = Math.floor(Math.random() * 24).toString();
+      let minute = Math.floor(Math.random() * 60).toString();
+      let second = Math.floor(Math.random() * 60).toString();
+
+      if (hour.length === 1) hour = '0' + hour;
+      if (minute.length === 1) minute = '0' + minute;
+      if (second.length === 1) second = '0' + second;
+
+      const environment = ['boundless', 'dark', 'damp', 'empty', 'uninhabited', 'narrow', 'absurd', 'twisted', 'bright', 'dreamy', 'overgrown', 'icy', 'dusted', 'burnt', 'red', 'yellow', 'flickering', 'bright', 'black', 'gold', 'abandoned', 'brightly lit', 'shattered', 'cracked', 'transparent', 'nested', 'unsafe', 'breezy', 'spooky', 'looming', 'invisible', 'barren', 'rotting', 'crowded'];
+      const location = ['on the battlefield', 'in the countryside', 'in the room', 'in the tavern', 'in the alley', 'in the corner', 'in a parallel world', 'in shootout game', 'in the stairwell', 'at the nuclear research base', 'in the cave', 'in the street', 'in the house', 'in the classroom', 'by the pool', 'in the backyard', 'in the bathroom', 'on the road', 'in the valley', 'on the bridge', 'in hospital', 'in ruins', 'in the village', 'in the lotus pond', 'in cement pipeline', 'in the elevator', 'in stone city', 'on the hillside', 'in the attic', 'in the garden', 'on the roof', 'in the trap', 'in the channel', 'on theatrical stage', 'at the end of the road', 'deep in the heart', 'at the hair salon', 'in the virtual world of VR', 'in the air'];
+      const behavior = ['stands on', 'goes upstairs in', 'hides in', 'talks to', 'hangs on the', 'is drown in', 'passes through the', 'becomes', 'is radiated by', 'grows in', 'pulls away from', 'sees', 'is trapped in', 'lies on', 'climbs up', 'is dried by', 'beats', 'touches', 'revives', 'floats in', 'jumps from', 'stares at', 'kisses', 'blows up', 'asks', 'whispers to', 'mirrors', 'is locked in', 'chases'];
+      const myBehavior = ['running', 'vanishing', 'fleeing', 'burning', 'seeking', 'hiding', 'melting', 'flying', 'crying', 'exploding', 'escaping'];
+      const adverb = ['incessantly', 'repeatedly', 'forever', 'silently', 'alone', 'helplessly', 'slowly'];
+      const character = ['marionette', 'patient', 'soldier', 'lover', 'friend', 'snake', 'mutant', 'stranger', 'burnt man', 'green creature', 'woman with red hair', 'witch', 'classmate', 'godfather', 'invisible man', 'robot', 'man with implanted metal parts', 'ghost', 'victim', 'kitten', 'queen', 'faceless squire'];
+      const thing = ['light without a light source', 'drizzle', 'severed head', 'stretched navel', 'cracked tooth', 'luminous eye', 'blue face', 'train coming from far away', 'liquid', 'mirror', 'chestnut', 'leaf', 'window', 'hanging rope', 'sunbeam', 'space', 'stair', 'red dead rabbit', 'weapon', 'mashed potato flood', 'minced meat', 'blood', 'fire', 'bath towel', 'bullet', 'cup', 'brick', 'mechanical game machine', 'paint', 'metal pipe', 'telephone', 'floor', 'hospital bed'];
+
+      // generate HTML text according to poetry structure
+      function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      line[0] = `${hour}:${minute}:${second}, ${capitalize(environment[Math.floor(Math.random() * environment.length)])}<br />`;
+      line[1] = `&emsp;${capitalize(`As it is ${location[Math.floor(Math.random() * location.length)]}`)}<br />`;
+
+      for (let i = 2; i <= 4; i++) {
+        line[i] = `&emsp;`.repeat(i) +
+          capitalize(`${character[Math.floor(Math.random() * character.length)]} ` +
+            `${behavior[Math.floor(Math.random() * behavior.length)]} ` +
+            `${thing[Math.floor(Math.random() * thing.length)]}`) + `<br />`;
+      }
+
+      line[5] = `&emsp;`.repeat(5) +
+        capitalize(`I, am ${myBehavior[Math.floor(Math.random() * myBehavior.length)]} ` +
+          `${adverb[Math.floor(Math.random() * adverb.length)]}`) + `<br />`;
+
+      line[6] = `&emsp;`.repeat(4) + capitalize(`Until`) + `<br />`;
+
+      for (let j = 7; j <= 9; j++) {
+        line[j] = `&emsp;`.repeat(10 - j) +
+          capitalize(`${thing[Math.floor(Math.random() * thing.length)]} ` +
+            `${behavior[Math.floor(Math.random() * behavior.length)]} ` +
+            `${character[Math.floor(Math.random() * character.length)]}`) + `<br />`;
+      }
+
+      line[10] = `${hour}:${minute}:${second}, ${capitalize(environment[Math.floor(Math.random() * environment.length)])}<br /><br />`;
+
+
+      return line.join(""); // join into HTML string
+    }
+
+    // button click to generate
+    document.getElementById("generate-btn").addEventListener("click", function () {
+      const poetryDisplay = document.getElementById("poetry-display");
+      poetryDisplay.innerHTML = generatePoetry(); // replace innerHTML content
+    });
+
+  </script>
 
 </body>
 
