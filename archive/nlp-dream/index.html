@@ -203,7 +203,7 @@
         return str.charAt(0).toUpperCase() + str.slice(1);
       }
 
-      line[0] = `${hour}:${minute}:${second}, ${capitalize(environment[Math.floor(Math.random() * environment.length)])}<br />`;
+      line[0] = `${hour}:${minute}:${second}, ${environment[Math.floor(Math.random() * environment.length)]}<br />`;
       line[1] = `&emsp;${capitalize(`As it is ${location[Math.floor(Math.random() * location.length)]}`)}<br />`;
 
       for (let i = 2; i <= 4; i++) {
@@ -226,7 +226,7 @@
             `${character[Math.floor(Math.random() * character.length)]}`) + `<br />`;
       }
 
-      line[10] = `${hour}:${minute}:${second}, ${capitalize(environment[Math.floor(Math.random() * environment.length)])}<br /><br />`;
+      line[10] = `${hour}:${minute}:${second}, ${environment[Math.floor(Math.random() * environment.length)]}<br /><br />`;
 
 
       return line.join(""); // join into HTML string
