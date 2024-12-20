@@ -16,7 +16,11 @@ canvas {
   top: 0;
   left: 0;
   z-index: -1;
-  background-color: #f7f7f3;
+  background-color: #f7f7f300;
+}
+
+.drawingCanvasZ-Index{
+  z-index: 1030;
 }
 
 p {
