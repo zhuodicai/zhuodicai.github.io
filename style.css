@@ -203,3 +203,7 @@ img {
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
+
+.hover-help {
+  cursor: help; /* 用于鼠标悬停时变成问号指针并显示解释 */
+}
