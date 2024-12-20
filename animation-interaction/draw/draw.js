@@ -24,6 +24,10 @@ document.addEventListener('keydown', (e) => {
     isKeyPressed = true;
     canvas.style.pointerEvents = 'auto'; // 启用画布交互
   }
+  // 监听按C键时清除画布
+  if (e.key === 'c' || e.key === 'C') {
+    clearCanvas(); // 清理画布
+  }
 });
 
 // 监听键盘：press D false
@@ -71,6 +75,11 @@ function drawLine(start, end) {
   ctx.strokeStyle = currentColor;
   ctx.lineWidth = 2;
   ctx.stroke();
+}
+
+// 清空画布
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除画布上的所有内容
 }
 
 // 窗口大小改变时调整画布，跟着长宽一起缩放
