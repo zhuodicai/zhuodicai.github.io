@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.windbell-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 90%;
+    text-align: right;
+    z-index: 1040;
+}
+
+.windbell-animation {
+    width: 50px;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+    animation-play-state: paused; /* gif defalut static */
+}

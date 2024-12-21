@@ -1,5 +1,6 @@
 html{
   background-color: #f7f7f3;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -188,10 +189,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
   border-radius: 10px;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 /* img{
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
@@ -202,4 +199,21 @@ html {
 img {
   opacity: 0;
   transition: opacity 1s ease-in-out;
+}
+
+/* windbell at the top */
+.windbell-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  text-align: right;
+}
+
+.windbell-animation {
+  opacity: 1;
+  width: 5vh;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+  animation-play-state: paused; /* gif defalut static */
 }

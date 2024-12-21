@@ -58,16 +58,16 @@
 // });
 
 // 方案3: 绝了
-document.addEventListener('DOMContentLoaded', function() {
-  var images = document.getElementsByTagName('img');
+document.addEventListener('DOMContentLoaded', function () {
+  var images = document.querySelectorAll('img:not([data-no-lazy])'); // 排除有 data-no-lazy 的图片
 
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         var img = entry.target;
         img.src = img.dataset.src;
         observer.unobserve(img);
-        img.addEventListener('load', function() {
+        img.addEventListener('load', function () {
           img.style.opacity = 1;
         });
       }
@@ -78,3 +78,4 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(images[i]);
   }
 });
+
