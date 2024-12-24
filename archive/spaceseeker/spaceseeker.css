@@ -4,16 +4,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
     position: relative;
 }
 
 h2,
 p {
     z-index: 0;
+    color: blue;
 }
 
 canvas {
     position: relative;
     z-index: 1;
+    border: 1px solid blue;
 }

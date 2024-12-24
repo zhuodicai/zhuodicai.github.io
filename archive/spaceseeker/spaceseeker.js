@@ -24,8 +24,8 @@ let isBlueDotStopped = false;
 
 // Resize the canvas on window resize
 function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.8;
     redrawDot(); // Redraw everything after resizing
 }
 
@@ -54,6 +54,12 @@ function redrawDot() {
         ctx.fill();
         ctx.closePath();
     }
+    // 🚪
+    ctx.globalAlpha = 0.7;
+    ctx.font = "100px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("🚪", -20, 90);
+    ctx.globalAlpha = 1;
 }
 
 
@@ -94,16 +100,37 @@ function moveDots() {
 
 // Function to add a new blue dot
 function addBlueDot() {
+    // const fixedPosition = { x: 0, y: 0 }; // 蓝点初始固定位置
+    // const newBlueDot = {
+    //     x: fixedPosition.x, // 固定初始位置
+    //     y: fixedPosition.y,
+    //     target: {
+    //         x: Math.random() * canvas.width,
+    //         y: Math.random() * canvas.height
+    //     },
+    //     isStopped: false
+    // };
+    // blueDots.push(newBlueDot);
+
     const fixedPosition = { x: 0, y: 0 }; // 蓝点初始固定位置
+
+    // 确保目标位置距离 (0, 0) 至少 30px
+    let targetX, targetY;
+    do {
+        targetX = Math.random() * canvas.width;
+        targetY = Math.random() * canvas.height;
+    } while (Math.sqrt(targetX * targetX + targetY * targetY) < 30); // 确保目标距离 (0, 0) 至少 30px
+
     const newBlueDot = {
         x: fixedPosition.x, // 固定初始位置
         y: fixedPosition.y,
         target: {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height
+            x: targetX,
+            y: targetY
         },
         isStopped: false
     };
+
     blueDots.push(newBlueDot);
 }
 
@@ -216,6 +243,7 @@ function drawHeatmap() {
             }
         }
     }
+    
 
     // 将缓冲区渲染到画布
     ctx.putImageData(imageData, 0, 0);
@@ -236,7 +264,7 @@ function mapHeatToGradient(heatValue) {
         { stop: 0.0, r: 255, g: 255, b: 255, a: 0 },    // 透明
         { stop: 0.2, r: 255, g: 200, b: 200, a: 50 },   // 浅红
         { stop: 0.5, r: 255, g: 150, b: 50, a: 100 },   // 橙色
-        { stop: 0.8, r: 255, g: 255, b: 0, a: 150 },    // 黄色
+        { stop: 0.9, r: 255, g: 255, b: 0, a: 150 },    // 黄色
         { stop: 1.0, r: 0, g: 0, b: 255, a: 250 }       // 深蓝色
     ];
 
@@ -291,7 +319,7 @@ function moveDots() {
 
 // find the lowesr heat area
 function findLowestHeatPoint() {
-    const gridSize = 10; // 调大网格尺寸以提升性能
+    const gridSize = 5; // 调大网格尺寸以提升性能
     const sigma = 30; // 热力影响范围
 
     let minHeatValue = Infinity;
@@ -343,9 +371,9 @@ function drawLowestHeatPoint() {
     if (!minPoint) return;
 
     const radius = 0; // 圆形半径
-    const textOffsetX = 0; // 文字水平偏移
+    const textOffsetX = -10; // 文字水平偏移
     const textOffsetY = 30; // 文字垂直偏移
-    const fontSize = 100; // 字体大小
+    const fontSize = 80; // 字体大小
 
     // 检查圆形是否超出画布边界
     const canvasWidth = ctx.canvas.width;
@@ -379,15 +407,16 @@ function drawLowestHeatPoint() {
     let textY = circleY + textOffsetY;
 
     // 调整文字位置，确保文字不超出画布右边界
-    if (textX + ctx.measureText("🧍").width > canvasWidth) {
-        textX = circleX - ctx.measureText("🧍").width + 40; // 向左调整文字
+    const textWidth = ctx.measureText("🧍").width; // 获取文本的宽度
+    if (textX + textWidth > canvasWidth) {
+        textX = circleX - textWidth - 10; // 向左调整文字
     }
 
     // 如果文字接近画布顶部或底部，则调整垂直位置
     if (textY - fontSize < 0) {
-        textY = circleY + fontSize; // 向下移动文字
+        textY = circleY + fontSize + 10; // 向下移动文字
     } else if (textY + fontSize > canvasHeight) {
-        textY = circleY; // 向上移动文字
+        textY = circleY - fontSize - 10; // 向上移动文字
     }
 
     // 绘制文字
@@ -395,3 +424,4 @@ function drawLowestHeatPoint() {
     ctx.fillStyle = 'black';
     ctx.fillText("🧍", textX, textY);
 }
+
