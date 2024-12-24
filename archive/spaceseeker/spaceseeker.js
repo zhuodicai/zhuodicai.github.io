@@ -12,7 +12,8 @@ const clickDotColor = "rgba(255, 0, 0, 0)"; // Color for the clicked dots
 let blueDots = []; // Array to store all blue dots
 
 // Speed of movement (controls how fast the dot moves)
-const speed = 20;
+// const speed = 20;
+const speed = (window.innerWidth < 768) ? 10 : 50;
 
 // Variable to store the clicked red dot's position
 let clickDot = null; // Initially no red dot
