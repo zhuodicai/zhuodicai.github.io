@@ -2,9 +2,11 @@ const canvas = document.getElementById('spaceseekercanvas');
 const ctx = canvas.getContext('2d');
 
 // Dot properties
-const dotRadius = 20;
-const dotColor = 'blue';
-const clickDotColor = 'red'; // Color for the clicked dots
+const dotRadius = 5;
+// const dotColor = 'blue';
+// const clickDotColor = 'red'; // Color for the clicked dots
+const dotColor = "rgba(0, 0, 255, 0)"
+const clickDotColor = "rgba(255, 0, 0, 0)"; // Color for the clicked dots
 
 // Initial position for blue dots (all start from 0, 0)
 let blueDots = []; // Array to store all blue dots
@@ -178,8 +180,8 @@ canvas.addEventListener('click', function (event) {
 
 // heatmap?
 function drawHeatmap() {
-    const gridSize = 20; // 网格大小（像素）
-    const sigma = 100; // 热力影响范围（可调）
+    const gridSize = 5; // 网格大小（像素）
+    const sigma = 30; // 热力影响范围（可调）
 
     // 创建一个像素缓冲区
     const imageData = ctx.createImageData(canvas.width, canvas.height);
@@ -289,7 +291,7 @@ function moveDots() {
 // find the lowesr heat area
 function findLowestHeatPoint() {
     const gridSize = 20; // 调大网格尺寸以提升性能
-    const sigma = 100; // 热力影响范围
+    const sigma = 30; // 热力影响范围
 
     let minHeatValue = Infinity;
     let minPoint = null;
