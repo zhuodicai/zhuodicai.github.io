@@ -7,7 +7,7 @@ body {
     position: relative;
 }
 
-h2,
+h5,
 p {
     z-index: 0;
     color: blue;

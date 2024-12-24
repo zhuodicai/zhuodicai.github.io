@@ -58,7 +58,13 @@ function redrawDot() {
     ctx.globalAlpha = 0.7;
     ctx.font = "100px Arial";
     ctx.fillStyle = "black";
-    ctx.fillText("🚪", -20, 90);
+    ctx.fillText("🚪", -30, 80);
+    ctx.globalAlpha = 1;
+    // 🧧
+    ctx.globalAlpha = 0.2;
+    ctx.font = "100px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("🧧", -35, 80);
     ctx.globalAlpha = 1;
 }
 
@@ -371,8 +377,8 @@ function drawLowestHeatPoint() {
     if (!minPoint) return;
 
     const radius = 0; // 圆形半径
-    const textOffsetX = -10; // 文字水平偏移
-    const textOffsetY = 30; // 文字垂直偏移
+    const textOffsetX = 0; // 文字水平偏移，减少值使文字更贴近圆形
+    const textOffsetY = 0;  // 文字垂直偏移，减少值使文字更贴近圆形
     const fontSize = 80; // 字体大小
 
     // 检查圆形是否超出画布边界
@@ -406,22 +412,26 @@ function drawLowestHeatPoint() {
     let textX = circleX + textOffsetX;
     let textY = circleY + textOffsetY;
 
+    
     // 调整文字位置，确保文字不超出画布右边界
-    const textWidth = ctx.measureText("🧍").width; // 获取文本的宽度
+    const textWidth = ctx.measureText("🧍🏻").width; // 获取文本的宽度
     if (textX + textWidth > canvasWidth) {
-        textX = circleX - textWidth - 10; // 向左调整文字
+        textX = circleX - textWidth + 45; // 向左调整文字,数字越大离右边越近
+    }
+    // 文字靠左时，调整文字不让它离左侧边界太远
+    if (textX - textWidth < 0) {
+        textX = circleX + textWidth - 120; // 向右调整文字
     }
 
     // 如果文字接近画布顶部或底部，则调整垂直位置
     if (textY - fontSize < 0) {
-        textY = circleY + fontSize + 10; // 向下移动文字
+        textY = circleY + fontSize - 10; // 向下移动文字
     } else if (textY + fontSize > canvasHeight) {
-        textY = circleY - fontSize - 10; // 向上移动文字
+        textY = circleY - 5; // 向上移动文字
     }
 
     // 绘制文字
     ctx.font = `${fontSize}px Arial`;
     ctx.fillStyle = 'black';
-    ctx.fillText("🧍", textX, textY);
+    ctx.fillText("🧍🏻", textX, textY);
 }
-
