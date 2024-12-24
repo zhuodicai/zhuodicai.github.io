@@ -12,7 +12,7 @@ const clickDotColor = "rgba(255, 0, 0, 0)"; // Color for the clicked dots
 let blueDots = []; // Array to store all blue dots
 
 // Speed of movement (controls how fast the dot moves)
-const speed = 100;
+const speed = 20;
 
 // Variable to store the clicked red dot's position
 let clickDot = null; // Initially no red dot
@@ -180,7 +180,7 @@ canvas.addEventListener('click', function (event) {
 
 // heatmap?
 function drawHeatmap() {
-    const gridSize = 5; // 网格大小（像素）
+    const gridSize = 10; // 网格大小（像素）
     const sigma = 30; // 热力影响范围（可调）
 
     // 创建一个像素缓冲区
@@ -290,7 +290,7 @@ function moveDots() {
 
 // find the lowesr heat area
 function findLowestHeatPoint() {
-    const gridSize = 20; // 调大网格尺寸以提升性能
+    const gridSize = 10; // 调大网格尺寸以提升性能
     const sigma = 30; // 热力影响范围
 
     let minHeatValue = Infinity;
