@@ -5,4 +5,15 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #f0f0f0;
+    position: relative;
+}
+
+h2,
+p {
+    z-index: 0;
+}
+
+canvas {
+    position: relative;
+    z-index: 1;
 }
