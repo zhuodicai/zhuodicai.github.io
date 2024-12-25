@@ -53,11 +53,13 @@ function redrawDot() {
         }
         // 保存当前文本样式然后再恢复否则会影响后续文本
         ctx.save();
+        ctx.globalAlpha = 0.5; 
         ctx.font = '80px Arial';
         ctx.textAlign = 'center'; // 文字在蓝点上居中
         ctx.textBaseline = 'middle'; // 垂直居中
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillStyle = 'black';
         ctx.fillText(dot.emoji, dot.x, dot.y);
+        ctx.globalAlpha = 1; 
         ctx.restore();
     });
 
