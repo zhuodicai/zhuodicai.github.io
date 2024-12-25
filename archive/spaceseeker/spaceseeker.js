@@ -215,7 +215,7 @@ canvas.addEventListener('click', function (event) {
 // heatmap?
 function drawHeatmap() {
     const gridSize = 10; // 网格大小（像素）
-    const sigma = 30; // 热力影响范围（可调）
+    const sigma = 30; // 热力影响范围
 
     // 创建一个像素缓冲区
     const imageData = ctx.createImageData(canvas.width, canvas.height);
