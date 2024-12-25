@@ -240,16 +240,25 @@ function drawHeatmap() {
             // 填充网格点颜色
             for (let dy = 0; dy < gridSize; dy++) {
                 for (let dx = 0; dx < gridSize; dx++) {
-                    const pixelIndex = ((y + dy) * canvas.width + (x + dx)) * 4;
-                    data[pixelIndex] = color.r;     // Red
-                    data[pixelIndex + 1] = color.g; // Green
-                    data[pixelIndex + 2] = color.b; // Blue
-                    data[pixelIndex + 3] = color.a; // Alpha
+                    // 确保不会越界，否则pixel会溢出至canvas最左侧
+                    const targetX = x + dx;
+                    const targetY = y + dy;
+
+                    // 检查是否在画布范围内
+                    if (targetX < canvas.width && targetY < canvas.height) {
+                        const pixelIndex = (targetY * canvas.width + targetX) * 4;
+
+                        data[pixelIndex] = color.r;     // Red
+                        data[pixelIndex + 1] = color.g; // Green
+                        data[pixelIndex + 2] = color.b; // Blue
+                        data[pixelIndex + 3] = color.a; // Alpha
+                    }
                 }
             }
+
         }
     }
-    
+
 
     // 将缓冲区渲染到画布
     ctx.putImageData(imageData, 0, 0);
@@ -412,7 +421,7 @@ function drawLowestHeatPoint() {
     let textX = circleX + textOffsetX;
     let textY = circleY + textOffsetY;
 
-    
+
     // 调整文字位置，确保文字不超出画布右边界
     const textWidth = ctx.measureText("🧍🏻").width; // 获取文本的宽度
     if (textX + textWidth > canvasWidth) {
