@@ -16,5 +16,6 @@ p {
 canvas {
     position: relative;
     z-index: 1;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
+    border: 1px solid #222529;
 }

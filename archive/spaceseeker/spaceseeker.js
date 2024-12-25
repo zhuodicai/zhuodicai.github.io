@@ -13,7 +13,8 @@ let blueDots = []; // Array to store all blue dots
 
 // Speed of movement (controls how fast the dot moves)
 // const speed = 20;
-const speed = (window.innerWidth < 768) ? 10 : 50;
+// const speed = (window.innerWidth < 768) ? 50 : 50;
+const speed = (window.innerWidth < 768) ? 100000 : 50;
 
 // Variable to store the clicked red dot's position
 let clickDot = null; // Initially no red dot
@@ -24,8 +25,8 @@ let isBlueDotStopped = false;
 
 // Resize the canvas on window resize
 function resizeCanvas() {
-    canvas.width = window.innerWidth * 0.8;
-    canvas.height = window.innerHeight * 0.8;
+    canvas.width = window.innerWidth * 0.99;
+    canvas.height = window.innerHeight * 0.99;
     redrawDot(); // Redraw everything after resizing
 }
 
@@ -33,8 +34,9 @@ function resizeCanvas() {
 function redrawDot() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
 
+    
     // 绘制热力图
-    drawHeatmap();
+    // drawHeatmap();
     drawLowestHeatPoint(); // 最后绘制最低点
 
     // 绘制所有蓝点
@@ -44,6 +46,19 @@ function redrawDot() {
         ctx.fillStyle = dotColor;
         ctx.fill();
         ctx.closePath();
+
+        if (!dot.emoji) {
+            const emojis = ['🧍', '🧍🏻', '🧍🏼', '🧍🏽', '🧍🏾', '🧍🏿'];
+            dot.emoji = emojis[Math.floor(Math.random() * emojis.length)]; 
+        }
+        // 保存当前文本样式然后再恢复否则会影响后续文本
+        ctx.save();
+        ctx.font = '80px Arial';
+        ctx.textAlign = 'center'; // 文字在蓝点上居中
+        ctx.textBaseline = 'middle'; // 垂直居中
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillText(dot.emoji, dot.x, dot.y);
+        ctx.restore();
     });
 
     // 如果有红点，绘制红点
@@ -54,20 +69,19 @@ function redrawDot() {
         ctx.fill();
         ctx.closePath();
     }
-    // 🚪
-    ctx.globalAlpha = 0.7;
-    ctx.font = "100px Arial";
-    ctx.fillStyle = "black";
-    ctx.fillText("🚪", -30, 80);
-    ctx.globalAlpha = 1;
-    // 🧧
-    ctx.globalAlpha = 0.2;
-    ctx.font = "100px Arial";
-    ctx.fillStyle = "black";
-    ctx.fillText("🧧", -35, 80);
-    ctx.globalAlpha = 1;
+    // // 🚪
+    // ctx.globalAlpha = 0.7;
+    // ctx.font = "100px Arial";
+    // ctx.fillStyle = "black";
+    // ctx.fillText("🚪", -30, 80);
+    // ctx.globalAlpha = 1;
+    // // 🧧
+    // ctx.globalAlpha = 0.2;
+    // ctx.font = "100px Arial";
+    // ctx.fillStyle = "black";
+    // ctx.fillText("🧧", -35, 80);
+    // ctx.globalAlpha = 1;
 }
-
 
 
 
@@ -277,10 +291,10 @@ function mapHeatToGradient(heatValue) {
         // { stop: 0.8, r: 255, g: 255, b: 0, a: 150 },    // 黄色
         // { stop: 1.0, r: 255, g: 0, b: 0, a: 200 }       // 深红
         { stop: 0.0, r: 255, g: 255, b: 255, a: 0 },    // 透明
-        { stop: 0.2, r: 255, g: 200, b: 200, a: 50 },   // 浅红
-        { stop: 0.5, r: 255, g: 150, b: 50, a: 100 },   // 橙色
-        { stop: 0.9, r: 255, g: 255, b: 0, a: 150 },    // 黄色
-        { stop: 1.0, r: 0, g: 0, b: 255, a: 250 }       // 深蓝色
+        { stop: 0.2, r: 255, g: 200, b: 200, a: 10 },   // 浅红
+        { stop: 0.5, r: 255, g: 150, b: 50, a: 30 },   // 橙色
+        { stop: 0.9, r: 255, g: 255, b: 0, a: 50 },    // 黄色
+        { stop: 1.0, r: 0, g: 0, b: 255, a: 60 }       // 深蓝色
     ];
 
 
@@ -378,7 +392,7 @@ function findLowestHeatPoint() {
 //     ctx.fill();
 //     ctx.font = "16px Arial";
 //     ctx.fillStyle = "black";
-//     ctx.fillText("丽源", minPoint.x + 10, minPoint.y - 10); // 标注文字
+//     ctx.fillText("哈哈", minPoint.x + 10, minPoint.y - 10); // 标注文字
 // }
 
 function drawLowestHeatPoint() {
