@@ -439,7 +439,7 @@ function drawLowestHeatPoint() {
 
 
     // 调整文字位置，确保文字不超出画布右边界
-    const textWidth = ctx.measureText("🧍🏻").width; // 获取文本的宽度
+    const textWidth = ctx.measureText("🚶🏻").width; // 获取文本的宽度
     if (textX + textWidth > canvasWidth) {
         textX = circleX - textWidth + 45; // 向左调整文字,数字越大离右边越近
     }
@@ -458,5 +458,5 @@ function drawLowestHeatPoint() {
     // 绘制文字
     ctx.font = `${fontSize}px Arial`;
     ctx.fillStyle = 'black';
-    ctx.fillText("🧍🏻", textX, textY);
+    ctx.fillText("🚶🏻", textX, textY);
 }
