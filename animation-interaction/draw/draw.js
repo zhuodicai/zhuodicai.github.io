@@ -71,6 +71,17 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'c' || e.key === 'C') {
     clearCanvas(); // 清理画布
   }
+
+  // 保存画布为图像
+  if (e.key === 's' || e.key === 'S') {
+    // 获取画布的图像数据URL
+    var dataURL = canvas.toDataURL("image/png");
+
+    var link = document.createElement('a');
+    link.href = dataURL;  
+    link.download = 'canvas.png';  
+    link.click();  // 模拟点击链接，触发下载
+  }
 });
 
 // 监听键盘：松开D键时停止绘画
