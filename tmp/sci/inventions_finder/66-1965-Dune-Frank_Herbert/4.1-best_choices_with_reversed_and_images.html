@@ -61,12 +61,12 @@
             </div>
             <div class="col-5 fixed-column">
                  <p id="jsondata"> 
-                    <b>instructions:</b><br>
+                    <b>Instructions:</b><br>
                     • Please click on the bold text on the left to get supporting descriptions and images related to potential inventions here. 
                     <br>
                     • Please interpret the bolded text in its context, as it may contain relevant information both before and after it.<br>
                     • Note that titles and abstracts are more accurate only if the original text is sufficiently structured and detailed in its description of the invention.
-                    <br>
+                    <br><br><br>
                 </p>
             </div>
         </div>
@@ -110,6 +110,7 @@
                             ③ ${item.abstract}
                             <br><br><hr><br>
                             ${imagesHTML}
+                            <br><br><br>
                         `;
                         // change innerHTML text
                         document.getElementById('jsondata').innerHTML = content;
