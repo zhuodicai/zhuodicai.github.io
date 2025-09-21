@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guitar to Mandolin Chord Converter</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; background: #f0f0f0; }
+    input, button { font-size: 1.2em; padding: 0.5em; margin: 0.5em 0; }
+    #output { background: #fff; padding: 1em; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Mandolin Chord Converter</h1>
+  <p>Enter a chord name (e.g. Bb, Dm, F#7):</p>
+  <input type="text" id="chordInput" placeholder="e.g. C, Dm7, Bb" />
+  <button onclick="getChordNotes()">Convert</button>
+
+  <div id="output"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tonaljs/tonal/browser/tonal.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
